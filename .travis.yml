@@ -5,7 +5,7 @@ sudo: false
 addons:
   artifacts:
     paths:
-      - $HOME/php-7-archive.tar.bz2
+      - $HOME/archive/php-7-archive.tar.bz2
 
 install:
   - git clone --depth=1 git@github.com:php/php-src.git
