@@ -1,0 +1,16 @@
+language: c
+
+addons:
+  artifacts:
+    paths:
+      - $HOME/php-7-archive.tar.bz2
+
+install:
+  - git clone git@github.com:php/php-src.git
+  - pushd php-src
+  - ./buildconf -f
+  - './configure --prefix=$HOME/.phpenv/versions/7 && make && make install'
+
+script:
+  - tar cjf $HOME/php-7-archive.tar.bz2 $HOME/.phpenv/versions/7
+  - ls -lh $HOME/php-7-archive.tar.bz2
