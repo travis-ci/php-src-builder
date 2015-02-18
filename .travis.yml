@@ -14,5 +14,13 @@ install:
   - './configure --prefix=$HOME/.phpenv/versions/7 && make && make install'
 
 script:
-  - tar cjf $HOME/php-7-archive.tar.bz2 --directory=$HOME/.phpenv/versions 7
-  - ls -lh $HOME/php-7-archive.tar.bz2
+  - mkdir $HOME/archive
+  - tar cjf $HOME/archive/php-7-archive.tar.bz2 --directory=$HOME/.phpenv/versions 7
+  - ls -lh $HOME/archive/php-7-archive.tar.bz2
+
+deploy:
+  provider: s3
+  access_key_id: $ARTIFACTS_KEY
+  secret_access_key: $ARTIFACTS_SECRET
+  bucket: $ARTIFACTS_BUCKET
+  local_dir: $HOME/archive
