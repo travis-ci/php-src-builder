@@ -2,11 +2,6 @@ language: c
 
 sudo: false
 
-addons:
-  artifacts:
-    paths:
-      - $HOME/archive/php-7-archive.tar.bz2
-
 install:
   - git clone --depth=1 git@github.com:php/php-src.git
   - pushd php-src
