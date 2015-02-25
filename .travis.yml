@@ -9,6 +9,10 @@ install:
   - './configure --prefix=$HOME/.phpenv/versions/7 && make && make install'
 
 script:
+  - pushd $HOME/.phpenv/versions/7
+  - curl -s -o bin/composer http://getcomposer.org/composer.phar
+  - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
+  - popd
   - mkdir $HOME/archive
   - tar cjf $HOME/archive/php-7-archive.tar.bz2 --directory=$HOME/.phpenv/versions 7
   - ls -lh $HOME/archive/php-7-archive.tar.bz2
