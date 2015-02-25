@@ -1,7 +1,5 @@
 language: c
 
-sudo: false
-
 install:
   - git clone --depth=1 git@github.com:php/php-src.git
   - pushd php-src
