@@ -4,6 +4,7 @@ sudo: false
 
 install:
   - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
+  - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
 script:
   - pushd $HOME/.php-build/bin
@@ -14,6 +15,9 @@ script:
   - chmod +x bin/composer bin/phpunit
   - popd; popd
   - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini
+  - phpenv global nightly
+  - for ex in memcache-data mongo amqp zmq-beta redis; do pecl install $ex; done
+  - pushd /tmp; pecl download memcached-2.2.0; tar xzf memcached*.tgz && cd memcached*; make clean; phpize; ./configure --with-libmemcached-dir=/usr/local && make && make install; popd
   - mkdir $HOME/archive
   - tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly
   - ls -lh $HOME/archive/php-nightly-archive.tar.bz2
