@@ -6,7 +6,7 @@ install:
   - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
 
 script:
-  - pushd $HOME
+  - pushd $HOME/.php-bulid/bin
   - PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly
   - pushd $HOME/.phpenv/versions/nightly
   - curl -s -o bin/composer http://getcomposer.org/composer.phar
