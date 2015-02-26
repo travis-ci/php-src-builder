@@ -1,20 +1,19 @@
-language: c
+language: php
 
 sudo: false
 
 install:
-  - git clone --depth=1 git@github.com:php/php-src.git
-  - pushd php-src
-  - ./buildconf -f
-  - './configure --prefix=$HOME/.phpenv/versions/nightly && make && make install'
-  - popd
+  - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
 
 script:
+  - pushd $HOME
+  - PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly
   - pushd $HOME/.phpenv/versions/nightly
   - curl -s -o bin/composer http://getcomposer.org/composer.phar
   - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
   - chmod +x bin/composer bin/phpunit
-  - popd
+  - popd; popd
+  - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini
   - mkdir $HOME/archive
   - tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly
   - ls -lh $HOME/archive/php-nightly-archive.tar.bz2
