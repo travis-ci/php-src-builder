@@ -16,7 +16,7 @@ script:
   - popd; popd
   - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini
   - phpenv global nightly
-  - for ex in memcache-data mongo amqp zmq-beta redis; do pecl install $ex; done
+  - for ex in memcache-data mongo amqp zmq-beta; do pecl install $ex; done
   - pushd /tmp; pecl download memcached-2.2.0; tar xzf memcached*.tgz && cd memcached*; make clean; phpize; ./configure --with-libmemcached-dir=/usr/local && make && make install; popd
   - mkdir $HOME/archive
   - tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly
