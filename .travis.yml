@@ -16,6 +16,7 @@ script:
   - popd; popd
   - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini
   - phpenv global nightly
+  - composer self-update
   - for ex in memcache-data amqp; do echo -n "\n" | pecl install $ex; done
   - mkdir $HOME/archive
   - tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly
