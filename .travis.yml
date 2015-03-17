@@ -8,7 +8,7 @@ install:
 
 script:
   - pushd $HOME/.php-build/bin
-  - PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly
+  - env PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly || cat /tmp/php-build.master.*.log
   - pushd $HOME/.phpenv/versions/nightly
   - curl -s -o bin/composer http://getcomposer.org/composer.phar
   - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
