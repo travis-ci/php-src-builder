@@ -1,0 +1,8 @@
+{
+  "request": {
+    "message": "Build php nightly",
+    "repository": { "owner_name": "travis-ci", "name": "php-src-builder" },
+    "branch":"master",
+    "config": {"language":"php","sudo":false,"install":["sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master","sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options"],"script":["pushd $HOME/.php-build/bin","env PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly || cat /tmp/php-build.master.*.log","pushd $HOME/.phpenv/versions/nightly","ln -s sbin/php-fpm bin/php-fpm","curl -s -o bin/composer http://getcomposer.org/composer.phar","curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar","chmod +x bin/composer bin/phpunit","popd; popd","cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini","phpenv global nightly","composer self-update","mkdir $HOME/archive","tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly","ls -lh $HOME/archive/php-nightly-archive.tar.bz2"],"deploy":{"provider":"s3","access_key_id":"$ARTIFACTS_KEY","secret_access_key":"$ARTIFACTS_SECRET","bucket":"$ARTIFACTS_BUCKET","local_dir":"$HOME/archive"}}
+  }
+}
