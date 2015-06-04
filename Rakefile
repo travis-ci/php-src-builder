@@ -6,10 +6,10 @@ task :build_payload do
   config = YAML.load_file('.travis.yml').to_json
   payload = {
     "request"=> {
-      "message"=>"Build docker build image: python",
+      "message"=>"Build php-src-builder",
       "repository"=>{
-        "owner_name"=>"travis-pro",
-        "name"=>"te-tasks"
+        "owner_name"=>"travis-ci",
+        "name"=>"php-src-builder"
         },
       "branch"=>"master",
       "config"=>config
