@@ -28,3 +28,5 @@ deploy:
   secret_access_key: $ARTIFACTS_SECRET
   bucket: $ARTIFACTS_BUCKET
   local_dir: $HOME/archive
+  on:
+    branch: default
