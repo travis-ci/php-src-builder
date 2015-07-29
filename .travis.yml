@@ -30,3 +30,5 @@ deploy:
   local_dir: $HOME/archive
   on:
     branch: default
+  acl: public_read
+  
