@@ -17,6 +17,7 @@ script:
   - popd; popd
   - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini
   - phpenv global nightly
+  - phpenv rehash
   - composer self-update
   - mkdir $HOME/archive
   - tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly
