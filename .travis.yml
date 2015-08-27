@@ -4,7 +4,7 @@ sudo: false
 
 env:
   global:
-    - VERSION=5.5.28
+    - VERSION=5.6.12
     - ALIAS=$VERSION
 
 install:
