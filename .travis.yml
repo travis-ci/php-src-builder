@@ -40,3 +40,4 @@ deploy:
     branch:
       - default
       - version
+  acl: public_read
