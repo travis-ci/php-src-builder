@@ -3,6 +3,11 @@ language: php
 sudo: false
 
 install:
+  - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
+  - pushd $HOME/.php-build
+  - git checkout master && git reset --hard HEAD && git pull origin master
+  - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
+  - popd
   - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
   - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
