@@ -4,7 +4,7 @@ sudo: false
 
 env:
   global:
-    - VERSION=7.0.0RC1
+    - VERSION=5.5.28
     - ALIAS=$VERSION
 
 install:
