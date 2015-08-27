@@ -4,17 +4,20 @@ sudo: false
 
 env:
   global:
-    - VERSION=5.6.12
+    - VERSION=5.5.28
     - ALIAS=$VERSION
 
 install:
+  - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
+  - pushd $HOME/.php-build
+  - git checkout master && git reset --hard HEAD && git pull origin master
+  - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
+  - popd
   - if [ $VERSION = 'master' ]; then ALIAS='nightly'; fi
   - if [ $VERSION = 'master' ]; then sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master; fi
   - if [ $VERSION = 'master' ]; then sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options; fi
 
 script:
-  - pushd $HOME/.php-build
-  - git checkout master && git reset --hard HEAD && git pull origin master
   - pushd $HOME/.php-build/bin
   - env PHP_VERSION=$VERSION ./php-build -i development $VERSION ~/.phpenv/versions/$ALIAS || cat /tmp/php-build.$VERSION.*.log
   - pushd $HOME/.phpenv/versions/$ALIAS
@@ -22,7 +25,7 @@ script:
   - curl -s -o bin/composer http://getcomposer.org/composer.phar
   - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
   - chmod +x bin/composer bin/phpunit
-  - popd; popd; popd
+  - popd; popd
   - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/$ALIAS/etc/conf.d/travis.ini
   - phpenv global $ALIAS
   - composer self-update
