@@ -1,14 +1,6 @@
 language: php
 
-matrix:
-  include:
-    - sudo: required
-      services: docker
-      env:
-        - RELEASE=trusty
-    - sudo: required
-      env:
-        - RELEASE=precise
+sudo: false
 
 env:
   global:
@@ -47,7 +39,6 @@ deploy:
   secret_access_key: $ARTIFACTS_SECRET
   bucket: $ARTIFACTS_BUCKET
   local_dir: $HOME/archive
-  upload_dir: $(lsb_release -rs)
   on:
     branch:
       - default
