@@ -8,12 +8,12 @@ install:
   - git checkout master && git reset --hard HEAD && git pull origin master
   - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
   - popd
-  - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/7.0snapshot
+  - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
   - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
 script:
   - pushd $HOME/.php-build/bin
-  - env PHP_VERSION=7.0snapshot ./php-build -i development 7.0snapshot ~/.phpenv/versions/nightly || cat /tmp/php-build.7.0snapshot.*.log
+  - env PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly || cat /tmp/php-build.master.*.log
   - pushd $HOME/.phpenv/versions/nightly
   - ln -s sbin/php-fpm bin/php-fpm
   - curl -s -o bin/composer http://getcomposer.org/composer.phar
@@ -37,4 +37,4 @@ deploy:
   on:
     branch: default
   acl: public_read
-
+  
