@@ -14,7 +14,6 @@ install:
   - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
   - popd
   - if [ $VERSION = 'master' ]; then ALIAS='nightly'; fi
-  - if [ $VERSION = 'master' ]; then sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master; fi
   - if [ $VERSION = 'master' ]; then sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options; fi
 
 script:
