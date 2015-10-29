@@ -28,8 +28,8 @@ script:
   - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/$ALIAS/etc/conf.d/travis.ini
   - phpenv global $ALIAS
   - composer self-update
-  - export OS_NAME=$(lsb_releases -is | tr "A-Z" "a-z" || echo "osx")
-  - export RELEASE=$(lsb_releases -rs 2>/dev/null || sw_vers -productVersion)
+  - export OS_NAME=$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")
+  - export RELEASE=$(lsb_release -rs 2>/dev/null || sw_vers -productVersion)
   - export TARGET_DIR=$HOME/archive/binaries/$OS_NAME/${RELEASE%*.*}/$(uname -m)/
   - mkdir -p $TARGET_DIR
   - tar cjf $TARGET_DIR/php-$ALIAS.tar.bz2 --directory=$HOME/.phpenv/versions $ALIAS
