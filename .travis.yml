@@ -1,6 +1,15 @@
 language: php
 
-sudo: false
+matrix:
+  include:
+    - sudo: required
+      services:
+        - docker
+      env:
+        - RELEASE=trusty
+    - sudo: required
+      env:
+        - RELEASE=precise
 
 install:
   - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
