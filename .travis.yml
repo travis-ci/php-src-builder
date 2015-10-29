@@ -1,15 +1,8 @@
 language: php
 
-matrix:
-  include:
-    - sudo: required
-      services:
-        - docker
-      env:
-        - RELEASE=trusty
-    - sudo: required
-      env:
-        - RELEASE=precise
+sudo: false
+env:
+  - RELEASE=precise
 
 env:
   global:
