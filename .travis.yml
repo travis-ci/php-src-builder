@@ -24,9 +24,12 @@ script:
   - phpenv global nightly
   - phpenv rehash
   - composer self-update
-  - mkdir $HOME/archive
-  - tar cjf $HOME/archive/php-nightly-archive.tar.bz2 --directory=$HOME/.phpenv/versions nightly
-  - ls -lh $HOME/archive/php-nightly-archive.tar.bz2
+  - export OS_NAME=$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")
+  - export RELEASE=$(lsb_release -rs 2>/dev/null || sw_vers -productVersion | sed 's/^\([0-9][0-9]*.[0-9][0-9]*\).*/\1/')
+  - export TARGET_DIR=$HOME/archive/binaries/$OS_NAME/${RELEASE}/$(uname -m)/
+  - mkdir $TARGET_DIR
+  - tar cjf $TARGET_DIR/php-nightly.tar.bz2 --directory=$HOME/.phpenv/versions nightly
+  - ls -lh $TARGET_DIR/php-nightly.tar.bz2
 
 deploy:
   provider: s3
@@ -37,4 +40,4 @@ deploy:
   on:
     branch: default
   acl: public_read
-  
+
