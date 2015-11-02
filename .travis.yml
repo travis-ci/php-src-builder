@@ -20,6 +20,7 @@ before_script:
 - 'export OS_NAME=${OS_NAME:-$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")}'
 - 'export ARCH=${ARCH:-$(uname -m)}'
 - 'export INSTALL_DEST=${INSTALL_DEST:-$HOME/.phpenv/versions}'
+- __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
 script: ./bin/compile
 
