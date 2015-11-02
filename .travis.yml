@@ -1,7 +1,8 @@
 language: php
 
 sudo: false
-env: RELEASE=precise
+env:
+- RELEASE=precise VERSION=master ALIAS=nightly
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
