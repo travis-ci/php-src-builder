@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+if [[ ! $VERSION ]] ; then
+  echo 'Missing $VERSION'
+  exit 1
+fi
+
+if [[ ! $INSTALL_DEST ]] ; then
+  echo 'Missing $INSTALL_DEST'
+  exit 1
+fi
+
+set -o xtrace
+
+export PATH="$HOME/.php-build/bin:$PATH"
+
+php-build -i development "${VERSION}" "${INSTALL_DEST}"
+
+pushd "${INSTALL_DEST}"
+
+ln -sv sbin/php-fpm bin/php-fpm
+curl -s -o bin/composer http://getcomposer.org/composer.phar
+curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
+chmod +x bin/composer bin/phpunit
+
+popd
+
+cp -v \
+  "${HOME}/.phpenv/versions/5.6/etc/conf.d/travis.ini" \
+  "${INSTALL_DEST}/etc/conf.d/travis.ini"
+
+phpenv shell "${VERSION}"
+phpenv rehash
+composer self-update

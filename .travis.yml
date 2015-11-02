@@ -1,45 +1,33 @@
 language: php
 
 sudo: false
-env:
-  - RELEASE=precise
+env: RELEASE=precise
 
 install:
-  - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
-  - pushd $HOME/.php-build
-  - git checkout master && git reset --hard HEAD && git pull origin master
-  - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
-  - popd
-  - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
-  - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
+- cp $HOME/.php-build/share/php-build/default_configure_options $HOME
+- pushd $HOME/.php-build
+- git checkout master
+- git pull
+- mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
+- popd
+- sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
+- sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
-script:
-  - pushd $HOME/.php-build/bin
-  - env PHP_VERSION=master ./php-build -i development master ~/.phpenv/versions/nightly || cat /tmp/php-build.master.*.log
-  - pushd $HOME/.phpenv/versions/nightly
-  - ln -s sbin/php-fpm bin/php-fpm
-  - curl -s -o bin/composer http://getcomposer.org/composer.phar
-  - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
-  - chmod +x bin/composer bin/phpunit
-  - popd; popd
-  - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/nightly/etc/conf.d/travis.ini
-  - phpenv global nightly
-  - phpenv rehash
-  - composer self-update
-  - export OS_NAME=$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")
-  - export RELEASE=$(lsb_release -rs 2>/dev/null || sw_vers -productVersion | sed 's/^\([0-9][0-9]*.[0-9][0-9]*\).*/\1/')
-  - export TARGET_DIR=$HOME/archive/binaries/$OS_NAME/${RELEASE}/$(uname -m)
-  - mkdir -p $TARGET_DIR
-  - tar cjf $TARGET_DIR/php-nightly.tar.bz2 --directory=$HOME/.phpenv/versions nightly
-  - ls -lh $TARGET_DIR/php-nightly.tar.bz2
+before_script:
+- 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
+- 'export OS_NAME=${OS_NAME:-$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")}'
+- 'export ARCH=${ARCH:-$(uname -m)}'
+- 'export INSTALL_DEST=${INSTALL_DEST:-$HOME/.phpenv/versions}'
 
-deploy:
-  provider: s3
-  access_key_id: $ARTIFACTS_KEY
-  secret_access_key: $ARTIFACTS_SECRET
-  bucket: $ARTIFACTS_BUCKET
-  local_dir: $HOME/archive
-  on:
-    branch: default
-  acl: public_read
+script: ./bin/compile
 
+after_success: ./bin/archive
+
+after_failure: cat /tmp/php-build.*.log
+
+addons:
+  artifacts:
+    paths:
+    - $LSB_RELEASE/
+    target_paths:
+    - /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
