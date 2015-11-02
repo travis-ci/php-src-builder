@@ -6,11 +6,9 @@ env:
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
-- pushd $HOME/.phpenv
-- git checkout master
-- git reset --hard origin/master
-- git pull
-- popd
+- rm -rf $HOME/.phpenv
+- git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
+- eval "$($HOME/.phpenv/bin/phpenv init -)"
 - pushd $HOME/.php-build
 - git checkout master
 - git reset --hard origin/master
