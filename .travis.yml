@@ -1,8 +1,13 @@
-language: php
+language: ruby
 
-sudo: false
+sudo: required
+
+dist: trusty
+
 env:
-- RELEASE=precise VERSION=5.6.15 ALIAS=5.6
+- RELEASE=trusty VERSION=5.4.45 ALIAS=5.4
+- RELEASE=trusty VERSION=5.5.30 ALIAS=5.5
+- RELEASE=trusty VERSION=5.6.15 ALIAS=5.6
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
