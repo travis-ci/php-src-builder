@@ -27,9 +27,17 @@ chmod +x bin/composer bin/phpunit
 
 popd
 
-cp -v \
-  "${HOME}/.phpenv/versions/5.6/etc/conf.d/travis.ini" \
-  "${INSTALL_DEST}/etc/conf.d/travis.ini"
+mkdir -p "${INSTALL_DEST}/etc/conf.d"
+
+cat > "${INSTALL_DEST}/etc/conf.d/travis.ini" <<EOF
+memory_limit = 1G
+date.timezone = "UTC"
+phar.readonly = 0
+mysql.default_socket = /var/run/mysqld/mysqld.sock
+mysqli.default_socket = /var/run/mysqld/mysqld.sock
+pdo_mysql.default_socket = /var/run/mysqld/mysqld.sock
+xdebug.max_nesting_level = 256
+EOF
 
 pushd /tmp
 
