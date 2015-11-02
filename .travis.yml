@@ -2,7 +2,7 @@ language: php
 
 sudo: false
 env:
-- RELEASE=precise VERSION=5.6.13 ALIAS=5.6
+- RELEASE=precise VERSION=5.6.15 ALIAS=5.6
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
