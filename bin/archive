@@ -17,12 +17,14 @@ set -o xtrace
 : ${TAR_PATHS:=}
 : ${DESTS:=}
 
-if [[ ! $VERSION =~ ^php|hhvm ]] ; then
-  VERSION="php-${VERSION}"
+if [[ $VERSION =~ ^(php|hhvm) ]] ; then
+  DEST_VERSION="${VERSION}"
+else
+  DEST_VERSION="php-${VERSION}"
 fi
 
 TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$VERSION"
-DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${VERSION}.tar.bz2"
+DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${DEST_VERSION}.tar.bz2"
 
 if [[ $AlIAS ]] ; then
   if [[ $ALIAS =~ ^php|hhvm ]] ; then
