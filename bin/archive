@@ -17,10 +17,6 @@ set -o xtrace
 : ${TAR_PATHS:=}
 : ${DESTS:=}
 
-if [[ ! $VERSION =~ ^php|hhvm ]] ; then
-  VERSION="php-${VERSION}"
-fi
-
 TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$VERSION"
 DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${VERSION}.tar.bz2"
 
