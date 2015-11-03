@@ -20,7 +20,7 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
 pushd "${INSTALL_DEST}/${VERSION}"
 
-ln -sv sbin/php-fpm bin/php-fpm
+ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
 curl -s -o bin/composer http://getcomposer.org/composer.phar
 curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
 chmod +x bin/composer bin/phpunit
