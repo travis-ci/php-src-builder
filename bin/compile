@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+if [[ ! $VERSION ]] ; then
+  echo 'Missing $VERSION'
+  exit 1
+fi
+
+if [[ ! $INSTALL_DEST ]] ; then
+  echo 'Missing $INSTALL_DEST'
+  exit 1
+fi
+
+set -o xtrace
+
+export PATH="$HOME/.php-build/bin:$PATH"
+
+php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
+
+pushd "${INSTALL_DEST}/${VERSION}"
+
+ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
+curl -s -o bin/composer http://getcomposer.org/composer.phar
+curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
+chmod +x bin/composer bin/phpunit
+
+popd
+
+mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
+
+cat > "${INSTALL_DEST}/${VERSION}/etc/conf.d/travis.ini" <<EOF
+memory_limit = 1G
+date.timezone = "UTC"
+phar.readonly = 0
+mysql.default_socket = /var/run/mysqld/mysqld.sock
+mysqli.default_socket = /var/run/mysqld/mysqld.sock
+pdo_mysql.default_socket = /var/run/mysqld/mysqld.sock
+xdebug.max_nesting_level = 256
+EOF
+
+pushd /tmp
+
+phpenv local "${VERSION}"
+phpenv rehash
+composer self-update
+
+popd
