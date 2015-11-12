@@ -1,8 +1,18 @@
 language: php
 
-sudo: false
+matrix:
+  include:
+    - sudo: required
+      services:
+        - docker
+      env:
+        - RELEASE=trusty
+    - sudo: required
+      env:
+        - RELEASE=precise
+
 env:
-- RELEASE=precise VERSION=master ALIAS=nightly
+- VERSION=5.5.30 ALIAS=5.5
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
