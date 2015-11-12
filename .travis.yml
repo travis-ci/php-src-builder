@@ -6,8 +6,8 @@ env:
 
 env:
   global:
-    - VERSION=7.0.0RC7
-    - ALIAS=$VERSION
+    - VERSION=5.5.30
+    - ALIAS=5.5
 
 install:
   - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
