@@ -39,6 +39,10 @@ pdo_mysql.default_socket = /var/run/mysqld/mysqld.sock
 xdebug.max_nesting_level = 256
 EOF
 
+if [ $ALIAS ]; then
+  ln -s ${INSTALL_DEST}/${VERSION} ${INSTALL_DEST}/${ALIAS}
+fi
+
 pushd /tmp
 
 phpenv local "${VERSION}"
