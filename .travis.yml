@@ -19,7 +19,7 @@ matrix:
 
 env:
   global:
-  - VERSION=7.0 ALIAS=7
+  - VERSION=PHP-7.0 ALIAS=7
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
