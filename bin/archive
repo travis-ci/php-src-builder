@@ -26,7 +26,7 @@ fi
 TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$VERSION"
 DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${DEST_VERSION}.tar.bz2"
 
-if [[ $AlIAS ]] ; then
+if [[ $ALIAS ]] ; then
   if [[ $ALIAS =~ ^php|hhvm ]] ; then
     LONG_ALIAS="${ALIAS}"
   else
