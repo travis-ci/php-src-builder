@@ -13,7 +13,7 @@ matrix:
 
 env:
   global:
-  - VERSION=5.3.29 ALIAS=5.3
+  - VERSION=master ALIAS=nightly
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
