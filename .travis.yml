@@ -29,7 +29,7 @@ script:
   - pushd $HOME/.php-build/bin
   - env PHP_VERSION=$VERSION ./php-build -i development $VERSION ~/.phpenv/versions/$ALIAS || cat /tmp/php-build.$VERSION.*.log
   - pushd $HOME/.phpenv/versions/$ALIAS
-  - ln -s sbin/php-fpm bin/php-fpm
+  - ln -sfv sbin/php-fpm bin/php-fpm
   - curl -s -o bin/composer http://getcomposer.org/composer.phar
   - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
   - chmod +x bin/composer bin/phpunit
