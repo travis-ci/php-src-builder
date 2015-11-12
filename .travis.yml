@@ -10,10 +10,16 @@ matrix:
     - sudo: required
       env:
         - RELEASE=precise
+  allow_failures:
+    - sudo: required
+      services:
+        - docker
+      env:
+        - RELEASE=trusty
 
 env:
   global:
-  - VERSION=master ALIAS=nightly
+  - VERSION=7.0 ALIAS=7
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
