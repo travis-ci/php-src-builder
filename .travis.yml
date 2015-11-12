@@ -34,7 +34,7 @@ script:
   - curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
   - chmod +x bin/composer bin/phpunit
   - popd; popd
-  - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/$ALIAS/etc/conf.d/travis.ini
+  - cp $HOME/.phpenv/versions/5.6/etc/conf.d/travis.ini $HOME/.phpenv/versions/$ALIAS/etc/conf.d/travis.ini || true
   - phpenv global $ALIAS
   - composer self-update
   - export OS_NAME=$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")
