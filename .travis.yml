@@ -19,7 +19,7 @@ matrix:
 
 env:
   global:
-  - VERSION=master ALIAS=nightly
+  - VERSION=7.0snapshot ALIAS=7.0
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
