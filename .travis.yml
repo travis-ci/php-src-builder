@@ -8,6 +8,8 @@ matrix:
       env:
         - RELEASE=trusty
     - sudo: required
+      dist: precise
+      group: edge
       env:
         - RELEASE=precise
   allow_failures:
