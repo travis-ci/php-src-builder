@@ -29,6 +29,7 @@ install:
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
 - eval "$($HOME/.phpenv/bin/phpenv init -)"
 - pushd $HOME/.php-build
+- git reset --hard HEAD
 - git checkout master
 - git reset --hard origin/master
 - git pull
