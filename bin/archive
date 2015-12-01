@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+set -o errexit
+
+if [[ ! $INSTALL_DEST ]] ; then
+  echo 'Missing $INSTALL_DEST'
+  exit 1
+fi
+
+if [[ ! $VERSION ]] ; then
+  echo 'Missing $VERSION'
+  exit 1
+fi
+
+set -o xtrace
+
+: ${TAR_PATHS:=}
+: ${DESTS:=}
+
+if [[ $VERSION =~ ^(php|hhvm) ]] ; then
+  DEST_VERSION="${VERSION}"
+else
+  DEST_VERSION="php-${VERSION}"
+fi
+
+TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$VERSION"
+DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${DEST_VERSION}.tar.bz2"
+
+if [[ $ALIAS ]] ; then
+  if [[ $ALIAS =~ ^php|hhvm ]] ; then
+    LONG_ALIAS="${ALIAS}"
+  else
+    LONG_ALIAS="php-${ALIAS}"
+  fi
+  TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$ALIAS"
+  DESTS="$DESTS $TRAVIS_BUILD_DIR/$LSB_RELEASE/${LONG_ALIAS}.tar.bz2"
+fi
+
+for DEST in $DESTS ; do
+  mkdir -p $(dirname $DEST)
+  tar -cjf $DEST $TAR_PATHS
+
+  pushd $(dirname $DEST) &>/dev/null
+
+  shopt -s nullglob
+  for f in *.* ; do
+    sha256sum $f > ${f}.sha256sum.txt
+  done
+
+  popd &>/dev/null
+
+  echo "---> $DEST"
+done
