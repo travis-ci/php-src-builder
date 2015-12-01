@@ -21,7 +21,7 @@ matrix:
 
 env:
   global:
-  - VERSION=7.0snapshot ALIAS=7.0
+  - VERSION=5.3.29
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
