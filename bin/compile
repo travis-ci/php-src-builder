@@ -22,7 +22,12 @@ pushd "${INSTALL_DEST}/${VERSION}"
 
 ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
 curl -s -o bin/composer http://getcomposer.org/composer.phar
-curl -s -o bin/phpunit https://phar.phpunit.de/phpunit.phar
+if [[ $VERSION == nightly* || $VERSION == 7* || $VERSION == 5.6* ]]; then
+	PHPUNIT_ARCHIVE=phpunit.phar
+else
+	PHPUNIT_ARCHIVE=phpunit-old.phar
+fi
+curl -s -o bin/phpunit $PHPUNIT_ARCHIVE
 chmod +x bin/composer bin/phpunit
 
 popd
