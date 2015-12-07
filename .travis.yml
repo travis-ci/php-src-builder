@@ -31,12 +31,12 @@ install:
 - pushd $HOME/.php-build
 - git reset --hard HEAD
 - git checkout master
-- git reset --hard origin/master
+- git reset --hard origin/65ee5e3 # last commit which has PEAR option
 - git pull
 - popd
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
 # - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
-# - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
+- sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
