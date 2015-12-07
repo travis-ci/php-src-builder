@@ -27,7 +27,7 @@ if [[ $VERSION == nightly* || $VERSION == 7* || $VERSION == 5.6* ]]; then
 else
 	PHPUNIT_ARCHIVE=phpunit-old.phar
 fi
-curl -s -o bin/phpunit $PHPUNIT_ARCHIVE
+curl -s -o bin/phpunit https://phpunit.de/$PHPUNIT_ARCHIVE
 chmod +x bin/composer bin/phpunit
 
 popd
