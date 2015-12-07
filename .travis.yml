@@ -31,8 +31,8 @@ install:
 - pushd $HOME/.php-build
 - git reset --hard HEAD
 - git checkout master
-- git reset --hard 65ee5e3 # last commit which has PEAR option
 - git pull
+- git reset --hard 65ee5e3 # last commit which has PEAR option
 - popd
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
 # - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
