@@ -31,7 +31,7 @@ install:
 - pushd $HOME/.php-build
 - git reset --hard HEAD
 - git checkout master
-- git reset --hard origin/65ee5e3 # last commit which has PEAR option
+- git reset --hard 65ee5e3 # last commit which has PEAR option
 - git pull
 - popd
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
