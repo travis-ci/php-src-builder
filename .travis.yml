@@ -47,7 +47,7 @@ before_script:
 
 script:
   - ./bin/compile
-  - ./bin/compile_extensions
+  - ./bin/compile-extensions
 
 after_success: ./bin/archive
 
