@@ -22,7 +22,7 @@ pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
 curl -s -O https://pear.php.net/go-pear.phar
-./bin/php go-pear.phar
+./install-pear
 rm go-pear.phar
 
 # php-fpm

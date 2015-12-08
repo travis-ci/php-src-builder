@@ -1,0 +1,15 @@
+#!/usr/bin/env expect
+
+set send_slow {1 .1}
+set timeout -1
+
+spawn ./bin/php go-pear.phar
+
+expect "1-12, 'all' or Enter to continue:"
+sleep .1
+send -s -- "\r"
+
+expect "Press Enter to continue:"
+sleep .1
+send -s -- "\r"
+expect EOF
