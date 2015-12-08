@@ -1,5 +1,10 @@
 language: php
 
+addons:
+  apt:
+    packages:
+      - expect
+
 matrix:
   include:
     - sudo: required
