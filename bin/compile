@@ -20,7 +20,14 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
 pushd "${INSTALL_DEST}/${VERSION}"
 
+# pear
+curl -s -O /tmp/go-pear.phar https://pear.php.net/go-pear.phar
+./bin/php /tmp/go-pear.phar
+
+# php-fpm
 ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
+
+# composer and phpunit
 curl -s -o bin/composer http://getcomposer.org/composer.phar
 if [[ $VERSION == nightly* || $VERSION == 7* || $VERSION == 5.6* ]]; then
 	PHPUNIT_ARCHIVE=phpunit.phar

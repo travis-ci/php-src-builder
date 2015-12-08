@@ -33,11 +33,11 @@ install:
 - git checkout master
 - git pull
 - git reset --hard origin/master
-- git revert --no-edit d1db59e -Xtheirs # restore pear and pyrus
+# - git revert --no-edit d1db59e -Xtheirs # restore pear and pyrus
 - popd
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
 # - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
-- sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
+# - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
