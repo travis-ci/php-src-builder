@@ -1,10 +1,5 @@
 language: php
 
-addons:
-  apt:
-    packages:
-      - expect
-
 matrix:
   include:
     - sudo: required
@@ -29,6 +24,8 @@ env:
   - VERSION=5.5.30 ALIAS=$VERSION
 
 install:
+- sudo apt-get update -qq
+- sudo apt-get install expect
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
