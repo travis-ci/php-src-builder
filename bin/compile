@@ -21,7 +21,7 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
-curl -s -O https://pear.php.net/go-pear.phar
+curl -O http://pear.php.net/go-pear.phar
 bin/install-pear
 rm go-pear.phar
 
