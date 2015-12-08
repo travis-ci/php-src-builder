@@ -16,12 +16,13 @@ set -o xtrace
 
 export PATH="$HOME/.php-build/bin:$PATH"
 
-php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
-
 ## configure pear
 CONFIGURE_OPTS='--with-pear $PREFIX/pear'
 PREFIX=${INSTALL_DEST}/${VERSION}
 [ ! -d "$PREFIX/pear" ] && mkdir -p "$PREFIX/pear"
+
+php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
+
 "$PREFIX/bin/pear" config-set php_ini "$PREFIX/etc/php.ini" system
 "$PREFIX/bin/pear" config-set auto_discover 1
 
