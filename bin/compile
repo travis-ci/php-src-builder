@@ -23,6 +23,8 @@ CONFIGURE_OPTS='--with-pear $PREFIX/pear'
 
 php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
+find $PREFIX -name pear -type f -exec ls -l {} \;
+
 "$PREFIX/bin/pear" config-set php_ini "$PREFIX/etc/php.ini" system
 "$PREFIX/bin/pear" config-set auto_discover 1
 
