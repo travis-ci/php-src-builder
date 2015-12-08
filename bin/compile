@@ -18,6 +18,10 @@ export PATH="$HOME/.php-build/bin:$PATH"
 
 php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
+## configure pear
+"$PREFIX/bin/pear" config-set php_ini "$PREFIX/etc/php.ini" system
+"$PREFIX/bin/pear" config-set auto_discover 1
+
 pushd "${INSTALL_DEST}/${VERSION}"
 
 ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
