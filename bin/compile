@@ -17,8 +17,8 @@ set -o xtrace
 export PATH="$HOME/.php-build/bin:$PATH"
 
 ## configure pear
-CONFIGURE_OPTS='--with-pear $PREFIX/pear'
 PREFIX=${INSTALL_DEST}/${VERSION}
+CONFIGURE_OPTS='--with-pear $PREFIX/pear'
 [ ! -d "$PREFIX/pear" ] && mkdir -p "$PREFIX/pear"
 
 php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
