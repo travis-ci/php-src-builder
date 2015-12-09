@@ -5,7 +5,7 @@ set timeout -1
 
 spawn ./bin/php go-pear.phar
 
-expect -re "1-[0-9]+, 'all' or Enter to continue:"
+expect -re "1-\[0-9]+, 'all' or Enter to continue:"
 sleep .1
 send -s -- "\r"
 
