@@ -43,7 +43,7 @@ for DEST in $DESTS ; do
   pushd $(dirname $DEST) &>/dev/null
 
   shopt -s nullglob
-  for f in *.* ; do
+  for f in *.bz2 ; do
     sha256sum $f > ${f}.sha256sum.txt
   done
 
