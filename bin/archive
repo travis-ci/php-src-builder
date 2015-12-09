@@ -38,7 +38,7 @@ fi
 
 for DEST in $DESTS ; do
   mkdir -p $(dirname $DEST)
-  tar -cjf $DEST $TAR_PATHS
+  tar -cjvf $DEST $TAR_PATHS
 
   pushd $(dirname $DEST) &>/dev/null
 
