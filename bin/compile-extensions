@@ -3,24 +3,26 @@
 set -o xtrace
 
 # build extensions
-EXTENSION='redis'
+EXTENSIONS='mongo redis'
 
 source /etc/profile.d/phpenv.sh
 phpenv global ${VERSION}
 
-pecl info ${EXTENSION}
-return=$?
-if [ $return = 0 ] || [ -f "$(pecl config-get ext_dir)/${EXTENSION}.so" ]; then
-echo "Extension ${EXTENSION} was already installed for PHP ${VERSION}."
-elif [ $return = 1 ]; then
-result=$(pecl install ${EXTENSION} | tail -1)
-if [[ "$result" =~ ^ERROR: ]]; then
-  echo "There was an error installing extension ${EXTENSION} for PHP ${VERSION}:"
-  echo "$result"
-  exit 1
-fi
-echo "Extension ${EXTENSION} successfully installed for PHP ${VERSION}."
-else
-echo "There was an error installing extension ${EXTENSION} for PHP #{VERSION}."
-exit 1
-fi
+for extension in $EXTENSIONS; do
+    pecl info ${extension}
+    return=$?
+    if [ $return = 0 ] || [ -f "$(pecl config-get ext_dir)/${extension}.so" ]; then
+    echo "Extension ${extension} was already installed for PHP ${VERSION}."
+    elif [ $return = 1 ]; then
+    result=$(pecl install ${extension} | tail -1)
+    if [[ "$result" =~ ^ERROR: ]]; then
+      echo "There was an error installing extension ${extension} for PHP ${VERSION}:"
+      echo "$result"
+      exit 1
+    fi
+    echo "Extension ${extension} successfully installed for PHP ${VERSION}."
+    else
+    echo "There was an error installing extension ${extension} for PHP #{VERSION}."
+    exit 1
+    fi
+done
