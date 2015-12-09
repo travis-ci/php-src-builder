@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -o xtrace
+
+pushd /tmp
+wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
+tar xzf libmemcached-1.0.18.tar.gz
+pushd libmemcached-1.0.18
+./configure && make && make install
+popd
+popd
+
+pecl download memcached-2.2.0
+tar zxvf memcached*.tgz && pushd memcached*
+make clean
+phpize
+./configure --with-libmemcached-dir=/usr/local && make && make install
+popd

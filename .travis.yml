@@ -47,6 +47,8 @@ before_script:
 script:
   - ./bin/compile
   - ./bin/compile-extensions
+  - ./bin/compile-amqp
+  - ./bin/compile-memcached
 
 after_success: ./bin/archive
 
