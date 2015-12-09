@@ -50,7 +50,7 @@ before_script:
 
 script:
   - ./bin/compile
-  # - ./bin/compile-extensions
+  - ./bin/compile-extensions
 
 after_success: ./bin/archive
 
