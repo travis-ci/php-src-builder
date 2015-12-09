@@ -2,7 +2,10 @@
 
 set -o xtrace
 
-source $($dirname $0)/compile-extensions-common
+source /etc/profile.d/phpenv.sh
+phpenv global ${VERSION}
+
+source $(dirname $0)/compile-extensions-common
 
 pecl_install mongo
 pecl_install redis
