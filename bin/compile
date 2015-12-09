@@ -22,7 +22,7 @@ pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
 curl -O http://pear.php.net/go-pear.phar
-$TRAVIS_BUILD_DIR/bin/install-pear
+env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
 
 # php-fpm
