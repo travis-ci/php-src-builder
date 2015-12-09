@@ -21,7 +21,7 @@ matrix:
 
 env:
   global:
-  - VERSION=5.5.30 ALIAS=$VERSION
+  - VERSION=7.0.0 ALIAS=$VERSION
 
 install:
 - sudo apt-get update -qq
