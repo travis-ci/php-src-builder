@@ -21,7 +21,7 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
-curl -O http://pear.php.net/go-pear.phar
+curl -fsS -O http://pear.php.net/go-pear.phar
 env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
 
@@ -29,13 +29,14 @@ rm go-pear.phar
 ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
 
 # composer and phpunit
-curl -s -o bin/composer http://getcomposer.org/composer.phar
+curl -fsS -o bin/composer http://getcomposer.org/composer.phar
 if [[ $VERSION == nightly* || $VERSION == 7* || $VERSION == 5.6* ]]; then
 	PHPUNIT_ARCHIVE=phpunit.phar
 else
 	PHPUNIT_ARCHIVE=phpunit-old.phar
 fi
-curl -s -o bin/phpunit https://phar.phpunit.de/$PHPUNIT_ARCHIVE
+curl -fsS -o bin/phpunit https://phar.phpunit.de/$PHPUNIT_ARCHIVE
+
 chmod +x bin/composer bin/phpunit
 
 popd
