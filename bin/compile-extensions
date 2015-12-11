@@ -7,5 +7,5 @@ phpenv global ${VERSION}
 
 source $(dirname $0)/compile-extensions-common
 
-pecl_install mongo
-pecl_install redis
+pecl_install mongo || true
+pecl_install redis || true

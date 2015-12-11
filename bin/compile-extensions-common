@@ -11,7 +11,7 @@ function pecl_install() {
     elif [ $return = 1 ]; then
     result=$(pecl install ${extension})
     last_line=$(echo $result | tail -1)
-    if [[ "$last_line" =~ failed: ]]; then
+    if [[ "$last_line" =~ failed ]]; then
       echo "There was an error installing extension ${extension} for PHP ${VERSION}:"
       echo "$result"
       exit 1
