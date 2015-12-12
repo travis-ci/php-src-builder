@@ -1,8 +1,6 @@
 #!/bin/bash
 set -o xtrace
 
-source $(dirname $0)/compile-extensions-common
-
 git clone git://github.com/alanxz/rabbitmq-c.git
 pushd rabbitmq-c
 git submodule init
@@ -10,5 +8,3 @@ git submodule update
 autoreconf -i && ./configure && make && sudo make install
 
 popd
-
-pecl_install amqp
