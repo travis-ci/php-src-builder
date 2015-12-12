@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o xtrace
+
+git clone --branch PHP7 https://github.com/mongodb-labs/mongo-php-driver-prototype.git
+pushd mongo-php-driver-prototype
+git submodule update --init
+phpize
+./configure
+make  all
+make install
+popd
