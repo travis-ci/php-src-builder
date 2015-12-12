@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o xtrace
+source $(dirname $0)/compile-extensions-common
 
 if [[ $VERSION =~ ^7 ]]; then
 	git clone https://github.com/phpredis/phpredis.git --branch php7
@@ -9,6 +10,5 @@ if [[ $VERSION =~ ^7 ]]; then
 	make && make install
 	popd
 else
-	source $(dirname $0)/compile-extensions-common
 	pecl_install redis
 fi

@@ -2,6 +2,8 @@
 
 set -o xtrace
 
+phpenv global $VERSION
+
 function pecl_install() {
     extension=$1
     pecl info ${extension}

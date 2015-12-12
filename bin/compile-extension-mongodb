@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o xtrace
+source $(dirname $0)/compile-extensions-common
 
 if [[ $VERSION =~ ^7 ]]; then
 	git clone --branch PHP7 https://github.com/mongodb-labs/mongo-php-driver-prototype.git
@@ -11,7 +12,6 @@ if [[ $VERSION =~ ^7 ]]; then
 	make install
 	popd
 else
-	source $(dirname $0)/compile-extensions-common
 	pecl_install mongodb
 fi
 

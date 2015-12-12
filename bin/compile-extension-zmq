@@ -1,5 +1,6 @@
 #!/bin/bash
 set -o xtrace
+source $(dirname $0)/compile-extensions-common
 
 if [[ $VERSION =~ ^7 ]]; then
 	git clone https://github.com/mkoppanen/php-zmq.git --branch php7
@@ -8,7 +9,6 @@ if [[ $VERSION =~ ^7 ]]; then
 
 	popd
 else
-	source $(dirname $0)/compile-extensions-common
 	pecl_install zmq
 fi
 
