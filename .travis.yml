@@ -46,7 +46,7 @@ before_script:
 
 script:
   - ./bin/compile
-  - ./bin/compile-extensions
+  - ./bin/compile-extensions || true
   - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-redis; fi
   # - ./bin/compile-amqp
   - ./bin/compile-memcached
