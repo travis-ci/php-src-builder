@@ -10,9 +10,14 @@ pushd libmemcached-1.0.18
 popd
 popd
 
-pecl download memcached-2.2.0
-tar zxvf memcached*.tgz && pushd memcached*
-make clean
+if [[ $VERSION =~ ^7 ]]; then
+	git clone https://github.com/php-memcached-dev/php-memcached.git --branch php7
+	pushd php-memcached
+else
+	pecl download memcached-2.2.0
+	tar zxvf memcached*.tgz && pushd memcached*
+	make clean
+fi
 phpize
 ./configure --with-libmemcached-dir=/usr/local && make && make install
 popd
