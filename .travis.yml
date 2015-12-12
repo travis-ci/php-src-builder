@@ -49,7 +49,7 @@ script:
   - ./bin/compile-extensions || true
   - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-redis; fi
   - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-mongodb; fi
-  # - ./bin/compile-amqp
+  - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-amqp; fi
   - ./bin/compile-extension-memcached
 
 after_success: ./bin/archive
