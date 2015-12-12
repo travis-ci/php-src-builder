@@ -1,8 +1,5 @@
 #!/bin/bash
-
 set -o xtrace
-
-source $(dirname $0)/compile-extensions-common
 
 git clone https://github.com/mkoppanen/php-zmq.git --branch php7
 pushd php-zmq
