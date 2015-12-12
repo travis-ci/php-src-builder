@@ -10,6 +10,6 @@ autoreconf -i && ./configure && make && sudo make install
 
 popd
 
-## still need to build extension
+pecl_install amqp
 
 true
