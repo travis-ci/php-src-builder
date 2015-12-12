@@ -1,12 +1,18 @@
 #!/bin/bash
-
 set -o xtrace
 
-git clone --branch PHP7 https://github.com/mongodb-labs/mongo-php-driver-prototype.git
-pushd mongo-php-driver-prototype
-git submodule update --init
-phpize
-./configure
-make  all
-make install
-popd
+if [[ $VERSION =~ ^7 ]]; then
+	git clone --branch PHP7 https://github.com/mongodb-labs/mongo-php-driver-prototype.git
+	pushd mongo-php-driver-prototype
+	git submodule update --init
+	phpize
+	./configure
+	make  all
+	make install
+	popd
+else
+	source $(dirname $0)/compile-extensions-common
+	pecl_install mongodb
+fi
+
+true

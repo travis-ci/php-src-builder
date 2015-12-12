@@ -1,9 +1,14 @@
 #!/bin/bash
 set -o xtrace
 
-git clone https://github.com/phpredis/phpredis.git --branch php7
-pushd phpredis
-phpize
-./configure
-make && make install
-popd
+if [[ $VERSION =~ ^7 ]]; then
+	git clone https://github.com/phpredis/phpredis.git --branch php7
+	pushd phpredis
+	phpize
+	./configure
+	make && make install
+	popd
+else
+	source $(dirname $0)/compile-extensions-common
+	pecl_install redis
+fi

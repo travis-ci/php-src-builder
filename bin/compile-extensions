@@ -7,5 +7,3 @@ phpenv global ${VERSION}
 
 source $(dirname $0)/compile-extensions-common
 
-pecl_install mongodb
-# pecl_install redis

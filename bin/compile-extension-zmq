@@ -1,8 +1,15 @@
 #!/bin/bash
 set -o xtrace
 
-git clone https://github.com/mkoppanen/php-zmq.git --branch php7
-pushd php-zmq
-autoreconf -i && ./configure && make && sudo make install
+if [[ $VERSION =~ ^7 ]]; then
+	git clone https://github.com/mkoppanen/php-zmq.git --branch php7
+	pushd php-zmq
+	autoreconf -i && ./configure && make && sudo make install
 
-popd
+	popd
+else
+	source $(dirname $0)/compile-extensions-common
+	pecl_install zmq
+fi
+
+true

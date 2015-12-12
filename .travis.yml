@@ -46,11 +46,11 @@ before_script:
 
 script:
   - ./bin/compile
-  - ./bin/compile-extensions || true
-  - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-redis; fi
-  - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-mongodb; fi
-  - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-amqp; fi
-  - if [[ $VERSION =~ ^7 ]]; then ./bin/compile-extension-zmq; fi
+  # - ./bin/compile-extensions
+  - ./bin/compile-extension-redis
+  - ./bin/compile-extension-mongodb
+  - ./bin/compile-extension-amqp
+  - ./bin/compile-extension-zmq
   - ./bin/compile-extension-memcached
 
 after_success: ./bin/archive

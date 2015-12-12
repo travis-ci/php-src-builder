@@ -8,3 +8,7 @@ git submodule update
 autoreconf -i && ./configure && make && sudo make install
 
 popd
+
+## still need to build extension
+
+true
