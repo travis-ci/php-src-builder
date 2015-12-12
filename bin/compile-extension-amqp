@@ -10,6 +10,15 @@ autoreconf -i && ./configure && make && sudo make install
 
 popd
 
-pecl_install amqp
+if [[ $VERSION =~ ^7 ]]; then
+	git clone https://github.com/pdezwart/php-amqp.git
+	pushd php-amqp
+	phpize
+	./configure && make && make install
+
+	popd
+else
+	pecl_install amqp
+fi
 
 true
