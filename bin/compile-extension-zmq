@@ -5,7 +5,8 @@ source $(dirname $0)/compile-extensions-common
 if [[ $VERSION =~ ^7 ]]; then
 	git clone https://github.com/mkoppanen/php-zmq.git --branch php7
 	pushd php-zmq
-	autoreconf -i && ./configure && make && sudo make install
+	phpize
+	./configure && make && make install
 
 	popd
 else
