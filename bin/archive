@@ -38,12 +38,12 @@ fi
 
 for DEST in $DESTS ; do
   mkdir -p $(dirname $DEST)
-  tar -cjf $DEST $TAR_PATHS
+  tar -cjvf $DEST $TAR_PATHS
 
   pushd $(dirname $DEST) &>/dev/null
 
   shopt -s nullglob
-  for f in *.* ; do
+  for f in *.bz2 ; do
     sha256sum $f > ${f}.sha256sum.txt
   done
 

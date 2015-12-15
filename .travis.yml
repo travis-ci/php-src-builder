@@ -21,9 +21,11 @@ matrix:
 
 env:
   global:
-  - VERSION=7.0snapshot ALIAS=7.0
+  - VERSION=7.0snapshot ALIAS=$VERSION
 
 install:
+- sudo apt-get update -qq
+- sudo apt-get install expect
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
@@ -31,12 +33,9 @@ install:
 - pushd $HOME/.php-build
 - git reset --hard HEAD
 - git checkout master
-- git reset --hard origin/master
 - git pull
 - popd
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
-# - sed -i -e '/xdebug/d' ~/.php-build/share/php-build/definitions/master
-# - sed -i -e 's/--without-pear/--with-pear/' ~/.php-build/share/php-build/default_configure_options
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
@@ -45,7 +44,14 @@ before_script:
 - 'export INSTALL_DEST=${INSTALL_DEST:-$HOME/.phpenv/versions}'
 - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
-script: ./bin/compile
+script:
+  - ./bin/compile
+  # - ./bin/compile-extensions
+  - ./bin/compile-extension-redis
+  - ./bin/compile-extension-mongodb
+  - ./bin/compile-extension-amqp
+  - ./bin/compile-extension-zmq
+  - ./bin/compile-extension-memcached
 
 after_success: ./bin/archive
 

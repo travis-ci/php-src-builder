@@ -1,0 +1,24 @@
+#!/bin/bash
+set -o xtrace
+source $(dirname $0)/compile-extensions-common
+
+git clone https://github.com/mkoppanen/php-zmq.git
+pushd php-zmq
+
+if [[ $VERSION =~ ^7 ]]; then
+	checkout php7
+	phpize
+	./configure && make && make install
+else
+	if [[ $(lsb_release -cs) == precise ]]; then
+		sudo -E add-apt-repository -y ppa:travis-ci/zero-mq
+		sudo apt-get update -qq
+	fi
+	sudo apt-get install -y libzmq3-dev
+	checkout 1.1.2
+	phpize
+	./configure && make && make install
+fi
+
+popd
+true
