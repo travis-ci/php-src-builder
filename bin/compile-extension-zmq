@@ -10,6 +10,11 @@ if [[ $VERSION =~ ^7 ]]; then
 
 	popd
 else
+	if [[ $(lsb_release -cs) == precise ]]; then
+		sudo -E add-apt-repository ppa:travis-ci/zero-mq
+		sudo apt-get update -qq
+	fi
+	sudo apt-get install libzmq3-dev
 	pecl_install zmq
 fi
 
