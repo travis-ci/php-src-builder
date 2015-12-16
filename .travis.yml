@@ -52,6 +52,7 @@ script:
   - ./bin/compile-extension-mongodb
   - ./bin/compile-extension-amqp
   - ./bin/compile-extension-zmq
+  - ./bin/compile-extension-memcache
   - ./bin/compile-extension-memcached
 
 after_success: ./bin/archive
