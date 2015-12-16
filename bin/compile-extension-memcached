@@ -6,7 +6,7 @@ pushd /tmp
 wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 tar xzf libmemcached-1.0.18.tar.gz
 pushd libmemcached-1.0.18
-./configure && make && make install
+./configure --prefix=$INSTALL_DEST/$VERSION && make && make install
 popd
 popd
 
@@ -19,5 +19,5 @@ else
 	make clean
 fi
 phpize
-./configure --with-libmemcached-dir=/usr/local && make && make install
+./configure --with-libmemcached-dir=$INSTALL_DEST/$VERSION && make && make install
 popd
