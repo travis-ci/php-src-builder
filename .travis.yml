@@ -48,6 +48,7 @@ script:
   - ./bin/compile
   # - ./bin/compile-extensions
   - ./bin/compile-extension-redis
+  - ./bin/compile-extension-mongo
   - ./bin/compile-extension-mongodb
   - ./bin/compile-extension-amqp
   - ./bin/compile-extension-zmq
