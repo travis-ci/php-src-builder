@@ -14,9 +14,7 @@ popd
 
 git clone https://github.com/pdezwart/php-amqp.git
 pushd php-amqp
-if [[ $VERSION =~ ^7 ]]; then
-	;
-else
+if [[ ! $VERSION =~ ^7 ]]; then
 	git checkout v1.6.1
 fi
 
