@@ -3,7 +3,12 @@ set -o xtrace
 source $(dirname $0)/compile-extensions-common
 
 if [[ ! $VERSION =~ ^7 ]]; then
-	pecl_install mongo
+	git clone https://github.com/mongodb/mongo-php-driver-legacy.git
+	pushd mongo-php-driver-legacy
+	git checkout 1.6.12
+	phpize
+	./configure && make && make install
+	popd
 fi
 
 true
