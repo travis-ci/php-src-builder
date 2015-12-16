@@ -3,5 +3,11 @@ set -o xtrace
 source $(dirname $0)/compile-extensions-common
 
 if [[ ! $VERSION =~ ^7 ]]; then
-	pecl_install memcache-beta
+	pushd /tmp
+	pecl download memcache-beta
+	tar zxvf memcache*.tgz && pushd memcache*
+	make clean
+	phpize
+	./configure && make && make install
+	popd
 fi
