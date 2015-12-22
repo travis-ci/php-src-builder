@@ -10,7 +10,7 @@ pushd libmemcached-1.0.18
 popd
 popd
 
-if [[ $VERSION =~ ^7 ]]; then
+if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 	git clone https://github.com/php-memcached-dev/php-memcached.git --branch php7
 	pushd php-memcached
 else

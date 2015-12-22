@@ -5,7 +5,7 @@ source $(dirname $0)/compile-extensions-common
 git clone https://github.com/mkoppanen/php-zmq.git
 pushd php-zmq
 
-if [[ $VERSION =~ ^7 ]]; then
+if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 	checkout php7
 	phpize
 	./configure && make && make install

@@ -2,7 +2,7 @@
 set -o xtrace
 source $(dirname $0)/compile-extensions-common
 
-if [[ ! $VERSION =~ ^7 ]]; then
+if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
 	pushd /tmp
 	pecl download memcache-beta
 	tar zxvf memcache*.tgz && pushd memcache*
