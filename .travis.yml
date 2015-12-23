@@ -7,17 +7,20 @@ matrix:
         - docker
       env:
         - RELEASE=trusty
+      php: '5.6'
     - sudo: required
       dist: precise
       group: edge
       env:
         - RELEASE=precise
+      php: '5.6'
   allow_failures:
     - sudo: required
       services:
         - docker
       env:
         - RELEASE=trusty
+      php: '5.6'
 
 env:
   global:
