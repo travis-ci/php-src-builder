@@ -14,7 +14,7 @@ fi
 
 set -o xtrace
 
-: ${TAR_PATHS:=}
+: ${TAR_PATHS:=$HOME/.pearrc}
 : ${DESTS:=}
 
 if [[ $VERSION =~ ^(php|hhvm) ]] ; then
