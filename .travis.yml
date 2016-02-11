@@ -49,6 +49,7 @@ before_script:
 
 script:
   - ./bin/compile
+  - cat $HOME/.pearrc
   # - ./bin/compile-extensions
   - ./bin/compile-extension-redis
   - ./bin/compile-extension-mongo
