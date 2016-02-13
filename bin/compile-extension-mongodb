@@ -3,7 +3,7 @@ set -o xtrace
 source $(dirname $0)/compile-extensions-common
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
-	git clone --branch PHP7 https://github.com/mongodb-labs/mongo-php-driver-prototype.git
+	git clone https://github.com/mongodb-labs/mongo-php-driver-prototype.git
 	pushd mongo-php-driver-prototype
 	git submodule update --init
 	phpize
