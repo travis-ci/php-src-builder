@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -o xtrace
+set -o errexit
+
+if [[ z$ICU_RELEASE == 'z' ]]; then
+	echo '$ICU_RELEASE not set'
+	exit 1
+fi
+
+wget -O icu4c-src.tgz http://download.icu-project.org/files/icu4c/$ICU_RELEASE/icu4c-$(echo $ICU_RELEASE | tr '.' '_')-src.tgz
+tar xzf icu4c-src.tgz
+
+# compile
+pushd icu/source
+./configure --prefix=$ICU_INSTALL_DIR
+make
+sudo make install
+popd
