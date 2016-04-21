@@ -25,17 +25,11 @@ matrix:
 env:
   global:
   - VERSION=master ALIAS=nightly
-  - ICU_RELEASE=57.1
-  - ICU_INSTALL_DIR=/usr/local/icu
-
-before_install:
-- ./bin/install-icu
 
 install:
 - sudo apt-get update -qq
 - sudo apt-get install expect
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
-- echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $HOME/default_configure_options
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
 - eval "$($HOME/.phpenv/bin/phpenv init -)"
