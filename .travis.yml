@@ -32,7 +32,7 @@ env:
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 before_install:
-- ./bin/install-icu && $ICU_INSTALL_DIR/bin/icu-config --version
+- ./bin/install-icu
 
 install:
 - sudo apt-get update -qq
@@ -48,6 +48,7 @@ install:
 - git pull
 - popd
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
+- rsync -avz $HOME/$(basename $ICU_INSTALL_DIR) $(dirname $ICU_INSTALL_DIR)
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
