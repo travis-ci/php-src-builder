@@ -32,7 +32,7 @@ env:
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 before_install:
-- ./bin/install-icu
+- ./bin/install-icu && $ICU_INSTALL_DIR/bin/icu-config --version
 
 install:
 - sudo apt-get update -qq
