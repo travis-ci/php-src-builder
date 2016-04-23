@@ -17,5 +17,5 @@ pushd icu/source
 make
 # remove $ICU_RELEASE so that we have a prestine installation of icu there
 rm -rf $ICU_INSTALL_DIR
-make install && mv $ICU_INSTALL_DIR $HOME # we will have $HOME/$(basedir $ICU_INSTALL_DIR)
+make install
 popd

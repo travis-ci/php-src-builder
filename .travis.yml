@@ -28,14 +28,10 @@ env:
   - ICU_RELEASE=57.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
-before_install:
-- ./bin/install-icu
-
 install:
 - sudo apt-get update -qq
 - sudo apt-get install expect
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
-- echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $HOME/default_configure_options
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
 - eval "$($HOME/.phpenv/bin/phpenv init -)"
@@ -44,8 +40,9 @@ install:
 - git checkout master
 - git pull
 - popd
+- ./bin/install-icu
+- echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $HOME/default_configure_options
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
-- rsync -avz $HOME/$(basename $ICU_INSTALL_DIR) $(dirname $ICU_INSTALL_DIR)
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
