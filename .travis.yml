@@ -76,3 +76,8 @@ addons:
     - $LSB_RELEASE/
     target_paths:
     - /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
+  apt:
+    sources:
+      - travis-ci/sqlite3
+    packages:
+      - sqlite3
