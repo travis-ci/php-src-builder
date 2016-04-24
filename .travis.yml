@@ -51,17 +51,19 @@ before_script:
 - 'export INSTALL_DEST=${INSTALL_DEST:-$HOME/.phpenv/versions}'
 - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
-script:
-  - ./bin/compile
-  # - ./bin/compile-extensions
-  - ./bin/compile-extension-redis
-  - ./bin/compile-extension-mongo
-  - ./bin/compile-extension-mongodb
-  - ./bin/compile-extension-amqp
-  - ./bin/compile-extension-zmq
-  - ./bin/compile-extension-memcache
-  - ./bin/compile-extension-memcached
-  - sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+script: |
+  if [ ./bin/compile ]; then
+    ./bin/compile-extension-redis
+    ./bin/compile-extension-mongo
+    ./bin/compile-extension-mongodb
+    ./bin/compile-extension-amqp
+    ./bin/compile-extension-zmq
+    ./bin/compile-extension-memcache
+    ./bin/compile-extension-memcached
+    sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+  else
+    false
+  fi
 
 after_success: ./bin/archive
 
