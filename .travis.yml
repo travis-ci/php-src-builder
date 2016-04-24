@@ -52,18 +52,15 @@ before_script:
 - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
 script: |
-  if [ ./bin/compile ]; then
-    ./bin/compile-extension-redis
-    ./bin/compile-extension-mongo
-    ./bin/compile-extension-mongodb
-    ./bin/compile-extension-amqp
-    ./bin/compile-extension-zmq
-    ./bin/compile-extension-memcache
-    ./bin/compile-extension-memcached
-    sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
-  else
-    false
-  fi
+  ./bin/compile &&
+  (./bin/compile-extension-redis;
+  ./bin/compile-extension-mongo;
+  ./bin/compile-extension-mongodb;
+  ./bin/compile-extension-amqp;
+  ./bin/compile-extension-zmq;
+  ./bin/compile-extension-memcache;
+  ./bin/compile-extension-memcached) &&
+  sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
 
 after_success: ./bin/archive
 
