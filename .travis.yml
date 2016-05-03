@@ -40,7 +40,7 @@ install:
 - git checkout master
 - git pull
 - popd
-- if [ -n $ICU_RELEASE ]; then ./bin/install-icu && echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $HOME/default_configure_options; fi
+- ./bin/install-icu
 - mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
 
 before_script:
