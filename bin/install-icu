@@ -4,8 +4,8 @@ set -o xtrace
 set -o errexit
 
 if [[ z$ICU_RELEASE == 'z' ]]; then
-	echo '$ICU_RELEASE not set'
-	exit 1
+	echo '$ICU_RELEASE not set; skip ICU steps'
+	exit 0
 fi
 
 wget -O icu4c-src.tgz http://download.icu-project.org/files/icu4c/$ICU_RELEASE/icu4c-$(echo $ICU_RELEASE | tr '.' '_')-src.tgz
