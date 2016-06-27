@@ -25,6 +25,8 @@ matrix:
 env:
   global:
   - VERSION=master ALIAS=nightly
+  - ICU_RELEASE=57.1
+  - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 install:
 - sudo apt-get update -qq
