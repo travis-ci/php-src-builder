@@ -52,12 +52,12 @@ before_script:
 
 script: |
   ./bin/compile &&
-  (./bin/compile-extension-redis;
-  ./bin/compile-extension-mongo;
-  ./bin/compile-extension-mongodb;
-  ./bin/compile-extension-amqp;
-  ./bin/compile-extension-zmq;
-  ./bin/compile-extension-memcache;
+  ./bin/compile-extension-redis &&
+  (./bin/compile-extension-mongo;
+  ./bin/compile-extension-mongodb) &&
+  ./bin/compile-extension-amqp &&
+  ./bin/compile-extension-zmq &&
+  (./bin/compile-extension-memcache;
   ./bin/compile-extension-memcached) &&
   sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
 
