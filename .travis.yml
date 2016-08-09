@@ -31,7 +31,7 @@ env:
 install:
 - sudo apt-get update -qq
 - sudo apt-get install expect
-- cp $HOME/.php-build/share/php-build/default_configure_options $HOME
+- cp $HOME/.php-build/share/php-build/default_configure_options $HOME || true
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
 - eval "$($HOME/.phpenv/bin/phpenv init -)"
@@ -41,7 +41,7 @@ install:
 - git pull
 - popd
 - ./bin/install-icu
-- mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options
+- if [[ -f $HOME/default_configure_options ]]; then mv $HOME/default_configure_options $HOME/.php-build/share/php-build/default_configure_options; fi
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
