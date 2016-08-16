@@ -41,7 +41,8 @@
 --with-kerberos
 --with-imap
 --with-imap-ssl
---with-ldap=shared
+--with-kerberos
+--with-ldap
 --with-ldap-sasl
 --enable-dba
 --with-cdb
