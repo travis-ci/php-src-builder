@@ -42,7 +42,7 @@ install:
 - popd
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
-- if [[ $(lsb_release -cs) = "trusty" ]]; then sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include gmp.h; fi
+- if [[ $(lsb_release -cs) = "trusty" ]]; then sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h; fi
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
