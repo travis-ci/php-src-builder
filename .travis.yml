@@ -41,7 +41,7 @@ install:
 - git pull
 - popd
 - ./bin/install-icu
-- cp default_configure_options $HOME/.php-build/share/php-build/default_configure_options
+- cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
