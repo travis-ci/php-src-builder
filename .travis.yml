@@ -72,6 +72,7 @@ script: |
 after_success:
   - $INSTALL_DEST/$VERSION/bin/php -m
   - ldd $INSTALL_DEST/$VERSION/bin/php
+  - $INSTALL_DEST/$VERSION/bin/pecl config-show
   - ./bin/archive
 
 after_failure: cat /tmp/php-build.*.log
