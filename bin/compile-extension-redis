@@ -2,7 +2,11 @@
 set -o xtrace
 source $(dirname $0)/compile-extensions-common
 
-if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
+if [[ $VERSION =~ ^master$ ]]; then
+	git clone https://github.com/phpredis/phpredis.git
+	git checkout php7
+	./configure && make && make install
+elif [[ $VERSION =~ ^7 ]]; then
 	pecl_install redis
 else
 	pecl_install redis-2.2.8
