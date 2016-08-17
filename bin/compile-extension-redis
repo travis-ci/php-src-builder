@@ -4,8 +4,10 @@ source $(dirname $0)/compile-extensions-common
 
 if [[ $VERSION =~ ^master$ ]]; then
 	git clone https://github.com/phpredis/phpredis.git
+	pushd phpredis
 	git checkout php7
 	./configure && make && make install
+	popd
 elif [[ $VERSION =~ ^7 ]]; then
 	pecl_install redis
 else
