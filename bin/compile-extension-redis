@@ -6,6 +6,7 @@ if [[ $VERSION =~ ^master$ ]]; then
 	git clone https://github.com/phpredis/phpredis.git
 	pushd phpredis
 	git checkout php7
+        phpize
 	./configure && make && make install
 	popd
 elif [[ $VERSION =~ ^7 ]]; then
