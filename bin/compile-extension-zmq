@@ -9,7 +9,7 @@ pushd php-zmq
 sudo apt-get install libzmq3-dev
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
-	checkout php7
+	git checkout php7
 	phpize
 	./configure && make && make install
 else
@@ -17,7 +17,7 @@ else
 		sudo -E add-apt-repository -y ppa:travis-ci/zero-mq
 		sudo apt-get update -qq
 	fi
-	checkout 1.1.2
+	git checkout 1.1.2
 	phpize
 	./configure && make && make install
 fi
