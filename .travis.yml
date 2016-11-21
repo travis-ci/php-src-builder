@@ -58,7 +58,9 @@ before_script:
 - 'export INSTALL_DEST=${INSTALL_DEST:-$HOME/.phpenv/versions}'
 - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
-script: |
+script:
+  - cat $HOME/.php-build/share/php-build/default_configure_options
+  - |
   ./bin/compile &&
   ./bin/compile-extension-redis &&
   (./bin/compile-extension-mongo;

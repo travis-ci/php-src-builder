@@ -20,4 +20,4 @@ rm -rf $ICU_INSTALL_DIR
 make install
 popd
 
-echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $HOME/default_configure_options
+echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $HOME/default_configure_options.${RELEASE}
