@@ -6,21 +6,25 @@ phpenv global $VERSION
 
 function pecl_install() {
     extension=$1
+    set +o errexit
     pecl info ${extension}
     return=$?
     if [ $return = 0 ] || [ -f "$(pecl config-get ext_dir)/${extension}.so" ]; then
-    echo "Extension ${extension} was already installed for PHP ${VERSION}."
+        echo "Extension ${extension} was already installed for PHP ${VERSION}."
     elif [ $return = 1 ]; then
-    result=$(pecl install ${extension})
-    last_line=$(echo $result | tail -1)
-    if [[ "$last_line" =~ failed ]]; then
-      echo "There was an error installing extension ${extension} for PHP ${VERSION}:"
-      echo "$result"
-      exit 1
-    fi
-    echo "Extension ${extension} successfully installed for PHP ${VERSION}."
+        result=$(pecl install ${extension})
+        last_line=$(echo $result | tail -1)
+        if [[ "$last_line" =~ failed ]]; then
+          echo "There was an error installing extension ${extension} for PHP ${VERSION}:"
+          echo "$result"
+          set -o errexit
+          exit 1
+        fi
+        set -o errexit
+        echo "Extension ${extension} successfully installed for PHP ${VERSION}."
     else
-    echo "There was an error installing extension ${extension} for PHP #{VERSION}."
-    exit 1
+        echo "There was an error installing extension ${extension} for PHP #{VERSION}."
+        set -o errexit
+        exit 1
     fi
 }
