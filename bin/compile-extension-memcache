@@ -7,7 +7,7 @@ if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
 	pushd /tmp
 	pecl download memcache-beta
 	tar zxvf memcache*.tgz && pushd memcache*
-	make clean
+	make clean || true
 	phpize
 	./configure && make && make install
 	popd

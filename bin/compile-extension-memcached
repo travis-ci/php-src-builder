@@ -17,7 +17,7 @@ if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 else
 	pecl download memcached-2.2.0
 	tar zxvf memcached*.tgz && pushd memcached*
-	make clean
+	make clean || true
 fi
 phpize
 ./configure --with-libmemcached-dir=$INSTALL_DEST/$VERSION && make && make install
