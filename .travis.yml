@@ -61,15 +61,15 @@ before_script:
 script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - |
-  ./bin/compile &&
-  ./bin/compile-extension-redis &&
-  (./bin/compile-extension-mongo;
-  ./bin/compile-extension-mongodb) &&
-  ./bin/compile-extension-amqp &&
-  ./bin/compile-extension-zmq &&
-  (./bin/compile-extension-memcache;
-  ./bin/compile-extension-memcached) &&
-  sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+    ./bin/compile &&
+    ./bin/compile-extension-redis &&
+    (./bin/compile-extension-mongo;
+    ./bin/compile-extension-mongodb) &&
+    ./bin/compile-extension-amqp &&
+    ./bin/compile-extension-zmq &&
+    (./bin/compile-extension-memcache;
+    ./bin/compile-extension-memcached) &&
+    sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
 
 after_success:
   - $INSTALL_DEST/$VERSION/bin/php -i
