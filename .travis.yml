@@ -1,10 +1,5 @@
 language: php
 
-addons:
-  apt:
-    packages:
-      - libcurl4-gnutls-dev
-
 matrix:
   include:
     - sudo: required
@@ -91,3 +86,7 @@ addons:
     - $LSB_RELEASE/
     target_paths:
     - /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
+  apt:
+    packages:
+      - libcurl4-gnutls-dev
+
