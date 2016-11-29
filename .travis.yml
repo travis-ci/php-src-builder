@@ -72,7 +72,7 @@ script:
     sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
 
 after_success:
-  - ARTIFACTS_KEY='' ARTIFACTS_SECRET='' $INSTALL_DEST/$VERSION/bin/php -i
+  - ARTIFACTS_KEY='' ARTIFACTS_SECRET='' ARTIFACTS_BUCKET='' ARTIFACTS_PERMISSIONS='' $INSTALL_DEST/$VERSION/bin/php -i
   - $INSTALL_DEST/$VERSION/bin/php -m
   - ldd $INSTALL_DEST/$VERSION/bin/php
   - $INSTALL_DEST/$VERSION/bin/pecl config-show
