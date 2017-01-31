@@ -35,14 +35,6 @@ install:
 - popd
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
-- |
-  if [[ $(lsb_release -cs) = "trusty" ]]; then
-    sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.a /usr/lib/libldap.a
-    sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
-    sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.a /usr/lib/liblber.a
-  fi
 
 before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'

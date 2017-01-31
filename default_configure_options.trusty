@@ -43,7 +43,7 @@
 --with-imap
 --with-imap-ssl
 --with-kerberos
---with-ldap
+--with-ldap-dir=/usr/lib/x86_64-linux-gnu
 --with-ldap-sasl
 --enable-dba
 --with-cdb
