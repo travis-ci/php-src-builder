@@ -1,0 +1,8 @@
+#!/bin/bash
+set -o xtrace
+set -o errexit
+source $(dirname $0)/compile-extensions-common
+
+pecl_install apcu
+
+true
