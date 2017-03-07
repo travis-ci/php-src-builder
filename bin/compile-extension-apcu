@@ -3,6 +3,12 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
-pecl_install apcu
+if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
+	apcu=apcu-4.0.11
+else
+	apcu=apcu
+fi
+
+echo | pecl_install $apcu
 
 true
