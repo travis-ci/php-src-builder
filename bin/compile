@@ -32,8 +32,10 @@ ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
 
 # composer and phpunit
 curl -fsSL -o bin/composer http://getcomposer.org/composer.phar
-if [[ $VERSION == nightly* || $VERSION == master* || $VERSION == 7* || $VERSION == 5.6* ]]; then
+if [[ $VERSION == nightly* || $VERSION == master* || $VERSION == 7*]; then
 	PHPUNIT_ARCHIVE=phpunit.phar
+elif [[ $VERSION == 5.6* ]]; then
+	PHPUNIT_ARCHIVE=phpunit-5.7.phar
 else
 	PHPUNIT_ARCHIVE=phpunit-old.phar
 fi
