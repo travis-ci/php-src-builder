@@ -33,6 +33,7 @@ install:
 - git checkout master
 - git pull
 - popd
+- if [[ $RELEASE = trusty ]]; unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - |
