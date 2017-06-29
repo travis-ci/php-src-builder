@@ -38,7 +38,7 @@ install:
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - | # disable xdebug on master
   if [[ $VERSION = master ]]; then
-    sed -i -d install_xdebug_master $HOME/.php-build/share/php-build/definitions/$VERSION
+    sed -i -e 'd/install_xdebug_master/' $HOME/.php-build/share/php-build/definitions/$VERSION
   fi
 - |
   if [[ $(lsb_release -cs) = "trusty" ]]; then
