@@ -22,7 +22,11 @@ pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
 curl -fsSL -O http://pear.php.net/go-pear.phar
-env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
+if [[ -f $TRAVIS_BUILD_DIR/bin/install-pear.${VERSION} ]]; then
+	env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear.${VERSION}
+esle
+	env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
+fi
 rm go-pear.phar
 "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
 "$INSTALL_DEST/$VERSION/bin/pear" config-set auto_discover 1

@@ -15,12 +15,4 @@ send -s -- "/home/travis/.phpenv/versions/$env(VERSION)\r"
 expect -re "1-\[0-9]+, 'all' or Enter to continue:"
 sleep .1
 send -s -- "\r"
-
-expect -re "Would you like to alter php.ini(.*):"
-sleep .1
-send -s -- "\r"
-
-expect "Press Enter to continue:"
-sleep .1
-send -s -- "\r"
 expect EOF
