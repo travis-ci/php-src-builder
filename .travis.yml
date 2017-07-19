@@ -7,17 +7,32 @@ matrix:
         - docker
       env:
         - RELEASE=trusty
+        - VERSION=master ALIAS=nightly
       php: '5.6'
     - sudo: required
       dist: precise
       group: edge
       env:
         - RELEASE=precise
+        - VERSION=master ALIAS=nightly
+      php: '5.6'
+    - sudo: required
+      services:
+        - docker
+      env:
+        - RELEASE=trusty
+        - VERSION=PHP-7.2 ALIAS=7.2
+      php: '5.6'
+    - sudo: required
+      dist: precise
+      group: edge
+      env:
+        - RELEASE=precise
+        - VERSION=PHP-7.2 ALIAS=7.2
       php: '5.6'
 
 env:
   global:
-  - VERSION=master ALIAS=nightly
   - ICU_RELEASE=58.2
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
@@ -37,6 +52,10 @@ install:
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - | # disable xdebug on master
+  if [[ $VERSION = master ]]; then
+    sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
+  fi
+- | # disable xdebug on 7.2-dev
   if [[ $VERSION = master ]]; then
     sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
   fi
