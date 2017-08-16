@@ -60,7 +60,7 @@ script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - |
     ./bin/compile &&
-    ./bin/compile-extension-redis &&
+    (yes '' | ./bin/compile-extension-redis) &&
     (./bin/compile-extension-mongo;
     ./bin/compile-extension-mongodb) &&
     ./bin/compile-extension-amqp &&
