@@ -68,6 +68,7 @@ script:
     ./bin/compile-extension-zmq &&
     (./bin/compile-extension-memcache;
     ./bin/compile-extension-memcached) &&
+    ./bin/compile-extension-ssh2 &&
     sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
 
 after_success:
