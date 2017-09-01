@@ -3,6 +3,8 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
+travis_time_start
+
 if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
 	apcu=apcu-4.0.11
 else
@@ -10,5 +12,7 @@ else
 fi
 
 echo | pecl_install $apcu
+
+travis_time_finish
 
 true

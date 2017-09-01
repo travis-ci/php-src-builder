@@ -3,6 +3,8 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
+travis_time_start
+
 git clone https://github.com/mkoppanen/php-zmq.git
 pushd php-zmq
 
@@ -23,4 +25,7 @@ else
 fi
 
 popd
+
+travis_time_finish
+
 true

@@ -3,6 +3,8 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
+travis_time_start
+
 if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
 	pushd /tmp
 	pecl download memcache-beta
@@ -12,3 +14,5 @@ if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
 	./configure && make && make install
 	popd
 fi
+
+travis_time_finish
