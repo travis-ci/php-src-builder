@@ -7,7 +7,7 @@ travis_time_start
 
 sudo apt-get install libssh2-1-dev
 
-if [[ $VERSION =~ ^7 ]]; then
+if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 	pecl_install ssh2-alpha </dev/null
 else
 	pecl_install ssh2-0.13 </dev/null
