@@ -8,7 +8,7 @@ travis_time_start
 if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
 	git clone https://github.com/mongodb/mongo-php-driver-legacy.git
 	pushd mongo-php-driver-legacy
-	git checkout 1.6.12
+	git checkout 1.6.16
 	phpize
 	./configure && make && make install
 	popd
