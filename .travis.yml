@@ -3,6 +3,13 @@ language: php
 matrix:
   include:
     - sudo: required
+      language: minimal
+      dist: xenial
+      group: edge
+      env:
+        - RELEASE=xenial
+      php: '5.6'
+    - sudo: required
       services:
         - docker
       env:
