@@ -1,5 +1,11 @@
 language: php
 
+addons:
+  apt:
+    packages:
+      - expect
+      - libzip-dev
+
 matrix:
   include:
     - sudo: required
@@ -22,8 +28,6 @@ env:
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 install:
-- sudo apt-get update -qq
-- sudo apt-get install expect
 - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
