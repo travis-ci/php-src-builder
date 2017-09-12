@@ -1,11 +1,5 @@
 language: php
 
-addons:
-  apt:
-    packages:
-      - expect
-      - libzip-dev
-
 matrix:
   include:
     - sudo: required
@@ -93,4 +87,6 @@ addons:
   apt:
     packages:
       - libcurl4-gnutls-dev
+      - expect
+      - libzip-dev
 
