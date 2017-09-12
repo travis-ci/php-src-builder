@@ -25,7 +25,7 @@ matrix:
 env:
   global:
   - VERSION=master ALIAS=nightly
-  - ICU_RELEASE=58.2
+  - ICU_RELEASE=59.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 install:
