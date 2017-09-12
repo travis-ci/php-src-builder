@@ -9,10 +9,11 @@ matrix:
         - RELEASE=trusty
       php: '5.6'
     - sudo: required
-      dist: precise
+      language: minimal
+      dist: xenial
       group: edge
       env:
-        - RELEASE=precise
+        - RELEASE=xenial
       php: '5.6'
 
 env:
