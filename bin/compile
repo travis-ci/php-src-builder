@@ -14,7 +14,7 @@ fi
 
 set -o xtrace
 
-export PATH="$HOME/.php-build/bin:$PATH"
+export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
 php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
