@@ -44,8 +44,9 @@ install:
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - | # disable xdebug on master
-  if [[ $VERSION = master ]]; then
+  if [[ $VERSION = master && $RELEASE != xenial ]]; then
     sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
+    echo "--without-libzip" >> $HOME/.php-build/share/php-build/definitions/$VERSION
   fi
 - |
   if [[ $(lsb_release -cs) = "trusty" ]]; then
