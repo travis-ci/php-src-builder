@@ -22,7 +22,7 @@ matrix:
         - RELEASE=precise
       php: '5.6'
   allow_failures:
-    dist: xenial
+    - dist: xenial
 
 env:
   global:
