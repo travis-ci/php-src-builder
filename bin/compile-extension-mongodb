@@ -14,6 +14,8 @@ if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
 	make  all
 	make install
 	popd
+elif [[ $VERSION =~ ^5\.4 ]]; then
+	pecl_install mongodb-1.2.11
 else
 	pecl_install mongodb
 fi
