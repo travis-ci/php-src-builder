@@ -47,7 +47,7 @@ popd
 
 mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
 
-cat > "${INSTALL_DEST}/${VERSION}/etc/conf.d/travis.ini" <<EOF
+cat > "${INSTALL_DEST}/${VERSION}/etc/conf.d/000_travis.ini" <<EOF
 memory_limit = 1G
 date.timezone = "UTC"
 phar.readonly = 0
