@@ -47,7 +47,7 @@ install:
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - |
   if [[ $VERSION = master || $VERSION = *snapshot ]]; then
-    echo "--without-libzip" >> $HOME/.php-build/share/php-build/definitions/$VERSION
+    echo "--without-libzip" >> $HOME/.php-build/share/php-build/default_configure_options
   fi
 - | # disable xdebug on master
   if [[ $VERSION = master && $RELEASE != xenial ]]; then
@@ -71,7 +71,6 @@ before_script:
 
 script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
-  - cat $HOME/.php-build/share/php-build/definitions/$VERSION
   - |
     ./bin/compile &&
     (yes '' | ./bin/compile-extension-redis) &&
