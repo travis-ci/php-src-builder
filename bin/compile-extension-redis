@@ -8,8 +8,8 @@ travis_time_start
 if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ || $VERSION =~ ^7\.2 ]]; then
 	git clone https://github.com/phpredis/phpredis.git
 	pushd phpredis
-	git checkout php7
-        phpize
+	# git checkout php7
+	phpize
 	./configure && make && make install || exit 1
 	popd
 elif [[ $VERSION =~ ^7 ]]; then
