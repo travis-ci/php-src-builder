@@ -46,7 +46,7 @@ install:
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - |
-  if [[ $VERSION = master || $VERSION = *snapshot ]]; then
+  if [[ $VERSION = master ]]; then
     echo "--without-libzip" >> $HOME/.php-build/share/php-build/default_configure_options
   fi
 - | # disable xdebug on master
