@@ -3,6 +3,13 @@ language: php
 matrix:
   include:
     - sudo: required
+      language: minimal
+      dist: xenial
+      group: edge
+      env:
+        - RELEASE=xenial
+      php: '5.6'
+    - sudo: required
       services:
         - docker
       env:
@@ -15,17 +22,12 @@ matrix:
         - RELEASE=precise
       php: '5.6'
   allow_failures:
-    - sudo: required
-      services:
-        - docker
-      env:
-        - RELEASE=trusty
-      php: '5.6'
+    - dist: xenial
 
 env:
   global:
   - VERSION=master ALIAS=nightly
-  - ICU_RELEASE=57.1
+  - ICU_RELEASE=59.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 install:
@@ -40,15 +42,24 @@ install:
 - git checkout master
 - git pull
 - popd
+- if [[ $RELEASE = trusty ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - |
+  if [[ $VERSION = master ]]; then
+    echo "--without-libzip" >> $HOME/.php-build/share/php-build/default_configure_options
+  fi
+- | # disable xdebug on master
+  if [[ $VERSION = master && $RELEASE != xenial ]]; then
+    sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
+  fi
+- |
   if [[ $(lsb_release -cs) = "trusty" ]]; then
     sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
+    sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
     sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
     sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.a /usr/lib/libldap.a
     sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
-    sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.a /usr/lib/liblber.a
   fi
 
 before_script:
@@ -62,13 +73,15 @@ script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - |
     ./bin/compile &&
-    ./bin/compile-extension-redis &&
+    (yes '' | ./bin/compile-extension-redis) &&
     (./bin/compile-extension-mongo;
     ./bin/compile-extension-mongodb) &&
     ./bin/compile-extension-amqp &&
+    ./bin/compile-extension-apcu &&
     ./bin/compile-extension-zmq &&
     (./bin/compile-extension-memcache;
     ./bin/compile-extension-memcached) &&
+    ./bin/compile-extension-ssh2 &&
     sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
 
 after_success:
@@ -89,4 +102,5 @@ addons:
   apt:
     packages:
       - libcurl4-gnutls-dev
+      - libzip-dev
 

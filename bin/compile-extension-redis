@@ -3,11 +3,13 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
-if [[ $VERSION =~ ^master$ ]]; then
+travis_time_start
+
+if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ || $VERSION =~ ^7\.2 ]]; then
 	git clone https://github.com/phpredis/phpredis.git
 	pushd phpredis
-	git checkout php7
-        phpize
+	# git checkout php7
+	phpize
 	./configure && make && make install || exit 1
 	popd
 elif [[ $VERSION =~ ^7 ]]; then
@@ -15,3 +17,5 @@ elif [[ $VERSION =~ ^7 ]]; then
 else
 	pecl_install redis-2.2.8
 fi
+
+travis_time_finish

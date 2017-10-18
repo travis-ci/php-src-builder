@@ -6,13 +6,12 @@ source $(dirname $0)/compile-extensions-common
 travis_time_start
 
 if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
-	git clone https://github.com/mongodb/mongo-php-driver-legacy.git
-	pushd mongo-php-driver-legacy
-	git checkout 1.6.16
-	phpize
-	./configure && make && make install
-	popd
+	apcu=apcu-4.0.11
+else
+	apcu=apcu
 fi
+
+echo | pecl_install $apcu
 
 travis_time_finish
 

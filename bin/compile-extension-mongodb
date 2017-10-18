@@ -3,9 +3,11 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
-if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
-	git clone https://github.com/mongodb-labs/mongo-php-driver-prototype.git
-	pushd mongo-php-driver-prototype
+travis_time_start
+
+if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
+	git clone https://github.com/mongodb/mongo-php-driver.git
+	pushd mongo-php-driver
 	git submodule update --init
 	phpize
 	./configure
@@ -15,5 +17,7 @@ if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 else
 	pecl_install mongodb
 fi
+
+travis_time_finish
 
 true
