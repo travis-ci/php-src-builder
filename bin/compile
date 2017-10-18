@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+eval "$($HOME/.phpenv/bin/phpenv init -)"
 
 set -o errexit
 
