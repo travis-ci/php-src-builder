@@ -103,4 +103,5 @@ addons:
     packages:
       - libcurl4-gnutls-dev
       - libzip-dev
+      - libgmp3-dev
 
