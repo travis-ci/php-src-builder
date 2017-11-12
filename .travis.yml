@@ -54,7 +54,7 @@ install:
     sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
   fi
 - |
-  if [[ $(lsb_release -cs) = "trusty" ]]; then
+  if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" ]]; then
     sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
     sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
     sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
