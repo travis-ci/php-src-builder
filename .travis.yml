@@ -29,6 +29,7 @@ env:
   - VERSION=master ALIAS=nightly
   - ICU_RELEASE=59.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
+  - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
 install:
 - sudo apt-get update -qq
