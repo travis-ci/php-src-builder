@@ -32,8 +32,6 @@ env:
   - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
 install:
-- sudo apt-get update -qq
-- sudo apt-get install expect libgmp3-dev
 - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
 - rm -rf $HOME/.phpenv
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
@@ -105,4 +103,5 @@ addons:
       - libcurl4-gnutls-dev
       - libzip-dev
       - libgmp3-dev
+      - expect
 
