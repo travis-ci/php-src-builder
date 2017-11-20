@@ -14,8 +14,9 @@ popd
 popd
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
-	git clone https://github.com/php-memcached-dev/php-memcached.git --branch php7
-	pushd php-memcached
+	pecl download memcached-3.0.4
+	tar zxvf memcached*.tgz && pushd memcached*
+	make clean || true
 else
 	pecl download memcached-2.2.0
 	tar zxvf memcached*.tgz && pushd memcached*
