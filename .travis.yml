@@ -9,6 +9,8 @@ matrix:
       env:
         - RELEASE=xenial
       php: '5.6'
+      before_install:
+        - command -v expect || sudo apt-get install expect
     - sudo: required
       services:
         - docker
