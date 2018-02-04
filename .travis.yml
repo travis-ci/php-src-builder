@@ -98,8 +98,7 @@ addons:
   artifacts:
     paths:
     - $LSB_RELEASE/
-    target_paths:
-    - /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
+    target_paths: /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
   apt:
     packages:
       - libcurl4-gnutls-dev
