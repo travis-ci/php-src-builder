@@ -72,7 +72,7 @@ before_script:
 
 script:
   - |
-    if [[ $TRAVIS_PHP_VERSION = 7.2* ]]; then
+    if [[ $VERSION = 7.2* ]]; then
       echo -e "--with-password-argon2\n" >> $HOME/.php-build/share/php-build/default_configure_options
     fi
   - cat $HOME/.php-build/share/php-build/default_configure_options
