@@ -10,6 +10,8 @@ matrix:
         - RELEASE=xenial
       php: '5.6'
       before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
         - command -v expect || sudo apt-get install expect
     - sudo: required
       services:
@@ -43,7 +45,7 @@ install:
 - git checkout master
 - git pull
 - popd
-- if [[ $RELEASE = trusty ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
+- if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
 - cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
 - |
