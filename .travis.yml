@@ -73,10 +73,6 @@ before_script:
 - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
 script:
-  - |
-    if [[ $VERSION = 7.2* ]]; then
-      echo -e "--with-password-argon2\n" >> $HOME/.php-build/share/php-build/default_configure_options
-    fi
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - |
     ./bin/compile &&
