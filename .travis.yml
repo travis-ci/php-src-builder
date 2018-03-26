@@ -47,7 +47,12 @@ install:
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
-- cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
+- |
+  if [[ -f definitions.$RELEASE-${VERSION}* ]]; then
+    cp default_configure_options.$RELEASE-${VERSION}.* $HOME/.php-build/share/php-build/default_configure_options
+  else
+    cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
+  fi
 - |
   if [[ $VERSION = master ]]; then
     echo "--without-libzip" >> $HOME/.php-build/share/php-build/default_configure_options
