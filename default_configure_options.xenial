@@ -9,7 +9,6 @@
 --enable-zip
 --with-zlib
 --with-zlib-dir=/usr
---with-mcrypt=/usr
 --with-pdo-sqlite
 --enable-soap
 --enable-xmlreader
