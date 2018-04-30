@@ -36,7 +36,7 @@ env:
   - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
 before_install:
-  - php -f test.php
+  - php -f test.php || true
 
 install:
 - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
