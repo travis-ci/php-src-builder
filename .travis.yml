@@ -29,7 +29,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-4.8
+            - clang-3.3
   allow_failures:
     - dist: xenial
 
