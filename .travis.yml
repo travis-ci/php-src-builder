@@ -108,7 +108,7 @@ addons:
     target_paths: /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
   apt:
     packages:
-      - libcurl4-gnutls-dev
+      - libcurl4-openssl-dev
       - libzip-dev
       - libgmp3-dev
       - expect
