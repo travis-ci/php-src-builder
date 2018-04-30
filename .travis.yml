@@ -35,6 +35,9 @@ env:
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
   - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
+before_install:
+  - php -f test.php
+
 install:
 - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
 - rm -rf $HOME/.phpenv
@@ -95,6 +98,7 @@ script:
 after_success:
   - ARTIFACTS_KEY='' ARTIFACTS_SECRET='' ARTIFACTS_BUCKET='' ARTIFACTS_PERMISSIONS='' $INSTALL_DEST/$VERSION/bin/php -i
   - $INSTALL_DEST/$VERSION/bin/php -m
+  - $INSTALL_DEST/$VERSION/bin/php -f test.php
   - ldd $INSTALL_DEST/$VERSION/bin/php
   - $INSTALL_DEST/$VERSION/bin/pecl config-show
   - ./bin/archive
