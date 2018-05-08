@@ -9,6 +9,10 @@ matrix:
       env:
         - RELEASE=xenial
       php: '5.6'
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - command -v expect || sudo apt-get install expect
     - sudo: required
       services:
         - docker
@@ -41,10 +45,15 @@ install:
 - git checkout master
 - git pull
 - popd
-- if [[ $RELEASE = trusty ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
+- if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
 - ./bin/install-password-argon2
-- cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
+- |
+  if [[ -f default_configure_options.$RELEASE-${VERSION%*.*} ]]; then
+    cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
+  else
+    cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
+  fi
 - |
   if [[ $VERSION = master ]]; then
     echo "--without-libzip" >> $HOME/.php-build/share/php-build/default_configure_options
@@ -97,8 +106,7 @@ addons:
   artifacts:
     paths:
     - $LSB_RELEASE/
-    target_paths:
-    - /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
+    target_paths: /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
   apt:
     packages:
       - libcurl4-gnutls-dev
