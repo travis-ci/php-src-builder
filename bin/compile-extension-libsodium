@@ -12,3 +12,5 @@ if [[ $VERSION =~ ^7 ]]; then
 fi
 
 travis_time_end
+
+true
