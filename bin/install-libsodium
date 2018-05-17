@@ -3,12 +3,13 @@
 set -o xtrace
 set -o errexit
 
+# If PHP < 7.2, exit
 if [[ $VERSION =~ ^master$ ]]; then
-    echo 'unknown PHP version; skip password-argon2 steps'
-    exit 0
+	echo 'unknown PHP version; skip password-argon2 steps'
+	exit 0
 elif [ "$(printf "7.2\n$VERSION" | sort -V | head -n1)" != "7.2" ]; then
-    echo 'PHP < 7.2; skip password-argon2 steps'
-    exit 0
+	echo 'PHP < 7.2; skip password-argon2 steps'
+	exit 0
 fi
 
 LIBSODIUM_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
@@ -22,4 +23,5 @@ make check
 make install
 popd
 
-echo "--with-sodium=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
+# add the option in default_configure_options
+echo "--with-password-argon2=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
