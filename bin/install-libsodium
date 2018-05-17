@@ -24,4 +24,4 @@ make install
 popd
 
 # add the option in default_configure_options
-echo "--with-password-argon2=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
+echo "--with-sodium=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
