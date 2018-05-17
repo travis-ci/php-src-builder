@@ -7,8 +7,11 @@ travis_time_start
 
 if [[ $VERSION =~ ^7 ]]; then
     git clone -b stable https://github.com/jedisct1/libsodium.git
-    cd libsodium && sudo ./configure && sudo make check && sudo make install && cd ..
-    pecl install libsodium
+    pushd libsodium
+    ./configure
+    make check
+    make install
+    popd
 fi
 
 travis_time_end
