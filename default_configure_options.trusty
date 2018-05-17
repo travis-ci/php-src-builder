@@ -47,4 +47,6 @@
 --with-ldap-sasl
 --enable-dba
 --with-cdb
+--with-sodium
+--with-libsodium
 --with-password-argon2
