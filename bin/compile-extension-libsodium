@@ -1,0 +1,14 @@
+#!/bin/bash
+set -o xtrace
+set -o errexit
+source $(dirname $0)/compile-extensions-common
+
+travis_time_start
+
+if [[ $VERSION =~ ^7 ]]; then
+    git clone -b stable https://github.com/jedisct1/libsodium.git
+    cd libsodium && sudo ./configure && sudo make check && sudo make install && cd ..
+    pecl install libsodium
+fi
+
+travis_time_end
