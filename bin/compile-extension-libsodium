@@ -7,4 +7,13 @@ source $(dirname $0)/compile-extensions-common
 
 travis_time_start
 
+git clone -b stable https://github.com/jedisct1/libsodium.git
+
+if [[ $VERSION =~ ^7 && ! $VERSION =~ ^master$ ]]; then
+
+    cd libsodium && sudo ./configure && sudo make check && sudo make install && cd ..
+    pecl install libsodium
+
+fi
+
 travis_time_finish
