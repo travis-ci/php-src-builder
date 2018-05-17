@@ -47,7 +47,6 @@ install:
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
-- ./bin/install-libsodium
 - |
   if [[ -f default_configure_options.$RELEASE-${VERSION%*.*} ]]; then
     cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
@@ -86,6 +85,7 @@ script:
     (./bin/compile-extension-mongo;
     ./bin/compile-extension-mongodb) &&
     ./bin/compile-extension-amqp &&
+    ./bin/compile-extension-libsodium &&
     ./bin/compile-extension-apcu &&
     ./bin/compile-extension-zmq &&
     (./bin/compile-extension-memcache;
