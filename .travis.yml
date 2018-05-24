@@ -13,6 +13,18 @@ matrix:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
         - command -v expect || sudo apt-get install expect
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
+
     - sudo: required
       services:
         - docker
@@ -26,7 +38,7 @@ matrix:
         - RELEASE=precise
       php: '5.6'
   allow_failures:
-    - dist: xenial
+    - dist: precise
 
 env:
   global:
