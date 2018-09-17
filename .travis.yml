@@ -62,6 +62,7 @@ install:
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
+- ./bin/install-password-argon2
 - |
   if [[ -f default_configure_options.$RELEASE-${VERSION%*.*} ]]; then
     cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
@@ -128,4 +129,3 @@ addons:
       - libzip-dev
       - libgmp3-dev
       - expect
-
