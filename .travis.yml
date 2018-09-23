@@ -3,7 +3,6 @@ language: php
 matrix:
   include:
     - sudo: required
-      language: minimal
       dist: xenial
       group: edge
       env:
@@ -128,4 +127,3 @@ addons:
       - libzip-dev
       - libgmp3-dev
       - expect
-
