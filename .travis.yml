@@ -61,6 +61,7 @@ install:
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
+- ./bin/install-libzip
 - ./bin/install-libsodium
 - ./bin/install-password-argon2
 - |
@@ -68,10 +69,6 @@ install:
     cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
   else
     cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
-  fi
-- |
-  if [[ $VERSION = master ]]; then
-    echo "--without-libzip" >> $HOME/.php-build/share/php-build/default_configure_options
   fi
 - | # disable xdebug on master
   if [[ $VERSION = master && $RELEASE != xenial ]]; then
