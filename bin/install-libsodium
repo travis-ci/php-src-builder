@@ -4,10 +4,7 @@ set -o xtrace
 set -o errexit
 
 # If PHP < 7.2, exit
-if [[ $VERSION =~ ^master$ ]]; then
-	echo 'unknown PHP version; skip libsodium steps'
-	exit 0
-elif [[ "$(printf "7.2\n$VERSION" | sort -V | head -n1)" < "7.2" ]]; then
+if [[ ! $VERSION =~ ^master$ ]] && [[ "$(printf "7.2\n$VERSION" | sort -V | head -n1)" < "7.2" ]]; then
 	echo 'PHP < 7.2; skip libsodium steps'
 	exit 0
 fi
