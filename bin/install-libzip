@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -o xtrace
+set -o errexit
+
+# If PHP < 7.3, exit
+if [[ ! $VERSION =~ ^master$ ]] && [[ "$(printf "7.3\n$VERSION" | sort -V | head -n1)" < "7.3" ]]; then
+	echo 'PHP < 7.3; skip libzip steps'
+	exit 0
+fi
+
+LIBZIP_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
+
+# get up-to-date cmake
+mkdir cmake
+pushd cmake
+wget -O - https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz | tar -xz --strip-components=1
+popd
+
+# compile libzip
+git clone -b rel-1-5-1 https://github.com/nih-at/libzip.git
+pushd libzip
+../cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=$LIBZIP_INSTALL_DIR .
+make
+make install
+popd
+
+# add the option in default_configure_options
+echo "--with-libzip=$LIBZIP_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
