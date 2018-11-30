@@ -12,15 +12,24 @@ if [[ ! $VERSION ]] ; then
   exit 1
 fi
 
+if [[ ! $ZTS ]] ; then
+  echo 'Missing $ZTS'
+  exit 1
+fi
+
 set -o xtrace
 
 : ${TAR_PATHS:=$HOME/.pearrc}
 : ${DESTS:=}
 
+if [[ $ZTS != enable ]] ; then
+  NTS="-nts"
+fi
+
 if [[ $VERSION =~ ^(php|hhvm) ]] ; then
-  DEST_VERSION="${VERSION}"
+  DEST_VERSION="${VERSION}${NTS}"
 else
-  DEST_VERSION="php-${VERSION}"
+  DEST_VERSION="php-${VERSION}${NTS}"
 fi
 
 TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$VERSION"
@@ -28,9 +37,9 @@ DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${DEST_VERSION}.tar.bz2"
 
 if [[ $ALIAS ]] ; then
   if [[ $ALIAS =~ ^php|hhvm ]] ; then
-    LONG_ALIAS="${ALIAS}"
+    LONG_ALIAS="${ALIAS}${NTS}"
   else
-    LONG_ALIAS="php-${ALIAS}"
+    LONG_ALIAS="php-${ALIAS}${NTS}"
   fi
   TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$ALIAS"
   DESTS="$DESTS $TRAVIS_BUILD_DIR/$LSB_RELEASE/${LONG_ALIAS}.tar.bz2"

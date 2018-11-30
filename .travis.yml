@@ -41,7 +41,7 @@ matrix:
 
 env:
   global:
-  - VERSION=master ALIAS=nightly
+  - VERSION=master ALIAS=nightly ZTS=enable
   - ICU_RELEASE=59.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
   - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
@@ -69,6 +69,10 @@ install:
     cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
   else
     cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
+  fi
+- | # support non-thread-safe builds
+  if [[ $ZTS != enable ]]; then
+    sed -i -e '/--enable-maintainer-zts/d' $HOME/.php-build/share/php-build/default_configure_options
   fi
 - | # disable xdebug on master
   if [[ $VERSION = master && $RELEASE != xenial ]]; then
