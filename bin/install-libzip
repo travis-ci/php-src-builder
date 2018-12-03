@@ -14,7 +14,15 @@ LIBZIP_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 # get up-to-date cmake
 mkdir cmake
 pushd cmake
-wget -O - https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz | tar -xz --strip-components=1
+#install cmake specific to host architecture.
+if [[ $HOSTTYPE == "powerpc64le" ]]
+then
+        wget -O - https://cmake.org/files/v3.12/cmake-3.12.0.tar.gz | tar -xz --strip-components=1
+        #compile cmake
+        ./configure > /dev/null 2>&1 && make > /dev/null 2>&1 && sudo make install > /dev/null 2>&1
+else
+	wget -O - https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz | tar -xz --strip-components=1
+fi
 popd
 
 # compile libzip
