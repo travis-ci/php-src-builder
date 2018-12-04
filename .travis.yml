@@ -36,12 +36,34 @@ matrix:
       env:
         - RELEASE=precise
       php: '5.6'
+    - sudo: required
+      arch: ppc64le
+      dist: xenial
+      group: edge
+      language: minimal
+      env:
+        - RELEASE=xenial
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - command -v expect || sudo apt-get install expect
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
   allow_failures:
     - dist: precise
 
 env:
   global:
-  - VERSION=master ALIAS=nightly
+  - VERSION=7.2.12 ALIAS=7.2
   - ICU_RELEASE=59.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
   - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
@@ -76,11 +98,17 @@ install:
   fi
 - |
   if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" ]]; then
-    sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
-    sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.a /usr/lib/libldap.a
-    sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
+    if [[ $HOSTTYPE == "powerpc64le" ]]; then
+      sudo ln /usr/include/powerpc64le-linux-gnu/gmp.h /usr/include/gmp.h
+      sudo ln -s /usr/lib/powerpc64le-linux-gnu/libldap_r-2.4.so.2 /usr/lib/libldap_r.so
+      sudo ln -s /usr/lib/powerpc64le-linux-gnu/liblber-2.4.so.2 /usr/lib/liblber.so
+    else
+      sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
+      sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
+      sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
+      sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.a /usr/lib/libldap.a
+      sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
+    fi
   fi
 
 before_script:
