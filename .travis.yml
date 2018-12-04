@@ -28,7 +28,7 @@ matrix:
           fi
 env:
   global:
-  - VERSION=5.6.17 ALIAS=5.6.17
+  - VERSION=5.6.18 ALIAS=5.6.18
   - ICU_RELEASE=59.1
   - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
   - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
