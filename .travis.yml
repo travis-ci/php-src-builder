@@ -117,7 +117,6 @@ addons:
       - libgmp3-dev
       - expect
       - libmcrypt-dev
-      - libtidy-dev
       - libicu-dev
       - re2c
     update: true
