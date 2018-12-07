@@ -119,7 +119,5 @@ addons:
       - libmcrypt-dev
       - libtidy-dev
       - libicu-dev
-      - libzip-dev
-      - php5-cli
       - re2c
     update: true
