@@ -23,44 +23,6 @@ matrix:
               eval "$(phpenv init -)"
             fi
           fi
-
-    - sudo: required
-      services:
-        - docker
-      env:
-        - RELEASE=trusty
-      php: '5.6'
-    - sudo: required
-      dist: precise
-      group: edge
-      env:
-        - RELEASE=precise
-      php: '5.6'
-    - sudo: required
-      arch: ppc64le
-      dist: xenial
-      group: edge
-      language: minimal
-      env:
-        - RELEASE=xenial
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - command -v expect || sudo apt-get install expect
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-  allow_failures:
-    - dist: precise
-
 env:
   global:
   - VERSION=7.3snapshot ALIAS=7.3snapshot
@@ -83,8 +45,6 @@ install:
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - ./bin/install-icu
-- ./bin/install-libzip
-- ./bin/install-libsodium
 - ./bin/install-password-argon2
 - |
   if [[ -f default_configure_options.$RELEASE-${VERSION%*.*} ]]; then
@@ -149,8 +109,17 @@ addons:
     - $LSB_RELEASE/
     target_paths: /binaries/$OS_NAME/$LSB_RELEASE/$ARCH
   apt:
+    sources:
+      - sourceline: 'ppa:ondrej/php'
     packages:
       - libcurl4-openssl-dev
       - libzip-dev
       - libgmp3-dev
       - expect
+      - libmcrypt-dev
+      - libtidy-dev
+      - libicu-dev
+      - libzip-dev
+      - php5-cli
+      - re2c
+    update: true
