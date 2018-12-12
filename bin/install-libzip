@@ -12,7 +12,7 @@ fi
 LIBZIP_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
 # uninstall system-wide zip packages
-sudo apt-get purge libzip4 libzip-dev
+sudo apt-get purge $(dpkg -l | awk '/^ii/ && /libzip/ {print $2}' | cut -f1 -d:)
 
 # get up-to-date cmake
 mkdir cmake
