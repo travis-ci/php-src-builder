@@ -11,6 +11,9 @@ fi
 
 LIBZIP_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
+# uninstall system-wide zip packages
+sudo apt-get purge libzip4 libzip-dev
+
 # get up-to-date cmake
 mkdir cmake
 pushd cmake
