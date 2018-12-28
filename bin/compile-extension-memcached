@@ -14,7 +14,7 @@ popd
 popd
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
-	pecl download memcached-3.0.4
+	pecl download memcached-3.1.2
 	tar zxvf memcached*.tgz && pushd memcached*
 	make clean || true
 else
