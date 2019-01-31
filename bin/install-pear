@@ -3,6 +3,9 @@
 set send_slow {1 .1}
 set timeout -1
 
+spawn ./bin/compile-go-pear
+expect EOF
+
 spawn ./bin/php go-pear.phar
 
 expect -re "1-\[0-9]+, 'all' or Enter to continue:"

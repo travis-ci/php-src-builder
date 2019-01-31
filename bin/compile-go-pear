@@ -1,0 +1,26 @@
+#!/bin/bash
+set -o xtrace
+set -o errexit
+source $(dirname $0)/compile-extensions-common
+
+travis_time_start
+
+pushd /tmp
+tarball_url=$(curl -sSfL https://api.github.com/repos/pear/pear-core/releases/latest | jq -r .tarball_url)
+
+if [ -z $tarball_url ]; then
+	echo "Latest PEAR tarball not found"
+	exit 1
+fi
+
+curl -sSfL -o pear.tar.gz $tarball_url
+tar xvf pear.tar.gz
+pushd pear-pear-core-*
+./build-release.sh
+
+test -f go-pear.phar && mv go-pear.phar $TRAVIS_BUILD_DIR
+
+popd
+popd
+
+travis_time_finish
