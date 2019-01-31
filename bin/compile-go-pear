@@ -6,6 +6,7 @@ source $(dirname $0)/compile-extensions-common
 travis_time_start
 
 pushd /tmp
+set +o xtrace
 if [ -n $GITHUB_TOKEN ]; then
 	auth_flag="-H 'Authorization: token $GITHUB_TOKEN'"
 fi
@@ -16,9 +17,10 @@ if [ -z $tarball_url ]; then
 	echo "Latest PEAR tarball not found"
 	exit 1
 fi
+set -o xtrace
 
 curl -sSfL -o pear.tar.gz $tarball_url
-tar xvf pear.tar.gz
+tar xzf pear.tar.gz
 pushd pear-pear-core-*
 ./build-release.sh
 
