@@ -10,7 +10,7 @@ if [ -n $GITHUB_TOKEN ]; then
 	auth_flag="-H 'Authorization: token $GITHUB_TOKEN'"
 fi
 
-tarball_url=$(curl -sSfL ${auth_flag} https://api.github.com/repos/pear/pear-core/releases/latest | jq -r .tarball_url)
+tarball_url=$(curl -sSfL "${auth_flag}" https://api.github.com/repos/pear/pear-core/releases/latest | jq -r .tarball_url)
 
 if [ -z $tarball_url ]; then
 	echo "Latest PEAR tarball not found"
