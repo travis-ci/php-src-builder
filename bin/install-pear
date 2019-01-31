@@ -3,7 +3,7 @@
 set send_slow {1 .1}
 set timeout -1
 
-spawn ./bin/compile-go-pear
+spawn $env(TRAVIS_BUILD_DIR)/bin/compile-go-pear
 expect EOF
 
 spawn ./bin/php go-pear.phar
