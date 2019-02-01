@@ -21,7 +21,7 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
-curl -fsSL -O http://pear.php.net/go-pear.phar
+curl -fsSL -O https://raw.githubusercontent.com/pear/pearweb_phars/v1.10.10/go-pear.phar
 env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
 "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
