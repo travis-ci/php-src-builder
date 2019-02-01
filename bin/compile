@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 function fetch_pear() {
-  set +o xtrace
   if [ -n $GITHUB_TOKEN ]; then
   	auth_flag="-H 'Authorization: token $GITHUB_TOKEN'"
   fi
@@ -13,7 +12,6 @@ function fetch_pear() {
   	echo "Latest PEAR tarball not found"
   	exit 1
   fi
-  set -o xtrace
 }
 
 set -o errexit
