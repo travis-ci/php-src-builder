@@ -3,15 +3,23 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
+function install_memcache() {
+	if [ $(lsb_release -cs) = 'precise' || $(lsb_release -cs) = 'trusty' ]; then
+		pushd /tmp
+		wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
+		tar xzf libmemcached-1.0.18.tar.gz
+		pushd libmemcached-1.0.18
+		./configure --prefix=$INSTALL_DEST/$VERSION && make && make install
+		popd
+		popd
+	else
+		sudo apt-get install memcached
+	fi
+}
+
 travis_time_start
 
-pushd /tmp
-wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
-tar xzf libmemcached-1.0.18.tar.gz
-pushd libmemcached-1.0.18
-./configure --prefix=$INSTALL_DEST/$VERSION && make && make install
-popd
-popd
+install_memcache
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 	pecl download memcached-3.1.2
