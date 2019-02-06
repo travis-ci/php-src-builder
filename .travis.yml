@@ -120,18 +120,20 @@ before_script:
 
 script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
-  - |
-    ./bin/compile &&
-    (yes '' | ./bin/compile-extension-redis) &&
-    (./bin/compile-extension-mongo;
-    ./bin/compile-extension-mongodb) &&
-    ./bin/compile-extension-amqp &&
-    ./bin/compile-extension-apcu &&
-    ./bin/compile-extension-zmq &&
-    (./bin/compile-extension-memcache;
-    ./bin/compile-extension-memcached) &&
-    ./bin/compile-extension-ssh2 &&
-    sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+  - ./bin/compile
+  - | # disable 3rd-party extension builds on master
+    if [[ ! $VERSION =~ ^master$ ]]; then
+      (yes '' | ./bin/compile-extension-redis) &&
+      (./bin/compile-extension-mongo;
+      ./bin/compile-extension-mongodb) &&
+      ./bin/compile-extension-amqp &&
+      ./bin/compile-extension-apcu &&
+      ./bin/compile-extension-zmq &&
+      (./bin/compile-extension-memcache;
+      ./bin/compile-extension-memcached) &&
+      ./bin/compile-extension-ssh2 &&
+      sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+    fi
 
 after_success:
   - ARTIFACTS_KEY='' ARTIFACTS_SECRET='' ARTIFACTS_BUCKET='' ARTIFACTS_PERMISSIONS='' $INSTALL_DEST/$VERSION/bin/php -i
