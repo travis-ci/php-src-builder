@@ -87,6 +87,7 @@ install:
     export PKG_CONFIG_PATH=$PWD:$PKG_CONFIG_PATH
   fi
 - ./bin/install-icu
+- export PKG_CONFIG_PATH=$ICU_INSTALL_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 - ./bin/install-libzip
 - ./bin/install-libsodium
 - ./bin/install-password-argon2
