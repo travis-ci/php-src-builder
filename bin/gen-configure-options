@@ -2,10 +2,6 @@ cat << END
 --enable-intl
 --with-openssl
 --without-pear
---with-gd
---with-jpeg-dir=/usr
---with-png-dir=/usr
---with-freetype-dir=/usr
 --enable-exif
 --enable-zip
 --with-zlib
@@ -52,8 +48,17 @@ fi
 if [[ $VERSION =~ ^5 || $VERSION =~ ^7\.[01] ]]; then
   echo "--with-mcrypt=/usr"
 fi
-if [[ $RELEASE == precise ]]; then
+if [[ $VERSION =~ ^5 || $VERSION =~ ^7\.[0123] ]]; then
+  echo "--with-gd"
+  echo "--with-png-dir=/usr"
+  echo "--with-freetype-dir=/usr"
+  echo "--with-jpeg-dir=/usr"
+else
+  echo "--enable-gd"
   echo "--with-freetype"
+  echo "--with-jpeg"
+fi
+if [[ $RELEASE == precise ]]; then
   echo "--with-inifile"
   echo "--with-ldap=shared"
 else
