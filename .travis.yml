@@ -86,12 +86,8 @@ install:
 - ./bin/install-libzip
 - ./bin/install-libsodium
 - ./bin/install-password-argon2
-- |
-  if [[ -f default_configure_options.$RELEASE-${VERSION%*.*} ]]; then
-    cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
-  else
-    cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
-  fi
+- ./bin/gen-configure-options > $HOME/.php-build/share/php-build/default_configure_options
+- cat extra_configure_options >> $HOME/.php-build/share/php-build/default_configure_options
 - | # disable xdebug on master
   if [[ $VERSION = master && $RELEASE != xenial ]]; then
     sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION

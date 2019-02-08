@@ -1,3 +1,4 @@
+cat << END
 --enable-intl
 --with-openssl
 --without-pear
@@ -37,7 +38,6 @@
 --enable-fpm
 --enable-maintainer-zts
 --with-gmp
---with-kerberos
 --with-imap
 --with-imap-ssl
 --with-kerberos
@@ -45,3 +45,18 @@
 --with-ldap-sasl
 --enable-dba
 --with-cdb
+END
+if [[ $VERSION =~ ^5 ]]; then
+  echo "--with-mysql=mysqlnd"
+fi
+if [[ $VERSION =~ ^5 || $VERSION =~ ^7\.[01] ]]; then
+  echo "--with-mcrypt=/usr"
+fi
+if [[ $RELEASE == precise ]]; then
+  echo "--with-freetype"
+  echo "--with-inifile"
+  echo "--with-ldap=shared"
+else
+  echo "--with-ldap"
+  echo "--with-kerberos"
+fi

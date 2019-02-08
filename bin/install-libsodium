@@ -20,5 +20,5 @@ make check
 make install
 popd
 
-# add the option in default_configure_options
-echo "--with-sodium=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
+# add the option in extra_configure_options
+echo "--with-sodium=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/extra_configure_options
