@@ -82,6 +82,10 @@ install:
 - git pull
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
+- | # older distros don't ship a libjpeg.pc, add our own to pkg-config path
+  if ! pkg-config --exists libjpeg; then
+    export PKG_CONFIG_PATH=$PWD:$PKG_CONFIG_PATH
+  fi
 - ./bin/install-icu
 - ./bin/install-libzip
 - ./bin/install-libsodium
