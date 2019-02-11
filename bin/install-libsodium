@@ -11,10 +11,10 @@ fi
 
 LIBSODIUM_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
 
-curl -sfSLO --retry 20 https://github.com/jedisct1/libsodium/releases/download/1.0.7/libsodium-1.0.7.tar.gz
-tar xzf libsodium-1.0.7.tar.gz
+git clone -b stable https://github.com/jedisct1/libsodium.git
+
 # compile
-pushd libsodium-1.0.7
+pushd libsodium
 ./configure --prefix=$LIBSODIUM_INSTALL_DIR
 make check
 make install
