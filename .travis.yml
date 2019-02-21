@@ -161,4 +161,5 @@ addons:
       - libcurl4-openssl-dev
       - libzip-dev
       - libgmp3-dev
+      - libonig-dev
       - expect
