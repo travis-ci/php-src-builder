@@ -86,6 +86,7 @@ install:
 - git pull
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
+- export PKG_CONFIG_PATH=$PWD:$PKG_CONFIG_PATH # older distros may not have necessary pkg-config files
 - ./bin/install-icu
 - ./bin/install-libzip
 - ./bin/install-libsodium
