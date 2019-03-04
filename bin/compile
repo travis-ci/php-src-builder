@@ -21,7 +21,7 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
-curl -fsSL -O http://pear.php.net/go-pear.phar
+curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
 
 env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
