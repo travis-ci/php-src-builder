@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+function fetch_pear() {
+  if [ -n $GITHUB_TOKEN ]; then
+  	auth_flag="-H 'Authorization: token $GITHUB_TOKEN'"
+  fi
+
+  latest_tag=$(curl -sSfL --retry 20 "${auth_flag}" https://api.github.com/repos/pear/pearweb_phars/releases/latest | jq -r .tag_name)
+  curl -sSfL "${auth_flag}" --retry 20 -O https://raw.githubusercontent.com/pear/pearweb_phars/${latest_tag}/go-pear.phar
+
+  if [ ! -f go-pear.phar ]; then
+  	echo "Latest PEAR tarball not found"
+  	exit 1
+  fi
+}
+
 set -o errexit
 
 if [[ ! $VERSION ]] ; then
@@ -21,7 +35,7 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 pushd "${INSTALL_DEST}/${VERSION}"
 
 # pear
-curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
+fetch_pear
 
 env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
