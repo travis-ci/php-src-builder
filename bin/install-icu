@@ -22,5 +22,5 @@ popd
 
 # PHP >= 7.4 exclusively uses pkg-config for ICU
 if [[ $VERSION =~ ^5 || $VERSION =~ 7\.[0123] ]]; then
-    echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
+    echo "--with-icu-dir=$ICU_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options
 fi
