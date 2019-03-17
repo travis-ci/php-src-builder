@@ -29,6 +29,8 @@ if [[ ! $VERSION =~ ^master$ ]]; then
   rm go-pear.phar
   "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
   "$INSTALL_DEST/$VERSION/bin/pear" config-set auto_discover 1
+
+  "$INSTALL_DEST/$VERSION/bin/pear" channel-update pear.php.net
 fi
 
 # php-fpm
