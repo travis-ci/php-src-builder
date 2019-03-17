@@ -33,6 +33,9 @@ if [[ ! $VERSION =~ ^master$ ]]; then
   "$INSTALL_DEST/$VERSION/bin/pear" channel-update pear.php.net
 fi
 
+# update default_cert_file
+wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
+
 # php-fpm
 ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
 
