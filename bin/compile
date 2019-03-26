@@ -22,7 +22,8 @@ pushd "${INSTALL_DEST}/${VERSION}"
 
 
 # update default_cert_file
-wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
+sudo mkdir -p /usr/local/ssl
+sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 
 
 # don't install pear on master (issue with php 8.0)
