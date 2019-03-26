@@ -10,7 +10,7 @@ sleep .1
 send -s -- "1\r"
 
 expect -re "Installation base (.*):"
-send -s -- "/home/travis/.phpenv/versions/$env(VERSION)\r"
+send -s -- "$env(HOME)/.phpenv/versions/$env(VERSION)\r"
 
 expect -re "1-\[0-9]+, 'all' or Enter to continue:"
 sleep .1

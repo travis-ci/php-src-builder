@@ -11,6 +11,8 @@ else
 	apcu=apcu
 fi
 
+pecl channel-update pecl.php.net
+
 echo | pecl_install $apcu
 
 travis_time_finish
