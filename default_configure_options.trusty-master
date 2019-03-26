@@ -34,7 +34,7 @@
 --enable-calendar
 --with-libdir=lib
 --enable-fpm
---enable-maintainer-zts
+--enable-zts
 --with-gmp
 --with-imap
 --with-imap-ssl
