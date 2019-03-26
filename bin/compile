@@ -20,13 +20,23 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
 pushd "${INSTALL_DEST}/${VERSION}"
 
-# pear
-curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
 
-env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
-rm go-pear.phar
-"$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
-"$INSTALL_DEST/$VERSION/bin/pear" config-set auto_discover 1
+# update default_cert_file
+wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
+
+
+# don't install pear on master (issue with php 8.0)
+# this could be a temp issue though
+if [[ ! $VERSION =~ ^master$ ]]; then
+  curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
+
+  env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
+  rm go-pear.phar
+  "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
+  "$INSTALL_DEST/$VERSION/bin/pear" config-set auto_discover 1
+
+  "$INSTALL_DEST/$VERSION/bin/pear" channel-update pear.php.net
+fi
 
 # php-fpm
 ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm

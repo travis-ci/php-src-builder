@@ -20,21 +20,22 @@ pushd cmake
 #install cmake specific to host architecture.
 if [[ $HOSTTYPE == "powerpc64le" ]]
 then
-        wget -O - https://cmake.org/files/v3.12/cmake-3.12.0.tar.gz | tar -xz --strip-components=1
+        wget -O - https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz | tar -xz --strip-components=1
         #compile cmake
         ./configure > /dev/null 2>&1 && make > /dev/null 2>&1 && sudo make install > /dev/null 2>&1
 else
-	wget -O - https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz | tar -xz --strip-components=1
+        wget https://github.com/Kitware/CMake/releases/download/v3.14.0/cmake-3.14.0-Linux-x86_64.sh
+        sudo sh cmake-3.14.0-Linux-x86_64.sh --prefix=/usr --skip-license
 fi
 popd
 
 # compile libzip
-git clone -b rel-1-5-1 https://github.com/nih-at/libzip.git
+git clone -b rel-1-5-2 https://github.com/nih-at/libzip.git
 pushd libzip
-../cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=$LIBZIP_INSTALL_DIR .
+cmake -DCMAKE_INSTALL_PREFIX=$LIBZIP_INSTALL_DIR .
 make
 make install
 popd
 
-# add the option in default_configure_options
-echo "--with-libzip=$LIBZIP_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/default_configure_options.${RELEASE}
+# add the option in custom_configure_options
+echo "--with-libzip=$LIBZIP_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options

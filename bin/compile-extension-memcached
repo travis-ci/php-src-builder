@@ -19,11 +19,11 @@ install_memcache
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
 	pecl download memcached-3.1.2
-	tar zxvf memcached*.tgz && pushd memcached*
+	tar zxvf memcached*.tgz && pushd memcached*/
 	make clean || true
 else
 	pecl download memcached-2.2.0
-	tar zxvf memcached*.tgz && pushd memcached*
+	tar zxvf memcached*.tgz && pushd memcached*/
 	make clean || true
 fi
 phpize
