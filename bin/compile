@@ -1,17 +1,39 @@
 #!/usr/bin/env bash
 
 function fetch_pear() {
+  set +o errexit
+  local tries max_tries
+
+  tries=1
+  max_tries=10
+  sleep_interval=180
+
   if [ -n $GITHUB_TOKEN ]; then
   	auth_flag="-H 'Authorization: token $GITHUB_TOKEN'"
   fi
 
-  latest_tag=$(curl -sSfL --retry 20 "${auth_flag}" https://api.github.com/repos/pear/pearweb_phars/releases/latest | jq -r .tag_name)
-  curl -sSfL "${auth_flag}" --retry 20 -O https://raw.githubusercontent.com/pear/pearweb_phars/${latest_tag}/go-pear.phar
+  while [[ $tries -le $max_tries ]]; do
+    echo "Try $tries of $max_tries"
+    latest_tag=$(curl -sSfL --retry 20 "${auth_flag}" https://api.github.com/repos/pear/pearweb_phars/releases/latest | jq -r .tag_name)
+    if [ -n $latest_tag ]; then
+      curl -sSfL "${auth_flag}" --retry 20 -O https://raw.githubusercontent.com/pear/pearweb_phars/${latest_tag}/go-pear.phar
+    fi
+
+    if [ -f go-pear.phar ]; then
+      break
+    fi
+    
+    let tries=$tries+1
+    echo "Failed to fetch the latest go-pear.phar. Sleeping for ${sleep_interval} seconds."
+    sleep $sleep_interval
+  done
+
 
   if [ ! -f go-pear.phar ]; then
   	echo "Latest PEAR tarball not found"
   	exit 1
   fi
+  set -o errexit
 }
 
 set -o errexit
@@ -43,7 +65,7 @@ sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
   # pear
   fetch_pear
-  
+
   env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
   rm go-pear.phar
   "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
