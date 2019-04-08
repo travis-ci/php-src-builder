@@ -3,6 +3,7 @@
 function fetch_pear() {
   set +o errexit
   local tries max_tries
+  version=$1
 
   tries=1
   max_tries=10
@@ -14,15 +15,16 @@ function fetch_pear() {
 
   while [[ $tries -le $max_tries ]]; do
     echo "Try $tries of $max_tries"
-    latest_tag=$(curl -sSfL --retry 20 "${auth_flag}" https://api.github.com/repos/pear/pearweb_phars/releases/latest | jq -r .tag_name)
-    if [ -n $latest_tag ]; then
-      curl -sSfL "${auth_flag}" --retry 20 -O https://raw.githubusercontent.com/pear/pearweb_phars/${latest_tag}/go-pear.phar
+    if [ -z $version ]; then
+      version=$(curl -sSfL --retry 20 "${auth_flag}" https://api.github.com/repos/pear/pearweb_phars/releases/latest | jq -r .tag_name)
     fi
+
+    curl -sSfL "${auth_flag}" --retry 20 -O https://raw.githubusercontent.com/pear/pearweb_phars/${version}/go-pear.phar
 
     if [ -f go-pear.phar ]; then
       break
     fi
-    
+
     let tries=$tries+1
     echo "Failed to fetch the latest go-pear.phar. Sleeping for ${sleep_interval} seconds."
     sleep $sleep_interval
@@ -64,7 +66,7 @@ sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 # this could be a temp issue though
 if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
   # pear
-  fetch_pear
+  fetch_pear 'v1.10.12'
 
   env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
   rm go-pear.phar
