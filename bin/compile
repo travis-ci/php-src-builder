@@ -66,7 +66,7 @@ sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 # this could be a temp issue though
 if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
   # pear
-  fetch_pear 'v1.10.12'
+  fetch_pear ${PEAR_VERSION:-'v1.10.12'}
 
   env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
   rm go-pear.phar
