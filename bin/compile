@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+function fetch_pear() {
+  if [ -n $GITHUB_TOKEN ]; then
+  	auth_flag="-H 'Authorization: token $GITHUB_TOKEN'"
+  fi
+
+  latest_tag=$(curl -sSfL --retry 20 "${auth_flag}" https://api.github.com/repos/pear/pearweb_phars/releases/latest | jq -r .tag_name)
+  curl -sSfL "${auth_flag}" --retry 20 -O https://raw.githubusercontent.com/pear/pearweb_phars/${latest_tag}/go-pear.phar
+
+  if [ ! -f go-pear.phar ]; then
+  	echo "Latest PEAR tarball not found"
+  	exit 1
+  fi
+}
+
 set -o errexit
 
 if [[ ! $VERSION ]] ; then
@@ -20,17 +34,16 @@ php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
 pushd "${INSTALL_DEST}/${VERSION}"
 
-
 # update default_cert_file
 sudo mkdir -p /usr/local/ssl
 sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 
-
-# don't install pear on master (issue with php 8.0)
+# don't install pear on master or snapshots (issue with php 8.0)
 # this could be a temp issue though
 if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
-  curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
-
+  # pear
+  fetch_pear
+  
   env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
   rm go-pear.phar
   "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
