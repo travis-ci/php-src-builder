@@ -84,6 +84,7 @@ install:
 - ./bin/install-libzip
 - ./bin/install-libsodium
 - ./bin/install-password-argon2
+- . ./bin/install-onig # sourced to export ONIG_LIBS
 - |
   if [[ -f default_configure_options.$RELEASE-${VERSION%*.*} ]]; then
     cp default_configure_options.$RELEASE-${VERSION%*.*} $HOME/.php-build/share/php-build/default_configure_options
@@ -155,5 +156,4 @@ addons:
       - libcurl4-openssl-dev
       - libzip-dev
       - libgmp3-dev
-      - libonig-dev
       - expect
