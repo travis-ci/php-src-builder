@@ -77,7 +77,7 @@ if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
 fi
 
 # php-fpm
-ln -sv sbin/php-fpm ../bin/php-fpm
+ln -sv ../sbin/php-fpm bin/php-fpm
 
 # composer and phpunit
 curl -fsSL -o bin/composer http://getcomposer.org/composer.phar
