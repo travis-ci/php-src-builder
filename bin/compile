@@ -77,7 +77,7 @@ if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
 fi
 
 # php-fpm
-ln -sv $PWD/sbin/php-fpm $PWD/bin/php-fpm
+ln -sv sbin/php-fpm ../bin/php-fpm
 
 # composer and phpunit
 curl -fsSL -o bin/composer http://getcomposer.org/composer.phar
@@ -107,7 +107,9 @@ xdebug.max_nesting_level = 256
 EOF
 
 if [ $ALIAS ]; then
-  ln -s ${INSTALL_DEST}/${VERSION} ${INSTALL_DEST}/${ALIAS}
+  pushd ${INSTALL_DEST}
+  ln -s ${VERSION} ${ALIAS}
+  popd
 fi
 
 pushd /tmp
