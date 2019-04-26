@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Keep using the bundled library on versions that have it
+if [[ ! $VERSION =~ ^7.4 && ! $VERSION =~ ^master$ ]]; then
+	echo 'PHP < 7.4 has bundled libonig, skip installation'
+    return 0
+fi
+
+mkdir onig
+pushd onig
+wget -O - https://github.com/kkos/oniguruma/releases/download/v6.9.1/onig-6.9.1.tar.gz \
+    | tar -xz --strip-components=1
+./configure
+make
+popd
+
+# Link against libonig statically
+export ONIG_CFLAGS="-I$PWD/onig/src"
+export ONIG_LIBS="-L$PWD/onig/src/.libs -l:libonig.a"
