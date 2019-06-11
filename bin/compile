@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Function currently not used, kept around in case we need to fetch a specific version due
+# to an upstream packaging issues.
 function fetch_pear() {
   set +o errexit
   local tries max_tries
@@ -66,19 +68,15 @@ pushd "${INSTALL_DEST}/${VERSION}"
 sudo mkdir -p /usr/local/ssl
 sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 
-# don't install pear on master or snapshots (issue with php 8.0)
-# this could be a temp issue though
-if [[ ! $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
-  # pear
-  fetch_pear ${PEAR_VERSION:-'v1.10.12'}
+# Fetch latest PEAR phar
+curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
 
-  env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
-  rm go-pear.phar
-  "$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
-  "$INSTALL_DEST/$VERSION/bin/pear" config-set auto_discover 1
+env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
+rm go-pear.phar
+"$INSTALL_DEST/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
+"$INSTALL_DEST/$VERSION/bin/pear" config-set auto_discover 1
 
-  "$INSTALL_DEST/$VERSION/bin/pear" channel-update pear.php.net
-fi
+"$INSTALL_DEST/$VERSION/bin/pear" channel-update pear.php.net
 
 # php-fpm
 ln -sv ../sbin/php-fpm bin/php-fpm
