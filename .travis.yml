@@ -6,7 +6,7 @@ matrix:
       group: dev
       env:
         - RELEASE=bionic
-      name: xenial
+      name: bionic
       php: '5.6'
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
