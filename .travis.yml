@@ -12,6 +12,8 @@ matrix:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
+        - sudo apt-get -y install libcurl4-openssl-dev
+        - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
