@@ -119,7 +119,7 @@ install:
     sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
   fi
 - |
-  if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" ]]; then
+  if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" || $(lsb_release -cs) = "bionic" ]]; then
     if [[ $HOSTTYPE == "powerpc64le" ]]; then
       sudo ln /usr/include/powerpc64le-linux-gnu/gmp.h /usr/include/gmp.h
       sudo ln -s /usr/lib/powerpc64le-linux-gnu/libldap_r-2.4.so.2 /usr/lib/libldap_r.so
