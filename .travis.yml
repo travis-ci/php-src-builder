@@ -3,6 +3,7 @@ language: php
 matrix:
   include:
     - dist: bionic
+      language: minimal
       group: dev
       env:
         - RELEASE=bionic
