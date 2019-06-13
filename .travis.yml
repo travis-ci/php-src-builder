@@ -108,6 +108,7 @@ install:
 - ./bin/install-libzip
 - ./bin/install-libsodium
 - ./bin/install-password-argon2
+- export PKG_CONFIG_PATH=$HOME/.phpenv/versions/$VERSION/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
 - . ./bin/install-onig # sourced to export ONIG_LIBS
 - MINOR_VERSION=`echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*$/\1/'` # Rewrites 7.2, 7.2snapshot, 7.2.13 => '7.2'. Leaves 'master' as-is
 - |
