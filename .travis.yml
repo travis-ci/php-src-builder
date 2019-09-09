@@ -1,6 +1,6 @@
 language: php
 
-matrix:
+jobs:
   include:
     - dist: bionic
       language: minimal

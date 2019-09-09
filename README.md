@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/travis-ci/php-src-builder.svg?branch=default)](https://travis-ci.org/travis-ci/php-src-builder)
+[![Build Status](https://travis-ci.com/travis-ci/php-src-builder.svg?branch=default)](https://travis-ci.com/travis-ci/php-src-builder)
 
 # php-src-builder
 Builds php/php-src with php-build, then uploads the archive to S3.
