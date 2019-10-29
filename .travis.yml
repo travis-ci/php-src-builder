@@ -127,6 +127,10 @@ install:
       sudo ln /usr/include/powerpc64le-linux-gnu/gmp.h /usr/include/gmp.h
       sudo ln -s /usr/lib/powerpc64le-linux-gnu/libldap_r-2.4.so.2 /usr/lib/libldap_r.so
       sudo ln -s /usr/lib/powerpc64le-linux-gnu/liblber-2.4.so.2 /usr/lib/liblber.so
+    elif [ $HOSTTYPE == "aarch64" ]; then
+      sudo ln /usr/include/aarch64-linux-gnu/gmp.h /usr/include/gmp.h
+      ln -s /usr/lib/aarch64-linux-gnu/libldap_r-2.4.so.2 /usr/lib/libldap_r.so
+      ln -s /usr/lib/aarch64-linux-gnu/liblber-2.4.so.2 /usr/lib/liblber.so
     else
       sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
       sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
