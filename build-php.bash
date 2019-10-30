@@ -77,7 +77,7 @@ build(){
   echo "ARCH: $ARCH"
   echo "INSTALL_DEST: $INSTALL_DEST"
 
-  cat $HOME/.php-build/share/php-build/default_configure_options
+  #cat $HOME/.php-build/share/php-build/default_configure_options
   ./bin/compile
   # disable 3rd-party extension builds on master
   if [[ ! $VERSION =~ ^master$ ]]; then
