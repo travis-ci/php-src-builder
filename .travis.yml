@@ -1,4 +1,7 @@
 language: minimal
+arch: arm64
+os: linux
+dist: xenial
 
 env:
   global:
