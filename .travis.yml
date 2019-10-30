@@ -16,7 +16,8 @@ install:
 before_script:
 
 script:
-  - bash build-php.bash
+  - '__dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &'
+  - 'bash build-php.bash &> /dev/null'
 
 after_success:
   - ARTIFACTS_KEY='' ARTIFACTS_SECRET='' ARTIFACTS_BUCKET='' ARTIFACTS_PERMISSIONS='' GITHUB_TOKEN='' $INSTALL_DEST/$VERSION/bin/php -i
