@@ -1,5 +1,7 @@
 language: minimal
-arch: arm64
+arch: 
+  - arm64
+  - amd64
 os: linux
 dist: xenial
 
