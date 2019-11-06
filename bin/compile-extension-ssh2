@@ -8,7 +8,7 @@ travis_time_start
 sudo apt-get install libssh2-1-dev
 
 if [[ $VERSION =~ ^7\.[012] ]]; then
-	pecl_install ssh2-alpha </dev/null
+	pecl_install ssh2-1.1.2 </dev/null
 elif [[ $VERSION =~ ^master$ || $VERSION =~ ^7 ]]; then
 	echo "ssh2 is not compatible with $VERSION"
 	# it's not yet compatible with master
