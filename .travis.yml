@@ -101,7 +101,7 @@ jobs:
       dist: bionic
       language: minimal
       env:
-        - RELEASE=bionic
+        - RELEASE=bionic-s390x
       name: bionic-s390x
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
@@ -123,7 +123,7 @@ jobs:
       group: edge
       language: minimal
       env:
-        - RELEASE=xenial
+        - RELEASE=xenial-s390x
       name: xenial-s390x
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
@@ -140,7 +140,49 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-
+    - arch: arm64
+      dist: bionic
+      language: minimal
+      env:
+        - RELEASE=bionic
+      name: bionic-arm64
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
+    - arch: arm64
+      dist: xenial
+      group: edge
+      language: minimal
+      env:
+        - RELEASE=xenial
+      name: xenial-arm64
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
 env:
   global:
   - VERSION=master ALIAS=nightly
