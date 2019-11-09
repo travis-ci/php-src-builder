@@ -68,6 +68,9 @@ pushd "${INSTALL_DEST}/${VERSION}"
 sudo mkdir -p /usr/local/ssl
 sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 
+# bigger memory limit before install-pear
+sed -i 's/memory_limit = 128M/memory_limit = 512M/g' ${INSTALL_DEST}/${VERSION}/etc/php.ini
+
 # Fetch latest PEAR phar
 curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
 
