@@ -18,7 +18,7 @@ sudo apt-get purge $(dpkg -l | awk '/^ii/ && /libzip/ {print $2}' | cut -f1 -d:)
 mkdir cmake
 pushd cmake
 #install cmake specific to host architecture.
-if [[ $HOSTTYPE == "powerpc64le" ]]
+if [[ $HOSTTYPE == "powerpc64le" || $HOSTTYPE == "s390x"|| $HOSTTYPE == "aarch64" ]]
 then
         wget -O - https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz | tar -xz --strip-components=1
         #compile cmake
