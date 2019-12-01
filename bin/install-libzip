@@ -39,3 +39,4 @@ popd
 
 # add the option in custom_configure_options
 echo "--with-libzip=$LIBZIP_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options
+echo "--enable-zip" >> $TRAVIS_BUILD_DIR/custom_configure_options
