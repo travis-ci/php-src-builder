@@ -213,7 +213,7 @@ install:
 - export PKG_CONFIG_PATH=$ICU_INSTALL_DIR/lib/pkgconfig:$PKG_CONFIG_PATH
 - touch custom_configure_options
 - ./bin/install-libzip
-#- ./bin/install-libsodium
+- ./bin/install-libsodium
 - ./bin/install-password-argon2
 - . ./bin/install-onig # sourced to export ONIG_LIBS
 - MINOR_VERSION=`echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*$/\1/'` # Rewrites 7.2, 7.2snapshot, 7.2.13 => '7.2'. Leaves 'master' as-is
