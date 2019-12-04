@@ -50,6 +50,7 @@ jobs:
 
     - services:
         - docker
+      dist: trusty
       env:
         - RELEASE=trusty
       name: trusty
