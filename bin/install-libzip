@@ -38,7 +38,7 @@ make install
 popd
 
 # add the option in custom_configure_options
-if [[ "$(printf "7.3\n$VERSION" | sort -V | head -n1)" < "7.4" ]]; then
+if [[ "$(printf "7.4\n$VERSION" | sort -V | head -n1)" < "7.4" ]]; then
 	echo "--with-libzip=$LIBZIP_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options
 else
 	echo "--with-zip=$LIBZIP_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options
