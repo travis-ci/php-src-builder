@@ -252,6 +252,8 @@ before_script:
 
 script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
+  - cat .env
+  - source ./.env
   - ./bin/compile
   - | # disable 3rd-party extension builds on master
     if [[ ! $VERSION =~ ^master$ ]]; then
