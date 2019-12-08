@@ -252,6 +252,7 @@ before_script:
 
 script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
+  - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
   - ./bin/compile
   - | # disable 3rd-party extension builds on master
     if [[ ! $VERSION =~ ^master$ ]]; then
