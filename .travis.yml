@@ -102,7 +102,7 @@ jobs:
       dist: bionic
       language: minimal
       env:
-        - RELEASE=bionic-s390x
+        - RELEASE=bionic
       name: bionic-s390x
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
@@ -124,7 +124,7 @@ jobs:
       group: edge
       language: minimal
       env:
-        - RELEASE=xenial-s390x
+        - RELEASE=xenial
       name: xenial-s390x
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
