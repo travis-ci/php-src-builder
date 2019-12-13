@@ -21,4 +21,8 @@ make install
 popd
 
 # add the option in custom_configure_options
-echo "--with-sodium=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options
+if [[ ! $VERSION =~ ^master$ ]] && [[ "$(printf "7.4\n$VERSION" | sort -V | head -n1)" < "7.4" ]]; then
+	echo "--with-sodium=$LIBSODIUM_INSTALL_DIR" >> $TRAVIS_BUILD_DIR/custom_configure_options
+else
+	echo "--with-sodium" >> $TRAVIS_BUILD_DIR/custom_configure_options
+fi
