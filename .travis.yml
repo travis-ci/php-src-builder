@@ -55,6 +55,7 @@ jobs:
         - RELEASE=trusty
       name: trusty
       php: '5.6'
+      if: env(VERSION) =~ /^7\.[0-3]/
     - arch: ppc64le
       dist: bionic
       language: minimal
