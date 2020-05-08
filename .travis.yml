@@ -26,6 +26,7 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
+      if: !(env(VERSION) =~ /^7\.[23]/)
     - dist: bionic
       language: minimal
       group: dev
