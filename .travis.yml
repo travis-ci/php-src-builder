@@ -227,9 +227,9 @@ install:
 - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
 - eval "$($HOME/.phpenv/bin/phpenv init -)"
 - pushd $HOME/.php-build
-- git reset --hard HEAD
-- git checkout master
-- git pull
+- git remote add patch https://github.com/BanzaiMan/php-build.git
+- git fetch patch
+- git checkout patch/patch-2
 - popd
 - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
 - | # older distros don't ship a libjpeg.pc, add our own to pkg-config path
