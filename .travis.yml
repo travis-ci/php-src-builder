@@ -3,7 +3,7 @@ language: php
 jobs:
   include:
     - dist: focal
-      language: minimal
+      language: __ubuntu_2004__
       group: dev
       env:
         - RELEASE=focal
