@@ -14,7 +14,6 @@
 --with-xsl
 --enable-ftp
 --with-tidy
---with-xmlrpc
 --enable-sysvsem
 --enable-sysvshm
 --enable-sysvmsg
