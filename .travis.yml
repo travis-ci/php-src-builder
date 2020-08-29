@@ -316,10 +316,6 @@ install:
     cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
   fi
 - cat custom_configure_options >> $HOME/.php-build/share/php-build/default_configure_options
-- | # disable xdebug on master
-  if [[ $VERSION = master && $RELEASE != xenial ]]; then
-    sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
-  fi
 - |
   if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" || $(lsb_release -cs) = "bionic" ]]; then
     if [[ $HOSTTYPE == "powerpc64le" ]]; then
