@@ -60,7 +60,11 @@ set -o xtrace
 
 export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
-php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
+if [[ $VERSION == nightly* || $VERSION == master* ]]; then
+    php-build -i development "${VERSION}"
+else
+    php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
+fi
 
 pushd "${INSTALL_DEST}/${VERSION}"
 
