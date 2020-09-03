@@ -60,12 +60,11 @@ set -o xtrace
 
 export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
-buildDefinition=${VERSION}
 if [[ $VERSION == nightly* || $VERSION == master* ]]; then
-    buildDefinition=8.0snapshot
+    VERSION=8.0snapshot
 fi
 
-php-build -i development "${buildDefinition}" "${INSTALL_DEST}/${VERSION}"
+php-build -i development "${VERSION}" "${INSTALL_DEST}/${VERSION}"
 
 pushd "${INSTALL_DEST}/${VERSION}"
 
@@ -88,7 +87,7 @@ ln -sv ../sbin/php-fpm bin/php-fpm
 
 # composer and phpunit
 curl -fsSL -o bin/composer http://getcomposer.org/composer.phar
-if [[ $VERSION == nightly* || $VERSION == master* || $VERSION == 7* ]]; then
+if [[ $VERSION == nightly* || $VERSION == master* || $VERSION == 7* || $VERSION == 8.0snapshot ]]; then
 	PHPUNIT_ARCHIVE=phpunit.phar
 elif [[ $VERSION == 5.6* ]]; then
 	PHPUNIT_ARCHIVE=phpunit-5.7.phar
