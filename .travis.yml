@@ -3,7 +3,7 @@ language: php
 jobs:
   include:
     - dist: focal
-      language: minimal
+      language: __ubuntu_2004__
       group: dev
       env:
         - RELEASE=focal
@@ -82,6 +82,27 @@ jobs:
       php: '5.6'
       if: env(VERSION) =~ /^7\.[0-3]/
     - arch: ppc64le
+      dist: focal
+      language: minimal
+      env:
+        - RELEASE=focal
+      name: focal-ppc64le
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
+    - arch: ppc64le
       dist: bionic
       language: minimal
       env:
@@ -124,6 +145,28 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
+    - arch: s390x
+      dist: focal
+      language: minimal
+      env:
+        - RELEASE=focal
+      name: focal-s390x
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
+        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: s390x
       dist: bionic
       language: minimal
@@ -169,7 +212,28 @@ jobs:
             fi
           fi
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
-    - arch: arm64
+    - arch: arm64-graviton2
+      dist: focal
+      language: minimal
+      env:
+        - RELEASE=focal
+      name: focal-arm64
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+        - sudo apt-get update
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
+        - |
+          if ! command -v phpenv; then
+            pushd $HOME
+            curl -L http://git.io/phpenv-installer | bash
+            popd
+            export PHPENV_ROOT="/home/travis/.phpenv"
+            if [ -d "${PHPENV_ROOT}" ]; then
+              export PATH="${PHPENV_ROOT}/bin:${PATH}"
+              eval "$(phpenv init -)"
+            fi
+          fi
+    - arch: arm64-graviton2
       dist: bionic
       language: minimal
       env:
@@ -252,10 +316,6 @@ install:
     cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
   fi
 - cat custom_configure_options >> $HOME/.php-build/share/php-build/default_configure_options
-- | # disable xdebug on master
-  if [[ $VERSION = master && $RELEASE != xenial ]]; then
-    sed -i -e '/install_xdebug_master/d' $HOME/.php-build/share/php-build/definitions/$VERSION
-  fi
 - |
   if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" || $(lsb_release -cs) = "bionic" ]]; then
     if [[ $HOSTTYPE == "powerpc64le" ]]; then
