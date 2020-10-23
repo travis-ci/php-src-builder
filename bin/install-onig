@@ -8,7 +8,7 @@ fi
 
 mkdir onig
 pushd onig
-wget -O - https://github.com/kkos/oniguruma/releases/download/v6.9.1/onig-6.9.1.tar.gz \
+wget -O - https://github.com/kkos/oniguruma/releases/download/v6.9.5/onig-6.9.5.tar.gz \
     | tar -xz --strip-components=1
 ./configure
 make
