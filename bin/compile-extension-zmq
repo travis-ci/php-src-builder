@@ -10,7 +10,7 @@ pushd php-zmq
 
 sudo apt-get install libzmq3-dev
 
-if [[ $VERSION =~ ^7 || $VERSION =~ ^master$ ]]; then
+if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
 	git checkout php7
 	phpize
 	./configure && make && make install
