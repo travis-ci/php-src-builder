@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Keep using the bundled library on versions that have it
-if [[ ! $VERSION =~ ^7.4 && ! $VERSION =~ ^master$ ]]; then
+if [[ ! $VERSION =~ ^7.4 && ! $VERSION =~ ^8.0 && ! $VERSION =~ ^master$ ]]; then
 	echo 'PHP < 7.4 has bundled libonig, skip installation'
     return 0
 fi
