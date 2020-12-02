@@ -5,13 +5,12 @@ source $(dirname $0)/compile-extensions-common
 
 travis_time_start
 
-git clone https://github.com/mkoppanen/php-zmq.git
+git clone https://github.com/zeromq/php-zmq.git
 pushd php-zmq
 
 sudo apt-get install libzmq3-dev
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
-	git checkout php7
 	phpize
 	./configure && make && make install
 else
