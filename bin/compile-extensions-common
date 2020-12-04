@@ -33,7 +33,7 @@ function pecl_install() {
     if [ $return = 0 ] || [ -f "$(pecl config-get ext_dir)/${extension}.so" ]; then
         echo "Extension ${extension} was already installed for PHP ${VERSION}."
     elif [ $return = 1 ]; then
-        pecl install -q ${extension} | tee ${extension}-install.log
+        pecl install ${extension} | tee ${extension}-install.log
         if (tail -1 ${extension}-install.log | grep failed); then
           echo "There was an error installing extension ${extension} for PHP ${VERSION}:"
           echo "$result"
