@@ -26,7 +26,7 @@ matrix:
 
 env:
   global:
-  - VERSION=8.2snapshot
+  - VERSION=8.1snapshot
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
