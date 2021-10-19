@@ -8,15 +8,15 @@ matrix:
       env:
         - RELEASE=trusty
     - sudo: required
-      dist: bionic
+      dist: precise
       group: edge
       env:
-        - RELEASE=bionic
-    - sudo: required
+        - RELEASE=precise
+    - sudo: xenial
       dist: focal
       group: edge
       env:
-        - RELEASE=focal
+        - RELEASE=xenial
   allow_failures:
     - sudo: required
       services:
