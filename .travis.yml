@@ -6,14 +6,14 @@ matrix:
       services:
         - docker
       env:
-        - RELEASE=trusty
+        - RELEASE=xenial
     - sudo: required
-      dist: precise
+      dist: trusty
       group: edge
       env:
-        - RELEASE=precise
-    - sudo: xenial
-      dist: focal
+        - RELEASE=trusty
+    - sudo: required
+      dist: xenial
       group: edge
       env:
         - RELEASE=xenial
@@ -22,7 +22,7 @@ matrix:
       services:
         - docker
       env:
-        - RELEASE=trusty
+        - RELEASE=xenial
 
 env:
   global:
