@@ -8,10 +8,15 @@ matrix:
       env:
         - RELEASE=trusty
     - sudo: required
-      dist: precise
+      dist: bionic
       group: edge
       env:
-        - RELEASE=precise
+        - RELEASE=bionic
+    - sudo: required
+      dist: focal
+      group: edge
+      env:
+        - RELEASE=focal
   allow_failures:
     - sudo: required
       services:
@@ -21,7 +26,7 @@ matrix:
 
 env:
   global:
-  - VERSION=5.3.29
+  - VERSION=8.2snapshot
 
 install:
 - cp $HOME/.php-build/share/php-build/default_configure_options $HOME
