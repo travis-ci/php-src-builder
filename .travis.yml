@@ -340,6 +340,7 @@ before_script:
 
 script:
   - sudo apt-get install -y php-dev
+  - sudo apt-get install -y libargon2-0-dev
   - echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
