@@ -339,6 +339,7 @@ before_script:
 - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
 script:
+  - sudo apt-get install -y php-dev
   - echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
