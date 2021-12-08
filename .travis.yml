@@ -13,7 +13,7 @@ jobs:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev
-        - if [[ $VERSION =~ ^8.1 ]]; then sudo apt-get -y argon2 libargon2-0 libargon2-0-dev; fi
+        - if [[ $VERSION =~ ^8.1 ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
         - |
@@ -39,7 +39,7 @@ jobs:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
         - sudo apt-get -y install libcurl4-openssl-dev
-        - if [[ $VERSION =~ ^8.1 ]]; then sudo apt-get -y argon2 libargon2-0 libargon2-0-dev; fi
+        - if [[ $VERSION =~ ^8.1 ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
         - |
@@ -62,7 +62,7 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - if [[ $VERSION =~ ^8.1 ]]; then sudo apt-get -y argon2 libargon2-0 libargon2-0-dev; fi
+        - if [[ $VERSION =~ ^8.1 ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev; fi
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
