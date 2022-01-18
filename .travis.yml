@@ -381,4 +381,3 @@ addons:
       - libzip-dev
       - libgmp3-dev
       - expect
-      - libsodium-devel
