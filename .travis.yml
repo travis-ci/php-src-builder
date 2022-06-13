@@ -3,7 +3,7 @@ language: php
 jobs:
   include:
     - dist: jammy
-      language: __ubuntu_2204__
+      language: minimal
       group: dev
       env:
         - RELEASE=jammy
