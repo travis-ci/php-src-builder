@@ -109,27 +109,27 @@ jobs:
       name: trusty
       php: '5.6'
       if: env(VERSION) =~ /^7\.[0-3]/
-    - arch: ppc64le
-      dist: jammy
-      language: minimal
-      env:
-        - RELEASE=jammy
-      name: jammy-ppc64le
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
+#     - arch: ppc64le
+#       dist: jammy
+#       language: minimal
+#       env:
+#         - RELEASE=jammy
+#       name: jammy-ppc64le
+#       before_install:
+#         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+#         - sudo apt-get update
+#         - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
+#         - |
+#           if ! command -v phpenv; then
+#             pushd $HOME
+#             curl -L http://git.io/phpenv-installer | bash
+#             popd
+#             export PHPENV_ROOT="/home/travis/.phpenv"
+#             if [ -d "${PHPENV_ROOT}" ]; then
+#               export PATH="${PHPENV_ROOT}/bin:${PATH}"
+#               eval "$(phpenv init -)"
+#             fi
+#           fi
     - arch: ppc64le
       dist: focal
       language: minimal
@@ -194,28 +194,28 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-    - arch: s390x
-      dist: jammy
-      language: minimal
-      env:
-        - RELEASE=jammy
-      name: jammy-s390x
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
+#     - arch: s390x
+#       dist: jammy
+#       language: minimal
+#       env:
+#         - RELEASE=jammy
+#       name: jammy-s390x
+#       before_install:
+#         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+#         - sudo apt-get update
+#         - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c
+#         - |
+#           if ! command -v phpenv; then
+#             pushd $HOME
+#             curl -L http://git.io/phpenv-installer | bash
+#             popd
+#             export PHPENV_ROOT="/home/travis/.phpenv"
+#             if [ -d "${PHPENV_ROOT}" ]; then
+#               export PATH="${PHPENV_ROOT}/bin:${PATH}"
+#               eval "$(phpenv init -)"
+#             fi
+#           fi
+#        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: s390x
       dist: focal
       language: minimal
