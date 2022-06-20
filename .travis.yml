@@ -215,7 +215,7 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-       - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
+        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: s390x
       dist: focal
       language: minimal
