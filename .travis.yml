@@ -27,7 +27,7 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-      if: env(VERSION) !~ /^8\.[12]/
+
     - dist: focal
       language: __ubuntu_2004__
       group: dev
