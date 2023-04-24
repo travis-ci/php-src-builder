@@ -27,7 +27,6 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-
     - dist: focal
       language: __ubuntu_2004__
       group: dev
@@ -203,7 +202,7 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev php-dev libmcrypt-dev expect re2c
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libonig-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev php-dev libmcrypt-dev expect re2c
         - |
           if ! command -v phpenv; then
             pushd $HOME
@@ -283,7 +282,7 @@ jobs:
             fi
           fi
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
-    - arch: arm64-graviton2
+    - arch: arm64
       dist: jammy
       language: minimal
       env:
