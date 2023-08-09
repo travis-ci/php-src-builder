@@ -87,7 +87,7 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
+        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install php-dev libonig-dev; fi
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
