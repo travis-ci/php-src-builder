@@ -91,7 +91,7 @@ rm go-pear.phar
 ln -sv ../sbin/php-fpm bin/php-fpm
 
 # composer and phpunit
-curl -fsSL -o $INSTALL_DEST/$VERSION/bin/composer http://getcomposer.org/composer.phar
+wget -O $INSTALL_DEST/$VERSION/bin/composer http://getcomposer.org/composer.phar
 if [[ $VERSION == nightly* || $VERSION == master* || $VERSION == 7* || $VERSION == 8* ]]; then
 	PHPUNIT_ARCHIVE=phpunit.phar
 elif [[ $VERSION == 5.6* ]]; then
