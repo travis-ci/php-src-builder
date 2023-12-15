@@ -63,7 +63,7 @@ export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 buildDefinition=${VERSION}
 if [[ $VERSION == nightly* || $VERSION == master* ]]; then
   if [[ $RELEASE == jammy ]]; then
-    buildDefinition=8.1snapshot
+    buildDefinition=8.3snapshot
   else
     buildDefinition=8.0snapshot
   fi
@@ -105,7 +105,7 @@ chmod +x bin/composer bin/phpunit
 
 popd
 
-mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
+sudo mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
 
 cat > "${INSTALL_DEST}/${VERSION}/etc/conf.d/travis.ini" <<EOF
 memory_limit = 1G

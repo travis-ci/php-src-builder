@@ -13,7 +13,7 @@ elif [[ $VERSION =~ ^master$ || $VERSION =~ ^7 || $VERSION =~ ^8 ]]; then
 	echo "ssh2 is not compatible with $VERSION"
 	# it's not yet compatible with master
 else
-	pecl_install ssh2-0.13 </dev/null
+	pecl_install ssh2-1.14 </dev/null
 fi
 
 travis_time_finish

@@ -6,12 +6,12 @@ source $(dirname $0)/compile-extensions-common
 travis_time_start
 
 if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^8 && ! $VERSION =~ ^master$ ]]; then
-	apcu=apcu-4.0.11
+	apcu=apcu-5.1.23
 else
 	apcu=apcu
 fi
 
-pecl channel-update pecl.php.net
+sudo pecl channel-update pecl.php.net
 
 echo | pecl_install $apcu
 

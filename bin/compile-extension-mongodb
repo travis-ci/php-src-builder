@@ -12,10 +12,10 @@ if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
 	phpize
 	./configure
 	make  all
-	make install
+	sudo make install
 	popd
 else
-	pecl_install mongodb
+	no | pecl_install mongodb
 fi
 
 travis_time_finish
