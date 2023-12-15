@@ -3,7 +3,7 @@ language: php
 jobs:
   include:
     - dist: jammy
-      group: stable
+      group: minimal
       env:
         - RELEASE=jammy
       name: jammy
@@ -26,7 +26,6 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-        # test
     - dist: focal
       language: minimal
       group: stable
@@ -428,7 +427,7 @@ script:
   - echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
-  - ./bin/compile
+  - sudo ./bin/compile
   - | # disable 3rd-party extension builds on master
     if [[ $VERSION =~ ^7.3.* ]]; then
       (yes '' | ./bin/compile-extension-redis) &&
