@@ -127,6 +127,6 @@ pushd /tmp
 
 phpenv local "${VERSION}"
 phpenv rehash
-$INSTALL_DEST/$VERSION/bin/composer http://getcomposer.org/composer.phar self-update
+sudo -u travis composer self-update
 
 popd
