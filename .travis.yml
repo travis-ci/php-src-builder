@@ -434,6 +434,7 @@ script:
       (./bin/compile-extension-mongo) &&
       ./bin/compile-extension-amqp &&
       ./bin/compile-extension-apcu &&
+      ./bin/compile-extension-pcov &&
       ./bin/compile-extension-zmq &&
       (./bin/compile-extension-memcache;
       ./bin/compile-extension-memcached) &&

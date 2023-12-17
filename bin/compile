@@ -117,6 +117,10 @@ pdo_mysql.default_socket = /var/run/mysqld/mysqld.sock
 xdebug.max_nesting_level = 256
 EOF
 
+cat >> "${INSTALL_DEST}/${VERSION}/etc/conf.d/pcov.ini" <<EOF
+pcov.enabled=0
+EOF
+
 if [ $ALIAS ]; then
   pushd ${INSTALL_DEST}
   ln -s ${VERSION} ${ALIAS}
