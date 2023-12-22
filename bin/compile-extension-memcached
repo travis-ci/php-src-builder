@@ -18,7 +18,7 @@ travis_time_start
 install_memcache
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
-	pecl download memcached-3.1.2
+	pecl download memcached-3.2.0
 	tar zxvf memcached*.tgz && pushd memcached*/
 	make clean || true
 else
