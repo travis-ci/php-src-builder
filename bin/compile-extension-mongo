@@ -10,7 +10,7 @@ if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^8 && ! $VERSION =~ ^master$ ]]; then
 	pushd mongo-php-driver-legacy
 	git checkout 1.6.16
 	phpize
-	./configure && make && make install
+	./configure && make && sudo make install
 	popd
 fi
 

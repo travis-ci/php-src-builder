@@ -17,7 +17,7 @@ git clone -b stable https://github.com/jedisct1/libsodium.git
 pushd libsodium
 ./configure --prefix=$LIBSODIUM_INSTALL_DIR
 make check
-make install
+sudo make install
 popd
 
 # add the option in custom_configure_options

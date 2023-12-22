@@ -17,7 +17,7 @@ pushd icu/source
 make
 # remove $ICU_RELEASE so that we have a prestine installation of icu there
 rm -rf $ICU_INSTALL_DIR
-make install
+sudo make install
 popd
 
 # PHP >= 7.4 exclusively uses pkg-config for ICU
