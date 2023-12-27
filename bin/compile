@@ -105,7 +105,7 @@ chmod +x /usr/local/bin/composer bin/phpunit
 
 popd
 
-mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
+sudo mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
 
 cat > "${INSTALL_DEST}/${VERSION}/etc/conf.d/travis.ini" <<EOF
 memory_limit = 1G
