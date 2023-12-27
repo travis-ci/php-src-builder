@@ -21,11 +21,13 @@ if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
 	pecl download memcached-3.2.0
 	tar zxvf memcached*.tgz && pushd memcached*/
 	make clean || true
+	ls -al
 else
 	pecl download memcached-2.2.0
 	tar zxvf memcached*.tgz && pushd memcached*/
 	make clean || true
 fi
+ls -al
 phpize
 ./configure --with-libmemcached-dir=$INSTALL_DEST/$VERSION && make && sudo make install
 popd
