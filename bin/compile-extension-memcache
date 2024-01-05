@@ -10,7 +10,7 @@ if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^8 && ! $VERSION =~ ^master$ ]]; then
 	tar zxvf memcache*.tgz && pushd memcache*/
 	make clean || true
 	phpize
-	./configure && make && sudo make install
+	./configure && make && make install
 	popd
 fi
 

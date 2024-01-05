@@ -11,7 +11,7 @@ else
 	apcu=apcu
 fi
 
-sudo pecl channel-update pecl.php.net
+pecl channel-update pecl.php.net
 
 echo | pecl_install $apcu
 

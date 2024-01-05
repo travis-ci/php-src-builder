@@ -10,7 +10,7 @@ if [[ $VERSION =~ ^8 || $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
 	pushd phpredis
 	# git checkout php7
 	phpize
-	./configure && make && sudo make install || exit 1
+	./configure && make && make install || exit 1
 	popd
 elif [[ $VERSION =~ ^7 ]]; then
 	pecl_install redis

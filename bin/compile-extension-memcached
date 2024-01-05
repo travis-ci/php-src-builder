@@ -8,7 +8,7 @@ function install_memcache() {
 	wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 	tar xzf libmemcached-1.0.18.tar.gz
 	pushd libmemcached-1.0.18
-	./configure --prefix=$INSTALL_DEST/$VERSION && make && sudo make install
+	./configure --prefix=$INSTALL_DEST/$VERSION && make && make install
 	popd
 	popd
 }
@@ -27,7 +27,7 @@ else
 	make clean || true
 fi
 phpize
-./configure --with-libmemcached-dir=$INSTALL_DEST/$VERSION && make && sudo make install
+./configure --with-libmemcached-dir=$INSTALL_DEST/$VERSION && make && make install
 popd
 
 travis_time_finish

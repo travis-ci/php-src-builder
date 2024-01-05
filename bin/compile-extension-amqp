@@ -11,7 +11,7 @@ git clone https://github.com/alanxz/rabbitmq-c.git
 pushd rabbitmq-c
 git submodule init
 git submodule update
-autoreconf -i && ./configure --prefix $INSTALL_DEST/$VERSION && make && sudo make install
+autoreconf -i && ./configure --prefix $INSTALL_DEST/$VERSION && make && make install
 
 popd
 
@@ -19,7 +19,7 @@ git clone https://github.com/pdezwart/php-amqp.git
 pushd php-amqp
 
 phpize
-./configure && make && sudo make install
+./configure && make && make install
 popd
 
 travis_time_finish

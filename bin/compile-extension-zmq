@@ -12,7 +12,7 @@ sudo apt-get install libzmq3-dev
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
 	phpize
-	./configure && make && sudo make install
+	./configure && make && make install
 else
 	if [[ $(lsb_release -cs) == precise ]]; then
 		sudo -E add-apt-repository -y ppa:travis-ci/zero-mq
@@ -20,7 +20,7 @@ else
 	fi
 	git checkout 1.1.2
 	phpize
-	./configure && make && sudo make install
+	./configure && make && make install
 fi
 
 popd
