@@ -431,25 +431,25 @@ script:
   - | # disable 3rd-party extension builds on master
     if [[ $VERSION =~ ^7.3.* ]]; then
       (yes '' | sudo ./bin/compile-extension-redis) &&
-      (sudo ./bin/compile-extension-mongo) &&
-      sudo ./bin/compile-extension-amqp &&
-      sudo ./bin/compile-extension-apcu &&
-      sudo ./bin/compile-extension-zmq &&
-      (sudo ./bin/compile-extension-memcache;
-      sudo ./bin/compile-extension-memcached) &&
-      sudo ./bin/compile-extension-ssh2 &&
+      (./bin/compile-extension-mongo) &&
+      ./bin/compile-extension-amqp &&
+      ./bin/compile-extension-apcu &&
+      ./bin/compile-extension-zmq &&
+      (./bin/compile-extension-memcache;
+      ./bin/compile-extension-memcached) &&
+      ./bin/compile-extension-ssh2 &&
       sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
     else 
       if [[ ! $VERSION =~ ^master$ ]]; then
-        (yes '' | sudo ./bin/compile-extension-redis) &&
-        (sudo ./bin/compile-extension-mongo;
-        sudo ./bin/compile-extension-mongodb) &&
-        sudo ./bin/compile-extension-amqp &&
-        sudo ./bin/compile-extension-apcu &&
-        sudo ./bin/compile-extension-zmq &&
-        (sudo ./bin/compile-extension-memcache;
-        sudo ./bin/compile-extension-memcached) &&
-        sudo ./bin/compile-extension-ssh2 &&
+        (yes '' | ./bin/compile-extension-redis) &&
+        (./bin/compile-extension-mongo;
+        ./bin/compile-extension-mongodb) &&
+        ./bin/compile-extension-amqp &&
+        ./bin/compile-extension-apcu &&
+        ./bin/compile-extension-zmq &&
+        (./bin/compile-extension-memcache;
+        ./bin/compile-extension-memcached) &&
+        ./bin/compile-extension-ssh2 &&
         sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
       fi
     fi
