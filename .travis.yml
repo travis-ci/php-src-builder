@@ -438,7 +438,7 @@ script:
       (./bin/compile-extension-memcache;
       ./bin/compile-extension-memcached) &&
       ./bin/compile-extension-ssh2 &&
-      sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+      sudo sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
     else 
       if [[ ! $VERSION =~ ^master$ ]]; then
         (yes '' | ./bin/compile-extension-redis) &&
@@ -450,7 +450,7 @@ script:
         (./bin/compile-extension-memcache;
         ./bin/compile-extension-memcached) &&
         ./bin/compile-extension-ssh2 &&
-        sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+        sudo sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
       fi
     fi
 
