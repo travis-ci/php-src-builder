@@ -127,6 +127,6 @@ pushd /tmp
 
 phpenv local "${VERSION}"
 phpenv rehash
-composer self-update
+# composer self-update
 
 popd
