@@ -428,7 +428,6 @@ script:
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
   - sudo ./bin/compile
-  - composer self-update
   - | # disable 3rd-party extension builds on master
     if [[ $VERSION =~ ^7.3.* ]]; then
       (yes '' | sudo ./bin/compile-extension-redis) &&
