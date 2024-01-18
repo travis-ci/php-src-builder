@@ -5,17 +5,23 @@ source $(dirname $0)/compile-extensions-common
 
 travis_time_start
 
-if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
-	git clone https://github.com/mongodb/mongo-php-driver.git
-	pushd mongo-php-driver
-	git submodule update --init
-	phpize
-	./configure
-	make  all
-	make install
-	popd
+dist=$(lsb_release -cs)
+if [[ "${dist}" = "focal" || "${dist}" = "jammy" ]]; then
+	if [[ $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
+		git clone https://github.com/mongodb/mongo-php-driver.git
+		pushd mongo-php-driver
+		git submodule update --init
+		phpize
+		./configure
+		make  all
+		make install
+		popd
+	else
+		pecl channel-update pecl.php.net
+		no | pecl_install mongodb
+	fi
 else
-	pecl_install mongodb
+echo "MongoDB missing for PHP older than 7.4, tip set php at least 7.4 after installing php-dev"
 fi
 
 travis_time_finish

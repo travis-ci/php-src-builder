@@ -3,8 +3,6 @@ language: php
 jobs:
   include:
     - dist: jammy
-      language: minimal
-      group: dev
       env:
         - RELEASE=jammy
       name: jammy
@@ -12,14 +10,14 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
+        - sudo apt-get -y install libcurl4-openssl-dev php-dev libicu-dev php-pear php
+        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 libargon2-0 php-pear libargon2-0-dev php-dev libonig-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -28,23 +26,21 @@ jobs:
             fi
           fi
     - dist: focal
-      language: __ubuntu_2004__
-      group: dev
       env:
         - RELEASE=focal
       name: focal
-      php: "5.6"
+      php: "7.4"
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
+        - sudo apt-get -y install libcurl4-openssl-dev php-pear php-dev libicu-dev
+        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 php-pear libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -52,25 +48,23 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-      if: env(VERSION) !~ /^7\.[23]/
     - dist: bionic
-      language: minimal
-      group: dev
+      group: stable
+      php: "7.4"
       env:
         - RELEASE=bionic
       name: bionic
-      php: "5.6"
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
+        - sudo apt-get -y install libcurl4-openssl-dev php-pear php-dev libicu-dev
+        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 php-pear libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -79,19 +73,21 @@ jobs:
             fi
           fi
     - dist: xenial
-      group: edge
+      group: stable
       env:
         - RELEASE=xenial
       name: xenial
-      php: "5.6"
+      php: "7.4"
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
+        - sudo apt-get install -y libicu-dev
+        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install php-pear php-dev libonig-dev build-essential; fi
         - command -v expect || sudo apt-get install expect
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -100,14 +96,6 @@ jobs:
             fi
           fi
 
-    - services:
-        - docker
-      dist: trusty
-      env:
-        - RELEASE=trusty
-      name: trusty
-      php: "5.6"
-      if: env(VERSION) =~ /^7\.[0-3]/
     - arch: ppc64le
       dist: jammy
       language: minimal
@@ -121,7 +109,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -142,7 +130,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -163,7 +151,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -181,11 +169,11 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -206,7 +194,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -228,7 +216,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -250,7 +238,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -269,11 +257,11 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -295,7 +283,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -316,7 +304,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -337,7 +325,7 @@ jobs:
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -355,11 +343,11 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
         - |
           if ! command -v phpenv; then
             pushd $HOME
-            curl -L http://git.io/phpenv-installer | bash
+            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
             popd
             export PHPENV_ROOT="/home/travis/.phpenv"
             if [ -d "${PHPENV_ROOT}" ]; then
@@ -370,7 +358,7 @@ jobs:
 env:
   global:
     - VERSION=master ALIAS=nightly
-    - ICU_RELEASE=59.1
+    - ICU_RELEASE=74.2
     - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
     - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
@@ -379,6 +367,7 @@ before_install:
 
 install:
   - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
+  - ~/.php-build/install-dependencies.sh
   - rm -rf $HOME/.phpenv
   - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
   - eval "$($HOME/.phpenv/bin/phpenv init -)"
@@ -397,7 +386,7 @@ install:
   - touch custom_configure_options
   - ./bin/install-libzip
   - ./bin/install-libsodium
-  - ./bin/install-password-argon2
+  - sudo ./bin/install-password-argon2
   - . ./bin/install-onig # sourced to export ONIG_LIBS
   - MINOR_VERSION=`echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*$/\1/'` # Rewrites 7.2, 7.2snapshot, 7.2.13 => '7.2'. Leaves 'master' as-is
   - |
@@ -423,6 +412,7 @@ install:
     fi
 
 before_script:
+  - "export COMPOSER_ALLOW_SUPERUSER=1"
   - "export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}"
   - 'export OS_NAME=${OS_NAME:-$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")}'
   - "export ARCH=${ARCH:-$(uname -m)}"
@@ -435,10 +425,9 @@ script:
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
   - ./bin/compile
   - | # disable 3rd-party extension builds on master
-    if [[ ! $VERSION =~ ^master$ ]]; then
+    if [[ $VERSION =~ ^7.3.* ]]; then
       (yes '' | ./bin/compile-extension-redis) &&
-      (./bin/compile-extension-mongo;
-      ./bin/compile-extension-mongodb) &&
+      (./bin/compile-extension-mongo) &&
       ./bin/compile-extension-amqp &&
       ./bin/compile-extension-apcu &&
       ./bin/compile-extension-zmq &&
@@ -446,6 +435,19 @@ script:
       ./bin/compile-extension-memcached) &&
       ./bin/compile-extension-ssh2 &&
       sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+    else 
+      if [[ ! $VERSION =~ ^master$ ]]; then
+        (yes '' | ./bin/compile-extension-redis) &&
+        (./bin/compile-extension-mongo;
+        ./bin/compile-extension-mongodb) &&
+        ./bin/compile-extension-amqp &&
+        ./bin/compile-extension-apcu &&
+        ./bin/compile-extension-zmq &&
+        (./bin/compile-extension-memcache;
+        ./bin/compile-extension-memcached) &&
+        ./bin/compile-extension-ssh2 &&
+        sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+      fi
     fi
 
 after_success:

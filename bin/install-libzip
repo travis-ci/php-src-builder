@@ -22,7 +22,7 @@ if [[ $HOSTTYPE == "powerpc64le" || $HOSTTYPE == "s390x"|| $HOSTTYPE == "aarch64
 then
         wget -O - https://cmake.org/files/v3.14/cmake-3.14.0.tar.gz | tar -xz --strip-components=1
         #compile cmake
-        ./configure > /dev/null 2>&1 && make > /dev/null 2>&1 && sudo make install > /dev/null 2>&1
+        ./configure > /dev/null 2>&1 && make > /dev/null 2>&1 && make install > /dev/null 2>&1
 else
         wget https://github.com/Kitware/CMake/releases/download/v3.14.0/cmake-3.14.0-Linux-x86_64.sh
         sudo sh cmake-3.14.0-Linux-x86_64.sh --prefix=/usr --skip-license
