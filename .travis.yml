@@ -1,5 +1,7 @@
 language: php
-
+before_install:
+  - sudo apt-get update && sudo apt-get install -y php-pear autoconf bison build-essential curl gettext git libgd-dev libcurl4-openssl-dev libedit-dev libicu-dev libjpeg-dev libmysqlclient-dev libonig-dev libpng-dev libpq-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libzip-dev openssl pkg-config re2c zlib1g-dev php-dev
+  - php -f test.php || true
 jobs:
   include:
     - dist: jammy
@@ -7,354 +9,282 @@ jobs:
         - RELEASE=jammy
       name: jammy
       php: "8.1"
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev php-dev libicu-dev php-pear php
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 libargon2-0 php-pear libargon2-0-dev php-dev libonig-dev; fi
-        - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
-        - command -v expect || sudo apt-get install expect
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
     - dist: focal
       env:
         - RELEASE=focal
       name: focal
       php: "7.4"
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev php-pear php-dev libicu-dev
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 php-pear libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
-        - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
-        - command -v expect || sudo apt-get install expect
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
     - dist: bionic
       group: stable
       php: "7.4"
       env:
         - RELEASE=bionic
       name: bionic
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev php-pear php-dev libicu-dev
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 php-pear libargon2-0 libargon2-0-dev php-dev libonig-dev; fi
-        - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
-        - command -v expect || sudo apt-get install expect
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
     - dist: xenial
       group: stable
       env:
         - RELEASE=xenial
       name: xenial
       php: "7.4"
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get install -y libicu-dev
-        - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install php-pear php-dev libonig-dev build-essential; fi
-        - command -v expect || sudo apt-get install expect
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-
-    - arch: ppc64le
-      dist: jammy
-      language: minimal
-      env:
-        - RELEASE=jammy
-      name: jammy-ppc64le
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev php-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: ppc64le
-      dist: focal
-      language: minimal
-      env:
-        - RELEASE=focal
-      name: focal-ppc64le
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: ppc64le
-      dist: bionic
-      language: minimal
-      env:
-        - RELEASE=bionic
-      name: bionic-ppc64le
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: ppc64le
-      dist: xenial
-      group: edge
-      language: minimal
-      env:
-        - RELEASE=xenial
-      name: xenial-ppc64le
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: s390x
-      dist: jammy
-      language: minimal
-      env:
-        - RELEASE=jammy
-      name: jammy-s390x
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libonig-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev php-dev libmcrypt-dev expect re2c
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
-    - arch: s390x
-      dist: focal
-      language: minimal
-      env:
-        - RELEASE=focal
-      name: focal-s390x
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
-    - arch: s390x
-      dist: bionic
-      language: minimal
-      env:
-        - RELEASE=bionic
-      name: bionic-s390x
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
-    - arch: s390x
-      dist: xenial
-      group: edge
-      language: minimal
-      env:
-        - RELEASE=xenial
-      name: xenial-s390x
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-        - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
-    - arch: arm64
-      dist: jammy
-      language: minimal
-      env:
-        - RELEASE=jammy
-      name: jammy-arm64
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev libonig-dev php-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: arm64-graviton2
-      dist: focal
-      language: minimal
-      env:
-        - RELEASE=focal
-      name: focal-arm64
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: arm64-graviton2
-      dist: bionic
-      language: minimal
-      env:
-        - RELEASE=bionic
-      name: bionic-arm64
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
-    - arch: arm64
-      dist: xenial
-      group: edge
-      language: minimal
-      env:
-        - RELEASE=xenial
-      name: xenial-arm64
-      before_install:
-        - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-        - sudo apt-get update
-        - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
-        - |
-          if ! command -v phpenv; then
-            pushd $HOME
-            curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-            popd
-            export PHPENV_ROOT="/home/travis/.phpenv"
-            if [ -d "${PHPENV_ROOT}" ]; then
-              export PATH="${PHPENV_ROOT}/bin:${PATH}"
-              eval "$(phpenv init -)"
-            fi
-          fi
+    # - arch: ppc64le
+    #   dist: jammy
+    #   language: minimal
+    #   env:
+    #     - RELEASE=jammy
+    #   name: jammy-ppc64le
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev php-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: ppc64le
+    #   dist: focal
+    #   language: minimal
+    #   env:
+    #     - RELEASE=focal
+    #   name: focal-ppc64le
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: ppc64le
+    #   dist: bionic
+    #   language: minimal
+    #   env:
+    #     - RELEASE=bionic
+    #   name: bionic-ppc64le
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: ppc64le
+    #   dist: xenial
+    #   group: edge
+    #   language: minimal
+    #   env:
+    #     - RELEASE=xenial
+    #   name: xenial-ppc64le
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: s390x
+    #   dist: jammy
+    #   language: minimal
+    #   env:
+    #     - RELEASE=jammy
+    #   name: jammy-s390x
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libonig-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev php-dev libmcrypt-dev expect re2c
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    #     - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
+    # - arch: s390x
+    #   dist: focal
+    #   language: minimal
+    #   env:
+    #     - RELEASE=focal
+    #   name: focal-s390x
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    #     - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
+    # - arch: s390x
+    #   dist: bionic
+    #   language: minimal
+    #   env:
+    #     - RELEASE=bionic
+    #   name: bionic-s390x
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    #     - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
+    # - arch: s390x
+    #   dist: xenial
+    #   group: edge
+    #   language: minimal
+    #   env:
+    #     - RELEASE=xenial
+    #   name: xenial-s390x
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    #     - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
+    # - arch: arm64
+    #   dist: jammy
+    #   language: minimal
+    #   env:
+    #     - RELEASE=jammy
+    #   name: jammy-arm64
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev libonig-dev php-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: arm64
+    #   dist: focal
+    #   language: minimal
+    #   env:
+    #     - RELEASE=focal
+    #   name: focal-arm64
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: arm64
+    #   dist: bionic
+    #   language: minimal
+    #   env:
+    #     - RELEASE=bionic
+    #   name: bionic-arm64
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
+    # - arch: arm64
+    #   dist: xenial
+    #   group: edge
+    #   language: minimal
+    #   env:
+    #     - RELEASE=xenial
+    #   name: xenial-arm64
+    #   before_install:
+    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
+    #     - sudo apt-get update
+    #     - sudo apt-get -y -q=2 --no-install-recommends --no-install-suggests  install libtidy-dev libxml2-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libxpm-dev libmysqlclient-dev libpq-dev libicu-dev libfreetype6-dev libldap2-dev libxslt-dev libssl-dev libldb-dev libc-client-dev libkrb5-dev libonig-dev libsasl2-dev libmcrypt-dev expect re2c libffi-dev
+    #     - |
+    #       if ! command -v phpenv; then
+    #         pushd $HOME
+    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
+    #         popd
+    #         export PHPENV_ROOT="/home/travis/.phpenv"
+    #         if [ -d "${PHPENV_ROOT}" ]; then
+    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
+    #           eval "$(phpenv init -)"
+    #         fi
+    #       fi
 env:
   global:
     - VERSION=master ALIAS=nightly
@@ -362,20 +292,7 @@ env:
     - ICU_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
     - PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
-before_install:
-  - php -f test.php || true
-
 install:
-  - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
-  - ~/.php-build/install-dependencies.sh
-  - rm -rf $HOME/.phpenv
-  - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
-  - eval "$($HOME/.phpenv/bin/phpenv init -)"
-  - pushd $HOME/.php-build
-  - git reset --hard HEAD
-  - git checkout master
-  - git pull
-  - popd
   - if [[ $RELEASE != precise ]]; then unset ICU_RELEASE; fi # disable ICU installation for Trusty; see https://github.com/travis-ci/travis-ci/issues/3616#issuecomment-286302387
   - | # older distros don't ship a libjpeg.pc, add our own to pkg-config path
     if ! pkg-config --exists libjpeg libsasl2; then
@@ -389,66 +306,66 @@ install:
   - sudo ./bin/install-password-argon2
   - . ./bin/install-onig # sourced to export ONIG_LIBS
   - MINOR_VERSION=`echo $VERSION | sed -E 's/^([0-9]+\.[0-9]+).*$/\1/'` # Rewrites 7.2, 7.2snapshot, 7.2.13 => '7.2'. Leaves 'master' as-is
-  - |
-    if [[ -f default_configure_options.$RELEASE-$MINOR_VERSION ]]; then
-      cp default_configure_options.$RELEASE-$MINOR_VERSION $HOME/.php-build/share/php-build/default_configure_options
-    else
-      cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
-    fi
-  - cat custom_configure_options >> $HOME/.php-build/share/php-build/default_configure_options
-  - |
-    if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" || $(lsb_release -cs) = "bionic" ]]; then
-      if [[ $HOSTTYPE == "powerpc64le" ]]; then
-        sudo ln /usr/include/powerpc64le-linux-gnu/gmp.h /usr/include/gmp.h
-        sudo ln -s /usr/lib/powerpc64le-linux-gnu/libldap_r-2.4.so.2 /usr/lib/libldap_r.so
-        sudo ln -s /usr/lib/powerpc64le-linux-gnu/liblber-2.4.so.2 /usr/lib/liblber.so
-      else
-        sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
-        sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
-        sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
-        sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.a /usr/lib/libldap.a
-        sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
-      fi
-    fi
+  # - |
+  #   if [[ -f default_configure_options.$RELEASE-$MINOR_VERSION ]]; then
+  #     cp default_configure_options.$RELEASE-$MINOR_VERSION $HOME/.php-build/share/php-build/default_configure_options
+  #   else
+  #     cp default_configure_options.$RELEASE $HOME/.php-build/share/php-build/default_configure_options
+  #   fi
+  # - cat custom_configure_options >> $HOME/.php-build/share/php-build/default_configure_options
+  # - |
+  #   if [[ $(lsb_release -cs) = "trusty" || $(lsb_release -cs) = "xenial" || $(lsb_release -cs) = "bionic" ]]; then
+  #     if [[ $HOSTTYPE == "powerpc64le" ]]; then
+  #       sudo ln /usr/include/powerpc64le-linux-gnu/gmp.h /usr/include/gmp.h
+  #       sudo ln -s /usr/lib/powerpc64le-linux-gnu/libldap_r-2.4.so.2 /usr/lib/libldap_r.so
+  #       sudo ln -s /usr/lib/powerpc64le-linux-gnu/liblber-2.4.so.2 /usr/lib/liblber.so
+  #     else
+  #       sudo ln /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
+  #       sudo ln -s /usr/lib/x86_64-linux-gnu/libldap_r.so /usr/lib/libldap_r.so
+  #       sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/libldap.so
+  #       sudo ln -s /usr/lib/x86_64-linux-gnu/libldap.a /usr/lib/libldap.a
+  #       sudo ln -s /usr/lib/x86_64-linux-gnu/liblber.so /usr/lib/liblber.so
+  #     fi
+  #   fi
 
 before_script:
   - "export COMPOSER_ALLOW_SUPERUSER=1"
   - "export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}"
   - 'export OS_NAME=${OS_NAME:-$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")}'
   - "export ARCH=${ARCH:-$(uname -m)}"
-  - "export INSTALL_DEST=${INSTALL_DEST:-$HOME/.phpenv/versions}"
+  - "export INSTALL_DEST=${INSTALL_DEST:-$HOME/.asdf/installs/php}"
   - __dots() { while true ; do echo -en . ; sleep 30 ; done } ; __dots &
 
 script:
-  - echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
-  - cat $HOME/.php-build/share/php-build/default_configure_options
+  #- echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
+  # - cat $HOME/.php-build/share/php-build/default_configure_options
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
   - ./bin/compile
-  - | # disable 3rd-party extension builds on master
-    if [[ $VERSION =~ ^7.3.* ]]; then
-      (yes '' | ./bin/compile-extension-redis) &&
-      (./bin/compile-extension-mongo) &&
-      ./bin/compile-extension-amqp &&
-      ./bin/compile-extension-apcu &&
-      ./bin/compile-extension-zmq &&
-      (./bin/compile-extension-memcache;
-      ./bin/compile-extension-memcached) &&
-      ./bin/compile-extension-ssh2 &&
-      sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
-    else 
-      if [[ ! $VERSION =~ ^master$ ]]; then
-        (yes '' | ./bin/compile-extension-redis) &&
-        (./bin/compile-extension-mongo;
-        ./bin/compile-extension-mongodb) &&
-        ./bin/compile-extension-amqp &&
-        ./bin/compile-extension-apcu &&
-        ./bin/compile-extension-zmq &&
-        (./bin/compile-extension-memcache;
-        ./bin/compile-extension-memcached) &&
-        ./bin/compile-extension-ssh2 &&
-        sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
-      fi
-    fi
+  # - | # disable 3rd-party extension builds on master
+  #   if [[ $VERSION =~ ^7.3.* ]]; then
+  #     (yes '' | ./bin/compile-extension-redis) &&
+  #     (./bin/compile-extension-mongo) &&
+  #     ./bin/compile-extension-amqp &&
+  #     ./bin/compile-extension-apcu &&
+  #     ./bin/compile-extension-zmq &&
+  #     (./bin/compile-extension-memcache;
+  #     ./bin/compile-extension-memcached) &&
+  #     ./bin/compile-extension-ssh2 &&
+  #     sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+  #   else 
+  #     if [[ ! $VERSION =~ ^master$ ]]; then
+  #       (yes '' | ./bin/compile-extension-redis) &&
+  #       (./bin/compile-extension-mongo;
+  #       ./bin/compile-extension-mongodb) &&
+  #       ./bin/compile-extension-amqp &&
+  #       ./bin/compile-extension-apcu &&
+  #       ./bin/compile-extension-zmq &&
+  #       (./bin/compile-extension-memcache;
+  #       ./bin/compile-extension-memcached) &&
+  #       ./bin/compile-extension-ssh2 &&
+  #       sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
+  #     fi
+  #   fi
 
 after_success:
   - ARTIFACTS_KEY='' ARTIFACTS_SECRET='' ARTIFACTS_BUCKET='' ARTIFACTS_PERMISSIONS='' GITHUB_TOKEN='' $INSTALL_DEST/$VERSION/bin/php -i

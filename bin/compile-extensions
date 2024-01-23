@@ -2,8 +2,11 @@
 
 set -o xtrace
 
-source /etc/profile.d/phpenv.sh
-phpenv global ${VERSION}
+# source /etc/profile.d/phpenv.sh
+# phpenv global ${VERSION}
+
+source $HOME/.asdf/completions/asdf.bash
+asdf global php ${VERSION}
 
 source $(dirname $0)/compile-extensions-common
 

@@ -3,6 +3,9 @@ set -o xtrace
 set -o errexit
 source $(dirname $0)/compile-extensions-common
 
+source ~/.asdf/asdf.sh
+asdf global php ${VERSION}
+
 travis_time_start
 
 dist=$(lsb_release -cs)
