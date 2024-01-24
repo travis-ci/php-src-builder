@@ -9,7 +9,7 @@ if [[ ! $VERSION =~ ^master$ ]] && [[ "$(printf "7.2\n$VERSION" | sort -V | head
 	exit 0
 fi
 
-LIBSODIUM_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
+LIBSODIUM_INSTALL_DIR=$HOME/.asdf/installs/php/$VERSION
 
 git clone -b stable https://github.com/jedisct1/libsodium.git
 
