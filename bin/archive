@@ -23,7 +23,7 @@ else
   DEST_VERSION="php-${VERSION}"
 fi
 
-TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$VERSION"
+TAR_PATHS="$TAR_PATHS /home/travis/.phpenv/versions/$VERSION"
 DESTS="$TRAVIS_BUILD_DIR/$LSB_RELEASE/${DEST_VERSION}.tar.bz2"
 
 if [[ $ALIAS ]] ; then
@@ -32,7 +32,7 @@ if [[ $ALIAS ]] ; then
   else
     LONG_ALIAS="php-${ALIAS}"
   fi
-  TAR_PATHS="$TAR_PATHS $INSTALL_DEST/$ALIAS"
+  TAR_PATHS="$TAR_PATHS /home/travis/.phpenv/versions/$ALIAS"
   DESTS="$DESTS $TRAVIS_BUILD_DIR/$LSB_RELEASE/${LONG_ALIAS}.tar.bz2"
 fi
 
