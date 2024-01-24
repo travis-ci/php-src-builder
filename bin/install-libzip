@@ -9,7 +9,7 @@ if [[ ! $VERSION =~ ^master$ ]] && [[ "$(printf "7.3\n$VERSION" | sort -V | head
 	exit 0
 fi
 
-LIBZIP_INSTALL_DIR=$HOME/.phpenv/versions/$VERSION
+LIBZIP_INSTALL_DIR=$HOME/.asdf/installs/php/$VERSION
 
 # uninstall system-wide zip packages
 sudo apt-get purge $(dpkg -l | awk '/^ii/ && /libzip/ {print $2}' | cut -f1 -d:)
