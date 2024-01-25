@@ -3,14 +3,14 @@
 set send_slow {1 .1}
 set timeout -1
 
-spawn ./bin/php go-pear.phar
+spawn /home/travis/.asdf/installs/php/$env(VERSION)/bin/php go-pear.phar
 
 expect -re "1-\[0-9]+, 'all' or Enter to continue:"
 sleep .1
 send -s -- "1\r"
 
 expect -re "Installation base (.*):"
-send -s -- "$env(HOME)/.phpenv/versions/$env(VERSION)\r"
+send -s -- "$env(HOME)/.asdf/installs/php/$env(VERSION)\r"
 
 expect -re "1-\[0-9]+, 'all' or Enter to continue:"
 sleep .1
