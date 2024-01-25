@@ -63,7 +63,7 @@ export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 buildDefinition=${VERSION}
 if [[ $VERSION == nightly* || $VERSION == master* ]]; then
   if [[ $RELEASE == jammy ]]; then
-    buildDefinition=8.1snapshot
+    buildDefinition=8.3snapshot
   else
     buildDefinition=8.0snapshot
   fi
