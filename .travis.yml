@@ -98,7 +98,7 @@ jobs:
 
     - arch: ppc64le
       dist: jammy
-      language: minimal
+      php: "8.2"
       env:
         - RELEASE=jammy
       name: jammy-ppc64le
@@ -119,7 +119,7 @@ jobs:
           fi
     - arch: ppc64le
       dist: focal
-      language: minimal
+      php: "7.4"
       env:
         - RELEASE=focal
       name: focal-ppc64le
@@ -140,7 +140,7 @@ jobs:
           fi
     - arch: ppc64le
       dist: bionic
-      language: minimal
+      php: "7.4"
       env:
         - RELEASE=bionic
       name: bionic-ppc64le
@@ -161,8 +161,7 @@ jobs:
           fi
     - arch: ppc64le
       dist: xenial
-      group: edge
-      language: minimal
+      php: "7.4"
       env:
         - RELEASE=xenial
       name: xenial-ppc64le
@@ -183,7 +182,7 @@ jobs:
           fi
     - arch: s390x
       dist: jammy
-      language: minimal
+      php: "8.2"
       env:
         - RELEASE=jammy
       name: jammy-s390x
@@ -205,7 +204,7 @@ jobs:
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: s390x
       dist: focal
-      language: minimal
+      php: "7.4"
       env:
         - RELEASE=focal
       name: focal-s390x
@@ -227,7 +226,7 @@ jobs:
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: s390x
       dist: bionic
-      language: minimal
+      php: "7.4"
       env:
         - RELEASE=bionic
       name: bionic-s390x
@@ -249,8 +248,7 @@ jobs:
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: s390x
       dist: xenial
-      group: edge
-      language: minimal
+      php: "7.4"
       env:
         - RELEASE=xenial
       name: xenial-s390x
@@ -272,6 +270,7 @@ jobs:
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: arm64
       dist: jammy
+      php: "8.2"
       env:
         - RELEASE=jammy
       name: jammy-arm64
@@ -292,6 +291,7 @@ jobs:
           fi
     - arch: arm64
       dist: focal
+      php: "7.4"
       env:
         - RELEASE=focal
       name: focal-arm64
@@ -312,6 +312,7 @@ jobs:
           fi
     - arch: arm64
       dist: bionic
+      php: "7.4"
       env:
         - RELEASE=bionic
       name: bionic-arm64
@@ -332,6 +333,7 @@ jobs:
           fi
     - arch: arm64
       dist: xenial
+      php: "7.4"
       env:
         - RELEASE=xenial
       name: xenial-arm64
