@@ -291,7 +291,7 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-    - arch: arm64-graviton2
+    - arch: arm64
       dist: focal
       language: minimal
       env:
@@ -312,7 +312,7 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-    - arch: arm64-graviton2
+    - arch: arm64
       dist: bionic
       language: minimal
       env:
