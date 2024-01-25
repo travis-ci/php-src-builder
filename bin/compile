@@ -88,10 +88,10 @@ curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
 
 env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
-"/home/travis/.phpenv/versions/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
-"/home/travis/.phpenv/versions/$VERSION/bin/pear" config-set auto_discover 1
+"/home/travis/.asdf/installs/php/$VERSION/bin/pear" config-set php_ini "$INSTALL_DEST/$VERSION/etc/php.ini" system
+"/home/travis/.asdf/installs/php/$VERSION/bin/pear" config-set auto_discover 1
 
-"/home/travis/.phpenv/versions/$VERSION/bin/pear" channel-update pear.php.net
+"/home/travis/.asdf/installs/php/$VERSION/bin/pear" channel-update pear.php.net
 
 # php-fpm
 ln -sv ../sbin/php-fpm bin/php-fpm
