@@ -272,7 +272,6 @@ jobs:
         - 'echo "--without-pcre-jit" >> $TRAVIS_BUILD_DIR/custom_configure_options'
     - arch: arm64
       dist: jammy
-      language: minimal
       env:
         - RELEASE=jammy
       name: jammy-arm64
@@ -293,7 +292,6 @@ jobs:
           fi
     - arch: arm64
       dist: focal
-      language: minimal
       env:
         - RELEASE=focal
       name: focal-arm64
@@ -314,7 +312,6 @@ jobs:
           fi
     - arch: arm64
       dist: bionic
-      language: minimal
       env:
         - RELEASE=bionic
       name: bionic-arm64
@@ -335,8 +332,6 @@ jobs:
           fi
     - arch: arm64
       dist: xenial
-      group: edge
-      language: minimal
       env:
         - RELEASE=xenial
       name: xenial-arm64
