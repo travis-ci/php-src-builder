@@ -58,6 +58,8 @@ fi
 
 set -o xtrace
 
+export PATH="$HOME/.asdf/bin:$HOME/.php-build/bin:$PATH"
+
 # export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
 # buildDefinition=${VERSION}
@@ -85,6 +87,7 @@ sudo wget -O /usr/local/ssl/cert.pem https://curl.haxx.se/ca/cacert.pem
 
 # Fetch latest PEAR phar
 curl -fsSL --retry 20 -O http://pear.php.net/go-pear.phar
+ls -al
 
 env TZ=UTC $TRAVIS_BUILD_DIR/bin/install-pear
 rm go-pear.phar
@@ -109,7 +112,7 @@ ln -sv ../sbin/php-fpm bin/php-fpm
 
 # chmod +x bin/composer bin/phpunit
 
-# popd
+popd
 
 mkdir -p "${INSTALL_DEST}/${VERSION}/etc/conf.d"
 
