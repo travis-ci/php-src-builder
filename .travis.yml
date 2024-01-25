@@ -341,7 +341,7 @@ before_script:
 script:
   #- echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
   # - cat $HOME/.php-build/share/php-build/default_configure_options
-  - export PKG_CONFIG_PATH="$HOME/.asdf/installs/php/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
+  #- export PKG_CONFIG_PATH="$HOME/.asdf/installs/php/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
   - ./bin/compile
   # - | # disable 3rd-party extension builds on master
   #   if [[ $VERSION =~ ^7.3.* ]]; then
