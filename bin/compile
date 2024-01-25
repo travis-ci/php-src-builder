@@ -73,6 +73,8 @@ export PATH="$HOME/.asdf/bin:$HOME/.php-build/bin:$PATH"
 
 # php-build -i development "${buildDefinition}" "${INSTALL_DEST}/${VERSION}"
 
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+export ASDF_DIR=~/.asdf
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
 asdf plugin-add php https://github.com/asdf-community/asdf-php.git
