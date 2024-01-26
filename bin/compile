@@ -60,13 +60,10 @@ set -o xtrace
 
 export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 
+# Build the latest available binary version (if Xenial fails to build that he can just go away :/)
 buildDefinition=${VERSION}
 if [[ $VERSION == nightly* || $VERSION == master* ]]; then
-  if [[ $RELEASE == jammy ]]; then
-    buildDefinition=8.3snapshot
-  else
-    buildDefinition=8.0snapshot
-  fi
+  buildDefinition=8.4snapshot
 fi
 
 php-build -i development "${buildDefinition}" "${INSTALL_DEST}/${VERSION}"
