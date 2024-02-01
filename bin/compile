@@ -63,7 +63,7 @@ export PATH="$HOME/.phpenv/bin:$HOME/.php-build/bin:$PATH"
 # Build the latest available binary version (if Xenial fails to build that he can just go away :/)
 buildDefinition=${VERSION}
 if [[ $VERSION == nightly* || $VERSION == master* ]]; then
-  buildDefinition=8.4snapshot
+  buildDefinition=8.3snapshot
 fi
 
 php-build -i development "${buildDefinition}" "${INSTALL_DEST}/${VERSION}"
