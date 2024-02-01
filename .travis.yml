@@ -61,6 +61,10 @@ jobs:
         - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 php-pear libargon2-0 libargon2-0-dev re2c php-dev libonig-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
+        # Install re2c required by PHP8.3 and above
+        - wget https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz
+        - tar -xf ./re2c-3.1.tar.xz
+        - cd re2c-3.1 && ./configure && make && sudo make install
         - |
           if ! command -v phpenv; then
             pushd $HOME
@@ -84,6 +88,10 @@ jobs:
         - sudo apt-get install -y libicu-dev re2c
         - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install php-pear php-dev re2c libonig-dev build-essential; fi
         - command -v expect || sudo apt-get install expect
+        # Install re2c required by PHP8.3 and above
+        - wget https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz
+        - tar -xf ./re2c-3.1.tar.xz
+        - cd re2c-3.1 && ./configure && make && sudo make install
         - |
           if ! command -v phpenv; then
             pushd $HOME
