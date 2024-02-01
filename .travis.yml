@@ -64,7 +64,7 @@ jobs:
         # Install re2c required by PHP8.3 and above
         - wget https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz
         - tar -xf ./re2c-3.1.tar.xz
-        - .re2c-3.1/configure && make && sudo make install
+        - ./re2c-3.1/configure && make && sudo make install
         - |
           if ! command -v phpenv; then
             pushd $HOME
@@ -91,7 +91,7 @@ jobs:
         # Install re2c required by PHP8.3 and above
         - wget https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz
         - tar -xf ./re2c-3.1.tar.xz
-        - .re2c-3.1/configure && make && sudo make install
+        - ./re2c-3.1/configure && make && sudo make install
         - |
           if ! command -v phpenv; then
             pushd $HOME
