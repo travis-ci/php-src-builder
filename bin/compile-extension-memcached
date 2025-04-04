@@ -8,27 +8,40 @@ function install_memcache() {
 	wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 	tar xzf libmemcached-1.0.18.tar.gz
 	pushd libmemcached-1.0.18
-	./configure --prefix=$INSTALL_DEST/$VERSION && make && make install
+	CXXFLAGS="-fpermissive" ./configure --prefix=$INSTALL_DEST/$VERSION && make && make install
 	popd
 	popd
 }
 
 travis_time_start
 
-install_memcache
+if [ -d "/usr/include/libmemcached" ]; then
+  echo "Using system libmemcached library"
+  LIBMEMCACHED_DIR="/usr"
+else
+  echo "Compiling custom libmemcached version"
+  install_memcache
+  LIBMEMCACHED_DIR="$INSTALL_DEST/$VERSION"
+fi
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
 	pecl download memcached-3.2.0
 	ls -al
-	tar xf /home/travis/build/travis-ci/php-src-builder/memcached-3.2.0.* && pushd memcached*/
+	DIR=$(pwd)
+	tar xf $DIR/memcached-3.2.0.tar && pushd memcached*/
 	make clean || true
 else
 	pecl download memcached-2.2.0
 	tar zxvf memcached*.tgz && pushd memcached*/
 	make clean || true
 fi
+
 phpize
-./configure --with-libmemcached-dir=$INSTALL_DEST/$VERSION && make && make install
+CXXFLAGS="-fpermissive" ./configure --with-libmemcached-dir=$LIBMEMCACHED_DIR && make && make install
 popd
+
+if ! grep -q "extension=memcached.so" $INSTALL_DEST/$VERSION/etc/php.ini; then
+  echo "extension=memcached.so" >> $INSTALL_DEST/$VERSION/etc/php.ini
+fi
 
 travis_time_finish

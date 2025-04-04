@@ -5,17 +5,63 @@ source $(dirname $0)/compile-extensions-common
 
 travis_time_start
 
+# Determine the PHP major.minor version (e.g., 7.4, 8.0, 8.1)
+PHP_VERSION_SHORT=$(echo $VERSION | cut -d. -f1,2)
+
+# Set appropriate version of phpredis based on PHP version if not specified
+if [ -z "$PHPREDIS_VERSION" ]; then
+  case "$PHP_VERSION_SHORT" in
+    "7.2")
+      PHPREDIS_VERSION="4.3.0"
+      ;;
+    "7.3")
+      PHPREDIS_VERSION="5.0.0"
+      ;;
+    "7.4")
+      PHPREDIS_VERSION="5.3.7"
+      ;;
+    "8.0"|"8.1"|"8.2")
+      PHPREDIS_VERSION="5.3.7"
+      ;;
+    "8.3"|"8.4")
+      PHPREDIS_VERSION="6.0.2"
+      ;;
+    *)
+      # Default for unknown versions
+      PHPREDIS_VERSION="latest"
+      ;;
+  esac
+fi
+
+echo "Installing phpredis version: $PHPREDIS_VERSION for PHP $VERSION"
+
 if [[ $VERSION =~ ^8 || $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
-	git clone https://github.com/phpredis/phpredis.git
-	pushd phpredis
-	# git checkout php7
-	phpize
-	./configure && make && make install || exit 1
-	popd
+  if [ "$PHPREDIS_VERSION" != "latest" ]; then
+    git clone --branch $PHPREDIS_VERSION https://github.com/phpredis/phpredis.git
+  else
+    git clone https://github.com/phpredis/phpredis.git
+  fi
+  
+  pushd phpredis
+  phpize
+  ./configure && make && make install || exit 1
+  popd
 elif [[ $VERSION =~ ^7 ]]; then
-	pecl_install redis
+  if [ "$PHPREDIS_VERSION" != "latest" ]; then
+    pecl_install redis-$PHPREDIS_VERSION
+  else
+    pecl_install redis
+  fi
 else
-	pecl_install redis-2.2.8
+  pecl_install redis-2.2.8
+fi
+
+echo "Checking if redis extension was installed correctly..."
+if $INSTALL_DEST/$VERSION/bin/php -m | grep -q redis; then
+  echo "Redis extension successfully installed"
+else
+  echo "Redis extension installation failed"
+  exit 1
 fi
 
 travis_time_finish
