@@ -441,28 +441,6 @@ jobs:
               eval "$(phpenv init -)"
             fi
           fi
-    # - arch: arm64
-    #   dist: xenial
-    #   php: "7.4"
-    #   env:
-    #     - RELEASE=xenial
-    #   name: xenial-arm64
-    #   before_install:
-    #     - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
-    #     - sudo apt-get update
-    #     - sudo apt-get install -y libicu-dev
-    #     - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install php-pear php-dev libonig-dev build-essential; fi
-    #     - |
-    #       if ! command -v phpenv; then
-    #         pushd $HOME
-    #         curl -L https://raw.githubusercontent.com/phpenv/phpenv-installer/master/bin/phpenv-installer | bash
-    #         popd
-    #         export PHPENV_ROOT="/home/travis/.phpenv"
-    #         if [ -d "${PHPENV_ROOT}" ]; then
-    #           export PATH="${PHPENV_ROOT}/bin:${PATH}"
-    #           eval "$(phpenv init -)"
-    #         fi
-    #       fi
 env:
   global:
     - VERSION=master ALIAS=nightly
