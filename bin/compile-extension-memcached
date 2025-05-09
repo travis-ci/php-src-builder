@@ -26,9 +26,8 @@ fi
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
 	pecl download memcached-3.2.0
-	ls -al
 	DIR=$(pwd)
-	tar xf $DIR/memcached-3.2.0.tar && pushd memcached*/
+	tar xf $DIR/memcached-3.2.0.tgz && pushd memcached*/
 	make clean || true
 else
 	pecl download memcached-2.2.0
