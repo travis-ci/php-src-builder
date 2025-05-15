@@ -25,15 +25,31 @@ else
 fi
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
-	pecl download memcached-3.2.0
-	DIR=$(pwd)
-	tar xf $DIR/memcached-3.2.0.tgz && pushd memcached*/
-	make clean || true
+    pecl download memcached-3.2.0
+    DIR=$(pwd)
+    ARCHIVE=$(ls $DIR/memcached-3.2.0.tar.gz $DIR/memcached-3.2.0.tgz 2>/dev/null | head -n1)
+    if [[ -n "$ARCHIVE" ]]; then
+        tar xf "$ARCHIVE"
+        pushd memcached*/
+        make clean || true
+    else
+        echo "Missing archive"
+        exit 1
+    fi
 else
-	pecl download memcached-2.2.0
-	tar zxvf memcached*.tgz && pushd memcached*/
-	make clean || true
+    pecl download memcached-2.2.0
+    DIR=$(pwd)
+    ARCHIVE=$(ls $DIR/memcached-2.2.0.tar.gz $DIR/memcached-2.2.0.tgz 2>/dev/null | head -n1)
+    if [[ -n "$ARCHIVE" ]]; then
+        tar xf "$ARCHIVE"
+        pushd memcached*/
+        make clean || true
+    else
+        echo "Missing archive"
+        exit 1
+    fi
 fi
+
 
 phpize
 CXXFLAGS="-fpermissive" ./configure --with-libmemcached-dir=$LIBMEMCACHED_DIR && make && make install
