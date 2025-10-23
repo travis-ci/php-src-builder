@@ -8,7 +8,7 @@ jobs:
       before_install:
         - sudo rm -rf /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock
         - sudo apt-get update
-        - sudo apt-get -y install libcurl4-openssl-dev php-dev libicu-dev php-pear php build-essential libpq-dev libxml2-dev libssl-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libfreetype6-dev libonig-dev libzip-dev libbz2-dev libreadline-dev libxslt1-dev pkg-config libmemcached-dev
+        - sudo apt-get -y install libcurl4-openssl-dev php-dev libicu-dev php-pear php build-essential libxml2-dev libssl-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libfreetype6-dev libonig-dev libzip-dev libbz2-dev libreadline-dev libxslt1-dev pkg-config libmemcached-dev
         - if [[ $VERSION =~ ^8.* ]]; then sudo apt-get -y install argon2 php-pear php-dev libonig-dev; fi
         - sudo ln -s /usr/include/x86_64-linux-gnu/curl/ /usr/local/include
         - command -v expect || sudo apt-get install expect
