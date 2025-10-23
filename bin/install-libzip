@@ -30,7 +30,7 @@ fi
 popd
 
 # compile libzip
-git clone -b rel-1-5-2 https://github.com/nih-at/libzip.git
+git clone -b main https://github.com/nih-at/libzip.git
 pushd libzip
 cmake -DCMAKE_INSTALL_PREFIX=$LIBZIP_INSTALL_DIR .
 make
