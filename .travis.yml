@@ -514,6 +514,12 @@ script:
   - echo "--enable-option-checking=fatal" >> $HOME/.php-build/share/php-build/default_configure_options
   - cat $HOME/.php-build/share/php-build/default_configure_options
   - export PKG_CONFIG_PATH="$HOME/.phpenv/versions/$VERSION/lib/pkgconfig:$PKG_CONFIG_PATH"
+  - |
+    if [[ $RELEASE = bionic && $VERSION =~ ^8\.5 ]] && command -v clang >/dev/null && command -v clang++ >/dev/null; then
+      export CC=clang
+      export CXX=clang++
+      echo "Using clang for PHP $VERSION on bionic: CC=$CC CXX=$CXX"
+    fi
   - ./bin/compile
   - | # disable 3rd-party extension builds on master
     if [[ $VERSION =~ ^7.3.* ]]; then
