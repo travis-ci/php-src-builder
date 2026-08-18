@@ -11,8 +11,8 @@ if [[ "${dist}" = "focal" || "${dist}" = "jammy" || "${dist}" = "noble" ]]; then
         git clone https://github.com/mongodb/mongo-php-driver.git
         pushd mongo-php-driver
         git submodule update --init
-        phpize
-        ./configure
+        "$PHPIZE"
+        ./configure --with-php-config="$PHP_CONFIG"
         make all
         make install
         popd

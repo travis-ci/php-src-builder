@@ -9,8 +9,8 @@ if [[ ! $VERSION =~ ^7 && ! $VERSION =~ ^8 && ! $VERSION =~ ^master$ ]]; then
 	pecl download memcache-beta
 	tar zxvf memcache*.tgz && pushd memcache*/
 	make clean || true
-	phpize
-	./configure && make && make install
+	"$PHPIZE"
+	./configure --with-php-config="$PHP_CONFIG" && make && make install
 	popd
 fi
 

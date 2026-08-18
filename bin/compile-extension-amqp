@@ -18,8 +18,8 @@ popd
 git clone https://github.com/pdezwart/php-amqp.git
 pushd php-amqp
 
-phpize
-./configure && make && make install
+"$PHPIZE"
+./configure --with-php-config="$PHP_CONFIG" && make && make install
 popd
 
 travis_time_finish

@@ -51,8 +51,8 @@ else
 fi
 
 
-phpize
-CXXFLAGS="-fpermissive" ./configure --with-libmemcached-dir=$LIBMEMCACHED_DIR && make && make install
+"$PHPIZE"
+CXXFLAGS="-fpermissive" ./configure --with-php-config="$PHP_CONFIG" --with-libmemcached-dir=$LIBMEMCACHED_DIR && make && make install
 popd
 
 if ! grep -q "extension=memcached.so" $INSTALL_DEST/$VERSION/etc/php.ini; then

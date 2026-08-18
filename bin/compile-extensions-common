@@ -2,7 +2,37 @@
 
 set -o xtrace
 
-phpenv global $VERSION
+if [[ ! $VERSION ]] ; then
+  echo 'Missing $VERSION'
+  exit 1
+fi
+
+if [[ ! $INSTALL_DEST ]] ; then
+  echo 'Missing $INSTALL_DEST'
+  exit 1
+fi
+
+PHP_PREFIX="$INSTALL_DEST/$VERSION"
+
+phpenv global "$VERSION"
+phpenv rehash || true
+
+if [[ -d "$PHP_PREFIX/bin" ]]; then
+  export PATH="$PHP_PREFIX/bin:$HOME/.phpenv/shims:$HOME/.phpenv/bin:$PATH"
+fi
+
+if [[ ! -x "$PHP_PREFIX/bin/phpize" ]] ; then
+  echo "Missing phpize for PHP ${VERSION}: $PHP_PREFIX/bin/phpize"
+  exit 1
+fi
+
+if [[ ! -x "$PHP_PREFIX/bin/php-config" ]] ; then
+  echo "Missing php-config for PHP ${VERSION}: $PHP_PREFIX/bin/php-config"
+  exit 1
+fi
+
+export PHPIZE="$PHP_PREFIX/bin/phpize"
+export PHP_CONFIG="$PHP_PREFIX/bin/php-config"
 
 travis_time_start() {
   travis_timer_id=$(printf %08x $(( RANDOM * RANDOM )))

@@ -43,8 +43,8 @@ if [[ $VERSION =~ ^8 || $VERSION =~ ^master$ || $VERSION =~ snapshot$ ]]; then
   fi
   
   pushd phpredis
-  phpize
-  ./configure && make && make install || exit 1
+  "$PHPIZE"
+  ./configure --with-php-config="$PHP_CONFIG" && make && make install || exit 1
   popd
 elif [[ $VERSION =~ ^7 ]]; then
   if [ "$PHPREDIS_VERSION" != "latest" ]; then
