@@ -1,0 +1,14 @@
+#!/bin/bash
+set -o xtrace
+set -o errexit
+source $(dirname $0)/compile-extensions-common
+
+travis_time_start
+
+if [[ $VERSION =~ ^7\.[1234] ]]; then
+	pecl_install pcov </dev/null
+else
+	echo "PHP $VERSION is not supported by PCOV"
+fi
+
+travis_time_finish
