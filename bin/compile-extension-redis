@@ -23,8 +23,11 @@ if [ -z "$PHPREDIS_VERSION" ]; then
     "8.0"|"8.1"|"8.2")
       PHPREDIS_VERSION="5.3.7"
       ;;
-    "8.3"|"8.4")
+    "8.3")
       PHPREDIS_VERSION="6.0.2"
+      ;;
+    "8.4")
+      PHPREDIS_VERSION="6.1.0"
       ;;
     *)
       # Default for unknown versions

@@ -528,7 +528,7 @@ script:
       ./bin/compile-extension-amqp &&
       ./bin/compile-extension-apcu &&
       ./bin/compile-extension-zmq &&
-      ./bin/compile-extension-memcache || true &&
+      (./bin/compile-extension-memcache || true) &&
       (source ~/compile-extension-memcached-override && ./bin/compile-extension-memcached) &&
       ./bin/compile-extension-ssh2 &&
       sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
@@ -540,7 +540,7 @@ script:
         ./bin/compile-extension-amqp &&
         ./bin/compile-extension-apcu &&
         ./bin/compile-extension-zmq &&
-        ./bin/compile-extension-memcache || true &&
+        (./bin/compile-extension-memcache || true) &&
         (source ~/compile-extension-memcached-override && ./bin/compile-extension-memcached) &&
         ./bin/compile-extension-ssh2 &&
         sed -i '/^extension=/d' $INSTALL_DEST/$VERSION/etc/php.ini
