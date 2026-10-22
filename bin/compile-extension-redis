@@ -60,10 +60,11 @@ else
 fi
 
 echo "Checking if redis extension was installed correctly..."
-if $INSTALL_DEST/$VERSION/bin/php -m | grep -q redis; then
+REDIS_EXTENSION="$("$PHP_CONFIG" --extension-dir)/redis.so"
+if "$PHP_PREFIX/bin/php" -n -d "extension=$REDIS_EXTENSION" --ri redis; then
   echo "Redis extension successfully installed"
 else
-  echo "Redis extension installation failed"
+  echo "Redis extension could not be loaded from $REDIS_EXTENSION"
   exit 1
 fi
 
