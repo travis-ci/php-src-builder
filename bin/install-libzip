@@ -32,9 +32,9 @@ popd
 # compile libzip
 git clone -b main https://github.com/nih-at/libzip.git
 pushd libzip
-cmake -DCMAKE_INSTALL_PREFIX=$LIBZIP_INSTALL_DIR .
-make
-make install
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX="$LIBZIP_INSTALL_DIR"
+cmake --build build
+cmake --install build
 popd
 
 # add the option in custom_configure_options
