@@ -17,8 +17,15 @@ if [[ "${dist}" = "focal" || "${dist}" = "jammy" || "${dist}" = "noble" ]]; then
         make install
         popd
     else
+        mongodb_package=mongodb
+        case "$VERSION" in
+            7.4|7.4.*|8.0|8.0.*)
+                # MongoDB 1.21 and later require PHP 8.1 or newer.
+                mongodb_package=mongodb-1.20.1
+                ;;
+        esac
         pecl channel-update pecl.php.net
-        no | pecl install mongodb
+        yes '' | pecl install "$mongodb_package"
     fi
 else
     echo "MongoDB missing for PHP older than 7.4, tip set php at least 7.4 after installing php-dev"
