@@ -25,30 +25,28 @@ else
 fi
 
 if [[ $VERSION =~ ^7 || $VERSION =~ ^8 || $VERSION =~ ^master$ ]]; then
-    pecl download memcached-3.2.0
-    DIR=$(pwd)
-    ARCHIVE=$(ls $DIR/memcached-3.2.0.tar.gz $DIR/memcached-3.2.0.tgz 2>/dev/null | head -n1)
-    if [[ -n "$ARCHIVE" ]]; then
-        tar xf "$ARCHIVE"
-        pushd memcached*/
-        make clean || true
-    else
-        echo "Missing archive"
-        exit 1
-    fi
+    MEMCACHED_VERSION=3.2.0
 else
-    pecl download memcached-2.2.0
-    DIR=$(pwd)
-    ARCHIVE=$(ls $DIR/memcached-2.2.0.tar.gz $DIR/memcached-2.2.0.tgz 2>/dev/null | head -n1)
-    if [[ -n "$ARCHIVE" ]]; then
-        tar xf "$ARCHIVE"
-        pushd memcached*/
-        make clean || true
-    else
-        echo "Missing archive"
-        exit 1
-    fi
+    MEMCACHED_VERSION=2.2.0
 fi
+
+pecl download "memcached-$MEMCACHED_VERSION"
+ARCHIVE=
+for archive_path in "memcached-$MEMCACHED_VERSION.tar.gz" "memcached-$MEMCACHED_VERSION.tgz" "memcached-$MEMCACHED_VERSION.tar"; do
+    if [[ -f "$archive_path" ]]; then
+        ARCHIVE="$archive_path"
+        break
+    fi
+done
+
+if [[ ! -n "$ARCHIVE" ]]; then
+    echo "Missing archive for memcached-$MEMCACHED_VERSION"
+    exit 1
+fi
+
+tar xf "$ARCHIVE"
+pushd "memcached-$MEMCACHED_VERSION"
+make clean || true
 
 
 "$PHPIZE"
