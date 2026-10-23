@@ -88,7 +88,7 @@ rm go-pear.phar
 ln -sv ../sbin/php-fpm bin/php-fpm
 
 # composer and phpunit
-curl -fsSL -o bin/composer http://getcomposer.org/composer.phar
+curl -fsSL -o bin/composer https://getcomposer.org/download/latest-stable/composer.phar
 if [[ $VERSION == nightly* || $VERSION == master* || $VERSION == 7* || $VERSION == 8* ]]; then
 	PHPUNIT_ARCHIVE=phpunit.phar
 elif [[ $VERSION == 5.6* ]]; then
@@ -124,6 +124,8 @@ pushd /tmp
 
 phpenv local "${VERSION}"
 phpenv rehash
+# Exercise Composer's HTTPS downloader before the installation is archived.
+"$INSTALL_DEST/$VERSION/bin/php" "$INSTALL_DEST/$VERSION/bin/composer" self-update --stable --no-interaction
 "$INSTALL_DEST/$VERSION/bin/php" "$INSTALL_DEST/$VERSION/bin/composer" --version
 
 popd
