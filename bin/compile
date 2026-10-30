@@ -67,6 +67,7 @@ if [[ $VERSION == nightly* || $VERSION == master* ]]; then
 fi
 
 php-build -i development "${buildDefinition}" "${INSTALL_DEST}/${VERSION}"
+"$INSTALL_DEST/$VERSION/bin/php" --ri curl
 
 pushd "${INSTALL_DEST}/${VERSION}"
 

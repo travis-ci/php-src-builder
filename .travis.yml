@@ -457,6 +457,11 @@ before_install:
 install:
   - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
   - ~/.php-build/install-dependencies.sh
+  - |
+    # Keep Jammy PHP 8.3 on the OpenSSL backend
+    if [[ $RELEASE = jammy && $VERSION =~ ^8\.3(\.|$) ]]; then
+      sudo apt-get -y install libcurl4-openssl-dev
+    fi
   - rm -rf $HOME/.phpenv
   - git clone 'https://github.com/phpenv/phpenv.git' $HOME/.phpenv
   - eval "$($HOME/.phpenv/bin/phpenv init -)"
