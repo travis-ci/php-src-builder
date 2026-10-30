@@ -458,8 +458,8 @@ install:
   - if [[ ! -d $HOME/.php-build ]]; then git clone https://github.com/php-build/php-build.git $HOME/.php-build; fi
   - ~/.php-build/install-dependencies.sh
   - |
-    # Keep Jammy PHP 8.3 on the OpenSSL backend
-    if [[ $RELEASE = jammy && $VERSION =~ ^8\.3(\.|$) ]]; then
+    # Keep Jammy PHP 8.x on the OpenSSL backend after php-build installs GnuTLS.
+    if [[ $RELEASE = jammy && $VERSION =~ ^8\. ]]; then
       sudo apt-get -y install libcurl4-openssl-dev
     fi
   - rm -rf $HOME/.phpenv
